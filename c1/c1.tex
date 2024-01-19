@@ -27,7 +27,7 @@
     One implicitly presented condition is that the operation of groups need to be closed within the set predefined. This is indicated by the signature of the operation, which should land in $G$. This often needs to be checked when the group structure is defined in some larger structure.
 \end{remark}
 
-\begin{remark}\label{rmk: immediate results group}
+\begin{remark}\label{rmk: group immediate results}
     From the definition of group there are some immediate facts/properties:
     \begin{enumerate}[label=\arabic*)]
         \item The identity in the group is unique. Suppose that there exist two identity elements $e$ and $e'$, then by rule 2, $e = ee' = e'$.
@@ -56,7 +56,7 @@
             \underbrace{a\ldots a}_{-n} & n < 0 \\
         \end{cases}
     \]
-    This gives $a^m \cdot a^n = a^{m + n}$ for all $m, n \in \Z$. The cases where $m$ and $n$ are of the same sign are clear; and for those of opposite sign, applying the same elimination process as Remark \ref{rmk: immediate results group} 3) gives the desired result.
+    This gives $a^m \cdot a^n = a^{m + n}$ for all $m, n \in \Z$. The cases where $m$ and $n$ are of the same sign are clear; and for those of opposite sign, applying the same elimination process as Remark \ref{rmk: group immediate results} 3) gives the desired result.
 
     If $G$ is abelian, in additive notation we often denote $n \cdot a := a^n$.
 \end{remark}
@@ -70,7 +70,7 @@
 \end{proposition}
 
 \begin{proof}
-    By Remark \ref{rmk: immediate results group} 4) and the property of identity, we have
+    By Remark \ref{rmk: group immediate results} 4) and the property of identity, we have
     \[
         f(e_G) \cdot e_H = f(e_G) = f(e_G \cdot e_G) = f(e_G) \cdot f(e_G) \implies e_H = f(e_G)
     \]
@@ -146,8 +146,62 @@
     \end{itemize}
 \end{proof}
 
+\begin{proposition}
+    Let $f: G \to H$ be a group homomorphism, then if $G' \leq G$, then $f(G') \leq H$.
+\end{proposition}
+
+\begin{proof}
+    Apply the result of Proposition \ref{prop: subgroup test}. Since $G' \leq G$, $e_G \in G'$, and bby Proposition \ref{prop: grp homo preserve identity and inverse}, $f(e_G) = e_H$, giving that $f(G')$ is nonempty. For all $x, y \in f(G')$, let $u, v \in G'$ s.t. $x = f(u), y = f(v)$. Since $G'$ is a subgroup of $G$, $u\cdot v^{-1} \in G'$. By Proposition \ref{prop: grp homo preserve identity and inverse}, this implies $f(u) \cdot f(v^{-1}) = f(u) \cdot f(v^{-1}) \in f(G')$, which gives that $f(G') \leq H$.
+\end{proof}
+
+\begin{proposition}
+    Let $f: G \to H$ be a group homomorphism. If $H' \leq H$, then $f^{-1} (H') \leq G$. In particular, $f^{-1}(e_H) = \ker f := \{u \in G \mid f(u) = e_H\}$ is a subgroup of $G$.
+\end{proposition}
+
+\begin{proof}
+    Apply the same argument as in the above proposition. $H' \leq H \implies e_H \in H' \implies e_G \in f^{-1}(H')$, i.e. $f^{-1}(H')$ is nonempty. For all $u, v \in f^{-1}(H')$, $f(u\cdot v^{-1}) = f(u) f(v)^{-1} \in H'$ since $H' \leq H$, which implies that $u \cdot v^{-1} \in f^{-1}(H')$, i.e. $f^{-1}(H')$ is a group. 
+\end{proof}
+
+\begin{proposition}
+    Let $f: G \to H$ be a group homomorphism. Then $f$ is injective if and only if $\ker f = \{e_G\}$.
+\end{proposition}
+
+\begin{proof}
+    Proceed by showing implication in both directions:
+    \begin{enumerate}
+        \item[$\Rightarrow$:] Let $u \in \ker f$. Then $f(a) = f(a) \cdot e = f(a) \cdot f(u) = f(a \cdot u)$. But $f$ being injective implies that $a = a\cdot u$, i.e. $u = e$.
+        \item[$\Leftarrow$:] For $u, v \in G$ s.t. $f(u) = f(v)$, we have $e = f(u) \cdot (f(v))^{-1} = f(u) \cdot f(v^{-1}) = f(u \cdot v^{-1}) \implies that u \cdot v^{-1} \in \ker f$. But since the only element in $\ker f$ is the identity, this gives $u \cdot v^{-1} = e \implies u = v$, i.e. $f$ is injective.
+    \end{enumerate}
+\end{proof}
+
 \section{Group of Permutations}
 
+\begin{definition}
+    Given a set $\Omega$, the \textbf{permutation group} is defined to be $S_{\Omega} := \{f: \Omega \to \Omega \mid f \text{bijection}\}$. Since compositions of bijective maps are still bijective, defining the operation to be composition gives this a group structure.
+\end{definition}
+
+\begin{remark}
+    Notice that the permutation group structure depends only on the cardinality of the group on which permutations are considered. Explicitly, for $\alpha: \Omega \to \Omega'$ a bijection, there exists an isomorphism between the corresponding groups of permutations: $\beta: S_{\Omega} \to S_{\Omega'}: f \mapsto \alpha \circ f \circ \alpha^{-1}$. This is indeed an isomorphism as this is first a group homomorphism since
+    \[
+        \beta(f \circ g) = \alpha \circ f \circ g \circ \alpha^{-1} = \alpha \circ f \circ \alpha^{-1} \alpha \circ g \circ \alpha^{-1} = \beta(f) \circ \beta(g)
+    \]
+    and this being an isomorphism follows from the fact that there exists an obvious inverse $\beta^{-1}: f \mapsto \alpha^{-1} \circ f \circ \alpha$. Therefore it suffices to denote such permutation group by the cardinality of $\Omega$: for $\Omega = \{1, \dots, n\}$ $S_{\Omega}$ is denoted as $S_n$.
+\end{remark}
+
+\begin{proposition}[Cayley]
+    Every group can be embedded into some $S_{\Omega}$. Explicitly, for group $G$ the map $\alpha: G \to S_G$ s.t. $g \mapsto \alpha_g$ where $\alpha_g(h) = gh$ ($\alpha_g$ is the action of $G$ on $G$ defined by multiplication by $g$.) is an injective group homomorphism.
+\end{proposition}
+
+\begin{proof}
+    It suffices to syntactically check that the following requirements are satisfied:
+    \begin{itemize}
+        \item \emph{$\alpha_g \in S_G$.} It suffices to check that indeed multiplication by an element in the group gives a bijection. This is clear as the action has an inverse, namely multiplying the inverse of that element. 
+        \item \emph{$\alpha$ gives a group homomorphism.} By definition $\alpha_{gh} = \alpha_g \cdot \alpha_h$.
+        \item \emph{$\alpha$ is injective.} It suffices to check that $\ker \alpha = e_G$. This is indeed the case, as for $g \in G$ s.t. $\alpha_g = \Id$, $\alpha_g(e_G) = g \cdot e_G = e_G \implies g = e_G$.
+    \end{itemize}
+\end{proof}
+
+\clearpage
 \section{Groups Generated by a Subset}
 
 \section{The Dihedral Groups}
