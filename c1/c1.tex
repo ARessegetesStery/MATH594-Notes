@@ -273,4 +273,31 @@
 
 \section{The Dihedral Groups}
 
+\begin{definition}
+    Let $n \geq 3$, and $P_n \subset \R^2 \simeq \C$ be the regular $n$-gon s.t. its vertices are at the $n$-th roots of 1. Then the \textbf{dihedral group} $D_{2n}$ is the group of symmetry of $P_n$. Alternatively, one can write
+    \[
+        D_{2n} = \{ \varphi \in \GL_2(\R) \mid \varphi(P_n) = P_n \}
+    \]
+\end{definition}
+
+\begin{remark}
+    We have a injective map $\alpha: D_{2n} \to S_n$, where $\alpha(\varphi)$ is given by the restriction of $\varphi$ to the vertices of $P_n$. This map is injective as $\{v_1, \dots, v_n\}$ spans $\R^2$. Therefore, specifying how the vertices are transformed (permuted) fixes the whole linear transformation.
+\end{remark}
+
+\begin{remark}
+    Notice the following relations: by definition of rotation $\sigma^n = e$; and $\sigma \tau \sigma = \tau$, which implies $\sigma^{n-1} \tau = \tau \sigma$. This enables changing the sequence of applying $\sigma$s and $\tau$s.
+\end{remark}
+
+\begin{proposition}
+    For a fixed $n$, let $\sigma$ be the operation of counter-clockwise rotation by $\frac{2\pi}{n}$ on $P_n$; and $\tau_j$ be the operation of symmetry w.r.t. the symmetry axis passing through the vertex $j$ (which is a direction; invariant w.r.t. transformations on $P_n$). Then for every $\alpha \in D_{2n}$, it must be in the form of $\sigma^i$ or $\sigma^1 \cdot \tau_j$, for some $i, j \in \Z$.
+\end{proposition}
+
+\begin{proof}
+    How the operations permute the vertices is characterized by
+    \[
+        \sigma: v_k \mapsto v_{k + 1} \qquad \tau: v_{j+k} \mapsto v_{j-k}
+    \]
+    Following the strategy of the previous remark, to fix the whole operation $\alpha$ it suffices to fix how vertices are transformed. Since elements of $D_{2n}$ are linear transformations, they map line segments to line segments, and therefore adjacent vertices to adjacent vertices. Then for $v_1 \mapsto v_{i+1}$, either $v_2 \mapsto v_{i+2}$, then $\alpha = \sigma^i$; or $v_2 \mapsto v_{i}$, then $\alpha = \sigma^i \tau_j$. The indices are considered modulo $n$ and then plus 1. 
+\end{proof}
+
 \end{document}
