@@ -84,9 +84,6 @@
 \def\tensor{\otimes}
 \renewcommand{\implies}{\ \ensuremath{\Longrightarrow}\ }
 
-\newtheoremstyle{example}{3pt}{3pt}{\textup}{}{\bfseries}{.}{.5em}{}
-\newtheoremstyle{parenthesis}{3pt}{3pt}{\textup}{}{\bfseries}{.}{.5em}{}
-
 \theoremstyle{definition}
 
 \definecolor{darkblue}{HTML}{0077b6}
@@ -138,6 +135,11 @@
 % \newtheorem{corollary}{Corollary}[section]
 % \newtheorem{example}{Example}[section]
 % \newtheorem{parenthesis}{Parenthesis}[section]
+
+\renewcommand\section{\@startsection {section}{1}{\z@}%
+                                   {-5.5ex \@plus -1ex \@minus -.2ex}%
+                                   {3ex \@plus.2ex}%
+                                   {\normalfont\Large\bfseries}}
 
 \geometry{a4paper,left=0.5in,right=0.5in,top=1in,bottom=1in}
 \linespread{1.4}
