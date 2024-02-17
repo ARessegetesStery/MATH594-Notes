@@ -262,7 +262,7 @@
                     f([m_1]) = a^{m_1} \overset{!}{=} a^{m_1} \cdot a^{(m_2 - m_1)} = a^{m_2} \cdot a^{nk} = a^{m_2} \cdot (a^n)^k = a^{m_2} = f([m_2])
                 \]
                 for some $k \in \Z$, where $\overset{!}{=}$ holds since $[m_1] = [m_2]$ implies $n \mid (m_1 - m_2)$. This gives $a^{m_1 - m_2} = e$ since $a^n = e$. 
-                \item \emph{$f_n$ is injective}. For $a \in \Z$ s.t. $f_n([a]) = 0$, $a = 0$ as otherwise this conflicts with the hypothesis that $n$ is the smallest of such integers. 
+                \item \emph{$f_n$ is injective.} For $a \in \Z$ s.t. $f_n([a]) = 0$, $a = 0$ as otherwise this conflicts with the hypothesis that $n$ is the smallest of such integers. 
                 \item \emph{$f_n$ is surjective.} Follows from the same argument in the case where $G$ is infinite.
             \end{itemize}
         \end{itemize}
@@ -283,7 +283,7 @@
     We have a injective map $\alpha: D_{2n} \to S_n$, where $\alpha(\varphi)$ is given by the restriction of $\varphi$ to the vertices of $P_n$. This map is injective as $\{v_1, \dots, v_n\}$ spans $\R^2$. Therefore, specifying how the vertices are transformed (permuted) fixes the whole linear transformation.
 \end{remark}
 
-\begin{remark}
+\begin{remark} \label{rmk: rule of computing dihedral group}
     Notice the following relations: by definition of rotation $\sigma^n = e$; and $\sigma \tau \sigma = \tau$, which implies $\sigma^{n-1} \tau = \tau \sigma$. This enables changing the sequence of applying $\sigma$s and $\tau$s.
 \end{remark}
 
@@ -298,5 +298,73 @@
     \]
     Following the strategy of the previous remark, to fix the whole operation $\alpha$ it suffices to fix how vertices are transformed. Since elements of $D_{2n}$ are linear transformations, they map line segments to line segments, and therefore adjacent vertices to adjacent vertices. Then for $v_1 \mapsto v_{i+1}$, either $v_2 \mapsto v_{i+2}$, then $\alpha = \sigma^i$; or $v_2 \mapsto v_{i}$, then $\alpha = \sigma^i \tau_j$. The indices are considered modulo $n$ and then plus 1. 
 \end{proof}
+
+\begin{remark}
+    Using Remark \ref{rmk: rule of computing dihedral group}, we can check that indeed $\inner{D_{2n}} = D_{2n}$, by applying the remark to move all the rotations to the left of symmetries, and the reduce the expression by relations $\sigma^n = \tau^2 = e$. 
+\end{remark}
+
+\section{Product of Groups}
+
+\begin{definition}(Product of Groups)
+    Suppose that we have a family of groups $(G_i)_{i \in I}$. The \textbf{product} of groups is defined as
+    \[
+        \Pi_{i \in I} G_i := \left\{ (x_i)_{i \in I} \mid x_i \in G_i \forall i \in I \right\}
+    \]
+    with the operation defined component-wise i.e. $(x_i)_{i \in I} \cdot (y_i)_{i \in I} := (x_i y_i)_{i \in I}$.
+\end{definition}
+
+\begin{remark}
+    By the definition of the operation, the identity in the product of groups $(G_i)_{i \in I}$ is $(e_i)_{i \in I}$ where $e_i$ is the unique identity element in $G_i$; and the inverse of $(x_i)_{i \in I}$ is $(x_i^{-1})_{i \in I}$.
+\end{remark}
+
+\begin{proposition}(Universal Property of Product of Groups)\label{prop: universal property of product of groups}
+    Let group homomorphism $\pi_j: \Pi_{i \in I} G_i \to G_j, (x_i)_{i \in I} \mapsto x_j$ be the projections. Then given group homomorphisms $f_i: G \to G_i$ for all $i$, there exists a unique group homomorphism $f: G \to \Pi_{i \in I} G_i$ s.t. $\pi_i \circ f = f_i$ for all $i \in I$, i.e. the following diagram commute:
+
+    \begin{minipage}{\linewidth}
+        \centering
+        \begin{tikzcd}
+            G \arrow[rr, dashed, "f"] \arrow[rrdd, "f_j"] & & \Pi_{i \in I} G_i \arrow[dd, "\pi_j"]\\
+            & & \\
+            & & G_j
+        \end{tikzcd}
+    \end{minipage}
+\end{proposition}
+
+\begin{proof}
+    Since the diagram is required to commute, the homomorphism $f$ can be only defined as $f(x) = (f_i(x))_{i \in I}$, which gives the uniqueness. Existence follows from the fact that $f_i$s are group homomorphisms for all $i$, which implies that $f$ is also a group homomorphism.
+\end{proof}
+
+\begin{example}(Chinese Remainder Theorem)
+    Let $m, n \in \Z_{\geq 0}$ which are relatively prime. Then there exists group isomorphism $\Z/mn\Z \simeq \Z/m\Z \times \Z/n\Z$.
+\end{example}
+
+\begin{proof}
+    Consider group homomorphisms: 
+    \[
+        f: \Z/mn\Z \to \Z/m\Z, \quad [x + mn\Z] \mapsto [x + m\Z]
+    \]
+    \[
+        g: \Z/mn\Z \to \Z/n\Z, \quad [x + mn\Z] \mapsto [x + n\Z]
+    \]
+    Check that $f$ and $g$ are well-defined. For $f$, let $a = [x + mn\Z] = b = [y + mn\Z]$. This implies that $mn \mid (x - y)$. By definition, $f(a) = [x + m\Z], f(b) = [y + m\Z]$. But this implies that $[x + m\Z] = [y + m\Z]$ as $mn \mid (x - y) \implies m \mid (x - y)$. The well-definedness of $g$ is similar.
+
+    Use the universal property above (Proposition \ref{prop: universal property of product of groups}), there exists a unique $h: \Z/mn\Z \to \Z/m\Z \times \Z/n\Z$ s.t. $h_1 = f, h_2 = g$ where $h_i$ indicates the projection to $i$-th field after applying $h$. Check that this is an isomorphism:
+    \begin{itemize}
+        \item $h$ is injective. Consider the kernel of $f$: for all $[x + mn\Z] \in \ker f$, $[x + m\Z] = 0$ and $[x + n\Z] = 0$. But this implies that $m \mid x$ and $n \mid x$, i.e. $mn \mid x$, which gives $[x + mn\Z] = 0$. That is, elements in $\ker f$ are identically zero, which gives the injectivity.
+        \item Notice that $\Z/mn\Z$ has $mn$ elements, while $\Z/m \times \Z/n\Z$ has $m \cdot n = mn$ elements. Therefore $h$ being injective implies $h$ being bijective. 
+    \end{itemize}
+\end{proof}
+
+\section{Normal Subgroup and Quotient Groups}
+
+\section{Classification of Groups of Small Order}
+
+\section{Group Action on Sets}
+
+\section{Sylow Theorems}
+
+\section{Application of Sylow Theorems}
+
+\section{Finite Simple Groups}
 
 \end{document}
