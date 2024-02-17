@@ -24,6 +24,7 @@
 \RequirePackage{tikz-cd}
 \RequirePackage{xspace}
 \RequirePackage{enumitem}
+\RequirePackage{wasysym}
 
 \RequirePackage{thmtools}
 
@@ -89,6 +90,9 @@
 \def\tensor{\otimes}
 \renewcommand{\implies}{\ \ensuremath{\Longrightarrow}\ }
 
+\def\normalin{\lhd}
+\def\normaleqin{\unlhd}
+
 \theoremstyle{definition}
 
 \definecolor{darkblue}{HTML}{0077b6}
@@ -122,9 +126,11 @@
 \declaretheorem[style=thmbox, name=Theorem, numberwithin=section, sibling=definition]{theorem}
 \declaretheorem[style=thmbox, name=Theorem, numbered=no]{theorem*}
 \declaretheorem[style=lemmabox, name=Lemma, numberwithin=section, sibling=definition]{lemma}
+\declaretheorem[style=lemmabox, name=Claim, numberwithin=section, sibling=definition]{claim}
 \declaretheorem[style=lemmabox, name=Parenthesis, numberwithin=section, sibling=definition]{parenthesis}
 \declaretheorem[style=examplebox, name=Example, numberwithin=section, sibling=definition]{example}
 \declaretheorem[style=rmkbox, name=Remark, numberwithin=section, sibling=definition]{remark}
+\declaretheorem[style=rmkbox, name=Notation, numbered=no]{notation}
 \declaretheorem[style=propbox, name=Proposition, numberwithin=section, sibling=definition]{proposition}
 \declaretheorem[style=rmkbox, name=Corollary, numberwithin=section, sibling=definition]{corollary}
 \declaretheorem[style=thmbox, name=Problem, numberwithin=section, sibling=definition]{problem}

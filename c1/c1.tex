@@ -355,7 +355,102 @@
     \end{itemize}
 \end{proof}
 
-\section{Normal Subgroup and Quotient Groups}
+\section{Normal Subgroup}
+
+\begin{definition}(Left/Right Congruence)
+    Let $G$ be a group, with $H \leq G$. Then for $x, y \in G$,
+    \begin{itemize}
+        \item $x$ and $y$ are \textbf{left congruent} mod $H$, denoted $x \equiv_{\ell} y \mod H$ if $x^{-1}y \in H$.
+        \item $x$ and $y$ are \textbf{right congruent} mod $H$, denoted $x \equiv_{r} y \mod H$ if $xy^{-1} \in H$.
+    \end{itemize}
+\end{definition}
+
+\begin{remark}
+    $\equiv_{\ell}$ and $\equiv_r$ are equivalence relations. The equivalence classes are noted as $xH$ and $Hx$ for $x \in G$, respectively.
+\end{remark}
+
+\begin{notation}
+    If $G$ is abelian, the operation is written additively. The congruence classes will then be denoted as $x + H$ and $H + x$ for left and right congruence classes, respectively.2
+\end{notation}
+
+\begin{proof}
+    The proof is similar for two equivalence relations, so we only check for left congruence:
+    \begin{itemize}
+        \item \emph{$\equiv_{\ell}$ is Reflexive.} $x^{-1} \cdot x \equiv e \in H$.
+        \item \emph{$\equiv_{\ell}$ is symmetric.} If $x^{-1}y \in H$, given that $H$ is a subgroup of $G$, $(x^{-1}y)^{-1} \in H$. This implies that $y^{-1}x \in H$, i.e. $y \equiv_{\ell} x \mod H$.
+        \item \emph{$\equiv_{\ell}$ is transitive.} Suppose that $x \equiv_{\ell} y \mod H, y \equiv_{\ell} z \mod H$. By the fact that subgroups are closed, $(x^{-1}y)(y^{-1}z) = x^{-1}z \in H$.
+    \end{itemize}
+\end{proof}
+
+\begin{remark}\label{rmk: group as disjoint union of cong classes}
+    $G$ is the disjoint union of equivalence classes w.r.t. $\equiv_{\ell}$. For $x, y \in G$ s.t. $x \equiv_{\ell} y \mod H$, there exists $h \in H$ s.t. $x = yh$.
+\end{remark}
+
+\begin{proposition}
+    There is a bijection between $xH$ and $Hx$ for all $x \in G, H \leq G$. 
+\end{proposition}
+
+\begin{proof}
+    Define the map $\varphi: \{xH \mid x \in G\} \to \{Hx \mid x \in G\}$, $gH \mapsto Hg^{-1}$. Check that this is well-defined: for $g_1, g_2 \in G$ s.t. $g_1 H = g_2 H$, there exists $h \in H$ s.t. $g_1 = g_2 h$. Then $Hg_1 = H(g_2 h)^{-1} = Hh^{-1} g_2^{-1} = Hg_2^{-1}$. It has inverse $Hg \mapsto g^{-1}H$, with well-definedness similarly proved, which implies that $\varphi$ is a bijection.
+\end{proof}
+
+\begin{remark}
+    In the prove above, we cannot define $\varphi: gH \mapsto Hg$ as in this case this is not well-defined. Specifically, if $g_1$ does not commute with $h$ for $g_1 = g_2 h$, $\varphi(g_2 H) = Hg_1 h$ which is not necessarily equal to $H g_1$.
+\end{remark}
+
+Since the number of congruence classes w.r.t. $x \in G$ does not change with choice of left or right congruence classes and depends only on $H$, the following definition is well-defined:
+
+\begin{definition}(Index)
+    Let $G$ be a group, with $H \leq G$. Then the number of distinct $xH$ for $x \in G$ is the \textbf{index} of $H$ in $G$, denoted as $(G : H)$.
+\end{definition}
+
+\begin{remark}
+    For all $g_1, g_2 \in H$, there exists bijections $g_1 H \mapsto g_2 H$ and $H g_1 \mapsto g_2 H$, given by multiplication on the left by $g_2 g_1^{-1}$, and multiplication on the right by $g_1^{-1} g_2$, respectively. 
+\end{remark}
+
+\begin{theorem}(Lagrange)
+    Let $G$ be a group. If $H \leq G$, and $G$ is finite, then $\abs{G} = \abs{H} \cdot (G : H)$.
+\end{theorem}
+
+\begin{proof}
+    By Remark \ref{rmk: group as disjoint union of cong classes}, $G$ is the disjoint union of congruence classes. There are $(G : H)$ congruence classes, with each having $\abs{H}$ elements.
+\end{proof}
+
+\begin{corollary}
+    In particular, for all $H \leq G$, $\abs{H} \mid \abs{G}$. If $G$ is finite, for all $g \in G$, $\abs{\inner{g}} \mid \abs{G}$, i.e. $g^{\abs{G}} = g^{\abs{\inner{g}} \cdot (G : \inner{g})} = e$.
+\end{corollary}
+
+\begin{example}(Fermat's Little Theorem)
+    Let $G = (\Z/p\Z)^{\times}$ with $p$ prime. Then $\abs{G} = p - 1$. For $a \in \Z$ s.t. $p \nmid a$, $\abs{[a]} = p-1$, which implies that $a^{p-1} \equiv 1 \mod p$. 
+\end{example}
+
+We now seek to define a group structure on the congruence classes modulo a subgroup $H \leq G$. The issue is that the operation is not necessarily well-defined. The natural definition of the group operation is given via $(g_1 H, g_2 H) \mapsto (g_1 g_2 H)$. For $g_1 \equiv_{\ell} g_1' \mod H, g_2 \equiv_{\ell} g_2' \mod H$ we would like $g_1 g_2 \equiv_{\ell} g_1' g_2'$. In terms of the elements, we have $g_1 g_1'^{-1} g_2 g_2'^{-1} \in H$ and we want $g_1 g_2 g_2'^{-1} g_1^{-1} \in H$. This requires extra requirements on $H$.
+
+\begin{claim}
+    The following two conditions are equivalent:
+    \begin{itemize}
+        \item For all $g_1^{-1}g_1' \in H, g_2^{-1}g_2' \in H$, this implies $(g_1 g_2)^{-1}(g_1 g_2)' \in H$.
+        \item For all $x \in G, h \in H, xhx^{-1} \in H$.
+    \end{itemize}
+\end{claim}
+
+\begin{proof}
+    Consider the following constructions in two directions:
+    \begin{itemize}
+        \item[$\Rightarrow$] Notice $g_1^{-1} g_1 \in H$ by hypothesis. Choose $g_2^{-1} = x, g_2' = x^{-1}$.
+        \item[$\Leftarrow$] Notice $(g_1 g_2)^{-1}(g_1 g_2)' = g_2^{-1} g_1^{-1} g_1' g_2' \in H$. Choose $g_2 = g_2' = x$, with $g_1^{-1} g_1' = h$. Such $g_1$ and $g_1'$ exists by first arbitrarily choose $g_1 \in H$ then compute $g_1' = g_1 h$.
+    \end{itemize}
+\end{proof}
+
+\begin{definition} (Normal Subgroup)
+    A subgroup $H \leq G$ is \textbf{normal} if for all $x \in G, xHx^{-1} \in H$, where
+    \[
+        xHx^{-1} := \{ xhx^{-1} \mid h \in H \}
+    \]
+    Normal subgroups are denoted by $H \normalin G$.
+\end{definition}
+
+\section{Quotient Groups and Isomorphism Theorems}
 
 \section{Classification of Groups of Small Order}
 
