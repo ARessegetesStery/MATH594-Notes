@@ -154,7 +154,7 @@
     Apply the result of Proposition \ref{prop: subgroup test}. Since $G' \leq G$, $e_G \in G'$, and bby Proposition \ref{prop: grp homo preserve identity and inverse}, $f(e_G) = e_H$, giving that $f(G')$ is nonempty. For all $x, y \in f(G')$, let $u, v \in G'$ s.t. $x = f(u), y = f(v)$. Since $G'$ is a subgroup of $G$, $u\cdot v^{-1} \in G'$. By Proposition \ref{prop: grp homo preserve identity and inverse}, this implies $f(u) \cdot f(v^{-1}) = f(u) \cdot f(v^{-1}) \in f(G')$, which gives that $f(G') \leq H$.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop: kernel gives a subgroup}
     Let $f: G \to H$ be a group homomorphism. If $H' \leq H$, then $f^{-1} (H') \leq G$. In particular, $f^{-1}(e_H) = \ker f := \{u \in G \mid f(u) = e_H\}$ is a subgroup of $G$.
 \end{proposition}
 
@@ -355,7 +355,7 @@
     \end{itemize}
 \end{proof}
 
-\section{Normal Subgroup}
+\section{Congruence Relations}
 
 \begin{definition}[Left/Right Congruence]
     Let $G$ be a group, with $H \leq G$. Then for $x, y \in G$,
@@ -442,6 +442,10 @@ We now seek to define a group structure on the congruence classes modulo a subgr
     \end{itemize}
 \end{proof}
 
+This gives rise to the definition of normal subgroups, and the formulation quotient with respect to it, as follows.
+
+\section{Normal Subgroup, Quotient Group and Isomorphism Theorems}
+
 \begin{definition}[Normal Subgroup]
     A subgroup $H \leq G$ is \textbf{normal} if for all $x \in G, xHx^{-1} \in H$, where
     \[
@@ -450,11 +454,230 @@ We now seek to define a group structure on the congruence classes modulo a subgr
     Normal subgroups are denoted by $H \normalin G$.
 \end{definition}
 
-\section{Quotient Groups and Isomorphism Theorems}
-
 \begin{definition}[Quotient Group]
     Let $G$ be a group, and $H \normalin G$. Then the \textbf{quotient group} $G/H$ is the set of left equivalence classes w.r.t. $H$, together with the group operation $(g_1 H)(g_2 H) := (g_1 g_2) H$.
 \end{definition}
+
+\begin{remark}\label{rmk: projection to quotient}
+    Explicitly check that this gives a group structure: by definition we have the identity element $eH$, with the inverse of $g_1 H = (g_1^{-1})H$. The well-definedness of the group follows from the fact that all the left congruence classes of $H$ are well-defined, i.e. operations on it does not depends on the choice if representative. This also gives a group homomorphism $\pi: G \to G/H$ with $x \mapsto xH$. This is indeed a group homomorphism as $\pi(ab) = (ab) H = aH bH = \pi(a) \pi(b)$. 
+\end{remark}
+    
+\begin{remark}
+    The definition above is identical when formulated in terms of left or right congruence classes. Since we have the bijection between left and right congruence classes, to check that the definitions are identical it suffices to check that the bijection is compatible with the group operation specified. This indeed can be defined as such, as denoting the bijection to be $\Phi: xH \mapsto Hx^{-1}$ we have
+    \[
+        \Phi(xH \cdot yH) = Hx^{-1} \cdot Hy^{-1} := H y^{-1} x^{-1} = \Phi((xy) H)
+    \]
+\end{remark}
+
+\begin{example}
+    The followings give some examples of normal subgroups:
+    \begin{enumerate}
+        \item Trivially, $\{e\}$ and $G$ are normal subgroups of $G$.
+        \item If $G$ is abelian, for all $x \in G, H \leq G$, we have $xHx^{-1} = xx^{-1}H = H$ which implies that every subgroup is normal. Further the quotient $G/H$ is abelian, as by Remark \ref{rmk: projection to quotient}, the operation in $G$ induces the operation in $G/H$.
+        \item Consider the nontrivial case, where $G = D_3 = \inner{\sigma, \tau} = \{e, \sigma, \sigma^2, \tau, \tau\sigma, \tau\sigma^2\}$. Then
+            \begin{itemize}
+                \item Consider $H_1 = \inner{\sigma} = \{e, \sigma, \sigma^2\}$. Check $\tau\sigma\tau^{-1} = \tau\sigma\tau = \sigma^2\tau\tau = \sigma^2 \in H_1$; and $\tau\sigma^2\tau^{-1} = \tau\sigma^2\tau = \sigma\tau\tau = \sigma \in H_1$. Similarly for $\sigma\tau$ and $\sigma^2\tau$. This implies that $H_1$ is normal in $G$.
+                \item Consider $H_2 = \{ e, \tau \}$. we have $\sigma\tau\sigma^{-1} = \sigma\tau\sigma^2 = \tau\sigma = \sigma^2 \tau \notin H_2$ which implies that $H_2$ is not a normal subgroup.
+            \end{itemize}
+    \end{enumerate}
+\end{example}
+
+\begin{proposition}\label{prop: equivalence definition of normal subgroup}
+    If $H \leq G$, then the following statements are equivalent:
+    \begin{enumerate}[label=\arabic*)]
+        \item $H$ is a normal subgroup of $G$.
+        \item $gH = Hg$ for all $g \in G$, i.e. the left and right equivalence classes are equal.
+        \item $gHg^{-1} = H$ for all $g \in G$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    First see that statement 2) and 3) are equivalent, by right multiplying $g$ and $g^{-1}$, respectively. For the rest of the equivalence, consider
+    \begin{itemize}
+        \item \emph{3) \implies 1)}. This in particular implies that $xhx^{-1} \in H$ for all $h \in H$, which is exactly the definition of normal subgroups.
+        \item \emph{1) \implies 3)}. The definition of normal subgroups implies that $gHg^{-1} \subseteq H$ for all $g \in G$. Apply this to $g^{-1} \in G$ gives $g^{-1} H g \subseteq H \implies H \subseteq gHg^{-1}$. Combining the two statements gives the desired equality. Alternatively, one can see that conjugating by $g$ is an isomorphism onto its image, where inclusion in one side implies that this is bijective. 
+    \end{itemize}
+\end{proof}
+
+\begin{corollary}
+    In Every subgroup with index 2 is normal.
+\end{corollary}
+
+\begin{proof}
+    Let $H \leq G$ be index 2. Then the left congruence classes are given by $\{ H, gH \}$ for $g \in G \smallsetminus H$; with the right equivalence classes $\{ H, Hg \}$. This implies that $gH = Hg$ in terms of individual elements. By Proposition \ref{prop: equivalence definition of normal subgroup} this implies that $H$ is normal in $G$. 
+\end{proof}
+
+\begin{proposition}\label{prop: kernel gives a normal subgroup}
+    Let $H \subseteq G$ be a subset. Then $H$ is a normal subgroup in $G$ if and only if there is some group homomorphism $f: G \to G'$ s.t. $\ker f = H$.
+\end{proposition}
+
+\begin{proof}
+    Consider implication in two directions:
+    \begin{enumerate}
+        \item[$\Rightarrow$] Consider the group homomorphism induced by the quotient structure: $\pi: G \to G/H$, $g \mapsto gH$. Then $\ker \pi = \{ g \in G \mid gH = H \}$. This implies that $g \in H$.
+        \item[$\Leftarrow$] By Proposition \ref{prop: kernel gives a subgroup} $H$ is a subgroup in $G$. Check that it is normal: for all $h \in H$, $g \in G$, we have
+        \[
+            f(ghg^{-1}) = f(g) f(h) f(g^{-1}) = f(g) (f(g))^{-1} = e \implies ghg^{-1} \in H
+        \]
+    \end{enumerate}
+\end{proof}
+
+\begin{proposition}[Universal Property of Quotient Group]\label{prop: universal property of quotient group}
+    Let $G$ be a group, and $H$ is normal in $G$. Let $\pi: G \to G/H$, and $f: G \to G'$ be group homomorphisms s.t. $H \subseteq \ker f$. Then there exists a unique group homomorphism $\bar{f} : G/H \to G'$ s.t. $\bar{f} \circ \pi = f$, i.e. the following diagram commutes:
+
+    \begin{minipage}{\linewidth}
+        \centering
+        \begin{tikzcd}
+            G \arrow[rr, "\pi"] \arrow[rrdd, "f"] & & G/H \arrow[dd, dashed, "\bar{f}"] \\
+            & & \\
+            & & G'
+        \end{tikzcd}
+    \end{minipage}
+\end{proposition}
+
+\begin{proof}
+    For uniqueness, notice that since the diagram is required to commute, we have $\bar{f} (gH) = f(g)$ for all $g \in G$. Since $\pi$ is surjective, the behavior of $\bar{f}$ is described only on image of $\pi$, i.e. on congruence classes of form $gH$ for $g \in G$. This gives the uniqueness of the map.
+    
+    For existence, check that $f$ is well-defined, and is indeed a group homomorphism:
+    \begin{itemize}
+        \item \emph{$\bar{f}$ is well-defined.} For $gH = g'H$, we want to show that $\bar{f}(gH) = \bar{f}(g'H)$, i.e. $f(g) = f(g')$. But $gH = g'H$ implies $g^{-1}g' \in H$, i.e. $f(g) \cdot (f(g'))^{-1} = f(g\cdot {g'}^{-1}) \in f(H) = e$, which gives $f(g) = f(g')$.
+        \item \emph{$\bar{f}$ is a group homomorphism.} This is simply paraphrasing of the definition $(gH)(g'H) = (gg')H$.
+    \end{itemize}
+\end{proof}
+
+\begin{theorem}[First Isomorphism Theorem] \label{thm: first isomorphism theorem}
+    If $f: G \to G'$ is a surjective group homomorphism, then $G' \simeq G / \ker f$, i.e. the following diagram commutes with $\bar{f}$ an isomorphism:
+
+    \begin{minipage}{\linewidth}
+        \centering
+        \begin{tikzcd}
+            G \arrow[rr, "\pi"] \arrow[rrdd, "f"] & & G/\ker f \arrow[dd, "\bar{f}"] \\
+            & & \\
+            & & G'
+        \end{tikzcd}
+    \end{minipage}
+\end{theorem}
+
+\begin{proof}
+    Uniqueness and existence of $\bar{f}$ follows from Prop \ref{prop: universal property of quotient group}. 
+
+    Check that $\bar{f}$ is an isomorphism. Surjectivity follows from the fact that $f$ is surjective, and the diagram is required to commute. To check that $\bar{f}$ is injective, consider $\ker \bar{f}$. For, $x \in \ker \bar{f}$, $\bar{f}(x) = f(x') = e$ for $x' \in G$ s.t. $\pi(x') = x$. But this implies that $x' \in \ker f$, i.e. $\pi(x') = x = e$.
+\end{proof}
+
+\begin{corollary}
+    If $f: G \to G'$ is any group homomorphism, then $\im f \simeq G/\ker f$.
+\end{corollary}
+
+\begin{remark}
+    If $f: G \to G'$ is a group homomorphism, and $H'$ is normal in $G$, then $f^{-1}(H')$ is normal in $G$.
+\end{remark}
+
+\begin{proof}
+    Denote $p': G' \to G'/H'$ which is the projection into the quotient. Notice that $p' \circ f (f^{-1}(H)) = e$, i.e. $f^{-1}H = \ker (p' \circ f)$. Proposition \ref{prop: kernel gives a normal subgroup} gives that $f^{-1}(H')$ is normal. 
+\end{proof}
+
+\begin{remark}\label{rmk: transformation between quotient on normal subgroups}
+    Let $H$ and $H'$ be normal in $G$ and $G'$, respectively. Let $f: G \to G'$, $p: G \to G/H$, $p': G' \to G'/H'$ be group homomorphisms s.t. $f(H) \subseteq H'$. Then there exists a unique group homomorphism $\bar{f}: G/H \to G'/H'$ s.t. the following diagram commutes:
+    
+    \begin{minipage}{\linewidth}
+        \centering
+        \begin{tikzcd}
+            G \arrow[rr, "f"] \arrow[dd, "p"] & & G' \arrow[dd, "p'"] \\
+            & & \\
+            G/H \arrow[rr, "\bar{f}"] & & G'/H'
+        \end{tikzcd}        
+    \end{minipage}
+
+    Proof is by applying universal property (Proposition \ref{prop: universal property of quotient group}) on $p$ and $p' \circ f$. It is applicable as $f(H) \subseteq H'$, i.e. $H \subseteq \ker (p' \circ f)$.
+\end{remark}
+
+
+\begin{parenthesis} \label{pth: quotient preserves normal subgroups}
+    Let $p: G \to G/H$ be the projection into the quotient. Then if $H \leq M$, then $M$ is normal in $G$ if and only if $p(M) = M/H$ is normal in $G/H$.
+\end{parenthesis}
+
+\begin{proof}
+    Show implications in both directions:
+    \begin{enumerate}
+        \item[$\Rightarrow$] Use Remark \ref{rmk: transformation between quotient on normal subgroups}, with $G = G'$, $H' = M$, and $f$ the identity map. By hypothesis that $H \leq M$, we have $f(H) \subseteq M$. The remark says that there exists a map $\bar{f}: G/H \to G/M$, with kernel $p(M)$ by the fact that the diagram commutes. Proposition \ref{prop: kernel gives a normal subgroup} gives the fact that $p(M)$ is normal in $G/H$.
+        \item[$\Leftarrow$] Since $M/H$ is normal in $G/H$ it is valid to consider the quotient $(G/H)/(M/H)$ with the projection $p': G/H \to (G/H)/(M/H)$, which is a group homomorphism. It is then clear that $\ker (p' \circ p) = M$, i.e. $M$ is a normal subgroup by Proposition \ref{prop: kernel gives a normal subgroup}.
+    \end{enumerate}
+\end{proof}
+
+\begin{theorem}[Third Isomorphism Theorem]
+    Let $G$ a group, and $H, M$ subgroups in $G$ s.t. $H \leq M \leq G$. Then $(G/H)(M/H) \simeq G/M$.
+\end{theorem}
+
+\begin{proof}
+    Let $p: G \to G/H$ be the projection into the quotient. Consider the group homomorphism $\alpha: G/H \to G/M$, given bu $xH \mapsto xM$. $\ker \alpha = \{ xH \mid x \in M \} = p(M)$. By Parenthesis \ref{pth: quotient preserves normal subgroups} we know that $p(M)$ is normal in $G/H$. The First Isomorphism Theorem (Theorem \ref{thm: first isomorphism theorem}) gives the desired isomorphism. 
+\end{proof}
+
+The following theorem connects the subgroups in the quotient and the subgroups in the original group:
+
+\begin{theorem}[Correspondence]
+    Let $G$ be a group, and $H$ a normal subgroup in $G$. Then we have an \emph{order-preserving} bijection:
+    \[
+        \Phi: \{ \text{subgroups in }G/H \} \to \{ \text{subgroups of $G$ containing $H$} \} 
+    \]
+    which maps normal subgroups to normal subgroups. Being \emph{order-preserving} implies that $U \subseteq V$ if and only if $\Phi(U) \subseteq \Phi(V)$.
+\end{theorem}
+
+\begin{proof}
+    Define $\Phi$ as $p^{-1}$ with $p$ being the projection $G \to G/H$, as by the definition of quotient groups, we have $K \subseteq G/H \implies p^{-1}K \subseteq G$ by the fact that $p^{-1}$ is order-preserving. Further by Parenthesis \ref{pth: quotient preserves normal subgroups} we have $K \normalin G/H \implies p^{-1}K \normalin G$. The images are subgroups containing $H$, as in particular we have $p^{-1}(K) \supseteq p^{-1}(e) = H$. 
+
+    Now check that the inverse of $\Phi$ exists; and the composition in two directions are both the identity. Check the followings:
+    \begin{itemize}
+        \item $p(p^{-1}(K)) = K$ for $K \leq G/H$. By definition $p(p^{-1})(K) \subseteq K$. The equality follows from the fact that $p$ is surjective.
+        \item $p^{-1}(p(M)) = M$ for $M \leq G$. $p^{-1}(p(M)) \supseteq M$ is given by definition; while $g \in p^{-1}(p(M))$ implies that $gH = xH$ for $x \in M$ as $p$ is surjective. But this implies that $g = xh$ for some $h \in H$, i.e. $g \in M$.
+    \end{itemize}
+\end{proof}
+
+For the formulation of the Second Isomorphism Theorem, we need to first introduce some definitions:
+\begin{definition}
+    Let $B \leq G$. Then the \textbf{normalizer} of $B$ in $G$ is defined as
+    \[
+        N_G(B) := \{ g \in G \mid gBg^{-1} \in B \}
+    \]
+\end{definition}
+
+\begin{remark}
+    By definition of normalizer, $B$ is normal in $G$ (the normalizer makes $B$ a normal subgroup). This is also the largest subgroup of $G$ in which $B$ is normal, as suppose that there exists a larger one, it would be included in the normalizer by definition. The normalizer exists as in particular $B$ is normal in $B$, implying that $B \subseteq N_G(B)$.
+\end{remark}
+
+\begin{notation}
+    Let $A, B \leq G$ be subgroups. Denote
+    \[
+        AB := \{ ab \mid a \in A, b \in B \}
+    \]
+\end{notation}
+
+\begin{remark}
+    By definition $AB$ is not necessarily a subgroup in $G$: for $a_1b_1, a_2 b_2 \in AB$, $a_1 b_1(a_2 b_2)^{-1} = a_1 b_1 b_2^{-1} a_2^{-1}$ which is not in the form of $AB$. But if $A \subseteq N_G(B)$, this is the case as we have
+    \[
+        a_1 b_1 b_2^{-1} a_2^{-1} = (a_1 a_2^{-1}) (a_2 b_1 b_2^{-1} a_2^{-1})
+    \]
+    which gives $a_1 b_1 (a_2 b_2)^{-1} = a' b'$ for $a' = a_1 a_2^{-1}$ and $b = a_2 b_1 b_2^{-1} a_2^{-1} \in B$.
+\end{remark}
+
+\begin{theorem}[Second Isomorphism Theorem]
+    Let $A$ and $B$ be subgroups of $G$. Further let $A \subseteq N_G(B)$. Then $A \cap B \normaleqin A$ and $B \normaleqin AB$; and we have the isomorphism $A/(A \cap B) \simeq AB/B$.
+\end{theorem}
+
+\begin{proof}
+    Notice $A \cap B \subseteq B$ and $A \subseteq N_G(B)$. Therefore, for all $b \in A \cap B$, $a \in A$, $aba^{-1} \in A \cap B$ by closure of operation in $A$ and $B$ is normal in $A$. Further $B \normalin AB$ as $(ab) b' (ab)^{-1} = abb'b^{-1} a^{-1} \in B$ since $a \in N_G(B)$. Consider $f: A \to AB$, $a \mapsto ab$ for some fixed $b \in B$. Use the result in Remark \ref{rmk: transformation between quotient on normal subgroups} to get the following commutative diagram:
+
+    \begin{minipage}{\linewidth}
+        \centering
+        \begin{tikzcd}
+            A \arrow[rr, "f"] \arrow[dd] & & AB \arrow[dd] \\
+            & & \\
+            A/(A \cap B) \arrow[rr, "\bar{f}"] & & AB/B
+        \end{tikzcd}
+    \end{minipage}
+    $f$ is an isomorphism by definition, which implies that the induced homomorphism $\bar{f}$ is an isomorphism.
+\end{proof}
+
+\section{Symmetric and Alternating Group}
 
 \section{Classification of Groups of Small Order}
 
