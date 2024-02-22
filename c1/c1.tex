@@ -679,6 +679,118 @@ For the formulation of the Second Isomorphism Theorem, we need to first introduc
 
 \section{Symmetric and Alternating Group}
 
+Recall that the Symmetric group $S_n$ is defined as 
+\[
+    S_n := \{ f: \{ f: \{1, \dots, n\} \to \{1, \dots, n\} \mid f \text{ bijective} \} \}
+\]
+with operation given by composition of maps.
+
+\begin{notation}
+    For $\sigma \in S_n$, it is often denoted by the one-to-one mappings:
+    \[
+        \begin{pmatrix}
+            1 & 2 & \cdots & n \\
+            \sigma(1) & \sigma(2) & \cdots & \sigma(n)
+        \end{pmatrix}
+    \]
+\end{notation}
+
+\begin{example}\label{ex: notation of permutation}
+    The composition of maps can be simply read off from the relations: for example
+    \[
+        \begin{pmatrix}
+            1 & 2 & 3 \\
+            3 & 1 & 2 \\
+        \end{pmatrix}
+        \begin{pmatrix}
+            1 & 2 & 3 \\
+            2 & 3 & 1 \\
+        \end{pmatrix} = 
+        \begin{pmatrix}
+            1 & 2 & 3 \\
+            1 & 2 & 3 \\
+        \end{pmatrix} = \Id
+    \]
+\end{example}
+
+\begin{definition}[Cycle]
+    In $S_n$, for $k \geq 2$, a \textbf{$k$-cycle} in $S_n$ is a permutation $\sigma = (a_1, \dots, a_k)$ for $a_1, \dots, a_k \in \{1, \dots, n\}$ where $\sigma_{a_i} = a_{i+1}$ for $i < k$; and $\sigma(a_k) = a_1$; and $\sigma(i) = i$ for $i \notin \{a_1, \dots, a_k\}$.
+\end{definition}
+
+\begin{example}\label{ex: notation of permutation using cycles}
+    Adopting the notation for cycles, Example \ref{ex: notation of permutation} can be written as $(3 2 1)(2 3 1) = e = \Id$.
+\end{example}
+
+\begin{definition}[Transposition]
+    \textbf{Transposition}s in Symmetric groups are 2-cycles $(i j)$ for $i < j$.
+\end{definition}
+
+\begin{remark}\label{rmk: basic properties of symmetric group}
+    The following gives some basic properties of the Symmetric group:
+    \begin{enumerate}
+        \item Let $\sigma = (a_1 \dots, a_k)$ be a $k$-cycle. Then $\abs{\sigma} = k$.
+        \item If $\sigma$ and $\tau$ are disjoint cycles, i.e. the sets of elements that they act nontrivially on are disjoint, then $\sigma\tau = \tau\sigma$.
+        \item For all $\sigma \in S_n$, it can be written as a product of disjoint cycles, unique up to reordering. This can be constructed by chasing the image of any element $x$ in $\sigma$, which decomposes $\sigma$ into the product of a cycle and something else. The rest part of $\sigma$ acts trivially on $x$, which implies that they are disjoint.
+        \item Cycle $(a_1 \dots a_k) = (a_1 a_k)\dots (a_1 a_3) (a_1 a_2)$. This implies that every $\sigma \in S_n$ can be decomposed into transpositions.
+    \end{enumerate}
+\end{remark}
+
+\begin{parenthesis} \label{pth: all order-2 group are isomorphic}
+    All groups with 2 elements are isomorphic. $G = {e, a}$ gives $a \cdot a = e$, which implies that $G \simeq \Z/2\Z$.
+\end{parenthesis}
+
+\begin{example}
+    Consider symmetric groups with small $n$: 
+    \begin{enumerate}
+        \item $S_1 = \{e\}$. 
+        \item $S_2 = \{e, (1 2)\}$. By Parenthesis \ref{pth: all order-2 group are isomorphic}, this is isomorphic to $\Z/2\Z$.
+        \item $S_3$ is not abelian: Let $\sigma = (1 2 3)$, $\tau = (1 2)$, we have $\abs{\sigma} = 3$, $\abs{\tau} = 2$, and further $S_3 = \{e, \sigma, \sigma^2, \tau, \tau\sigma, \tau\sigma^2\}$. This implies that $S_3 \simeq D_3$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}[Inversion]
+    \textbf{Inversion}s in $\sigma$ is the set $\{ (i, j) \mid 1 \leq i < j \leq n , \sigma(i) > \sigma(j)\}$.
+\end{definition}
+
+\begin{definition}[Signature]
+    Consider group homomorphism $\varepsilon: S_n \to \{ \pm 1 \}$ where the operation in $\{ \pm 1 \}$ is integer multiplication, defined as $\sigma \mapsto (-1)^{\text{\# inversions in $\sigma$}}$. $\sigma$ is \underline{even} if $\varepsilon(\sigma) = 1$; and \underline{odd} if $\varepsilon(\sigma) = -1$. 
+\end{definition}
+
+\begin{example}
+    Transpositions are odd. For $\sigma = (i j)$ with $i < j$, written out explicitly it is given by the map
+    \[
+        \begin{pmatrix}
+            1 & \dots & i & \dots & j \dots & n \\
+            1 & \dots & j & \dots & i \dots & n \\
+        \end{pmatrix}
+    \]
+    The inversions are given by $\{ (i, k), (k, j) \mid i < k < j \} \cup \{ (i, j) \}$. The first part has even elements which implies that $\varepsilon(\sigma) = (-1)^1 = -1$. 
+\end{example}
+
+\begin{example}
+    If $\sigma$ is a product of $k$ transpositions, then $\varepsilon(\sigma)= (-1)^k$. By Remark \ref{rmk: basic properties of symmetric group} 4., any $k$-cycle can be decomposed into $(k-1)$ transpositions, which implies that its signature is $(-1)^{k-1}$.
+\end{example}
+
+\begin{proposition}
+    $\varepsilon$ is a group homomorphism.
+\end{proposition}
+
+\begin{proof}
+    Consider $R = \Q[x_1, \dots, x_n]$ the polynomial ring, where $\Q$ is a field. This gives a domain as every nonzero element in a field is invertible. 
+
+    Define $\Delta := \Pi_{i < j} (x_i - x_j)$. $R$ being a domain implies that this is nonzero. Given $\sigma \in S_n$, we can construct a map $\varphi_{\sigma}: R \to R$ which is a morphism of $\Q$-algebra (homomorphism that is $\Q$-linear). By the universal property of multivariate polynomial ring, to specify $\varphi_{\sigma}$, it suffices to specify the image of $x_i$s. Define $\varphi_{\sigma}(x_i) = x_{\sigma(i)}$ for all $i$. 
+    
+    Notice that $\varphi_{\sigma}(\Delta) = \Pi_{i < j} (x_{\sigma(i)} - x_{\sigma(j)}) = \varepsilon(\sigma) \cdot \Delta$. Now consider the map $\varphi: \sigma \mapsto \varphi_{\sigma}$. Notice that this is a group homomorphism: in particular $\varphi_{\sigma} \circ \varphi_{\tau} = \varphi_{\sigma\tau}$ as maps are associative. Apply to $\Delta$ gives $\varepsilon(\sigma)\varepsilon(\tau) = \varepsilon(\sigma\tau) \Delta$, i.e. $(\varepsilon(\sigma) \varepsilon(\tau) - \varepsilon(\sigma\tau))\Delta = 0$. Since $R$ is a domain, and $\Delta \neq 0$, this implies that $\varepsilon(\sigma)\varepsilon(\tau) = \varepsilon(\sigma\tau)$ which gives the desired group homomorphism.
+\end{proof}
+
+\begin{definition}[Alternating Group]
+    The \textbf{Alternating Group} $A_n$ is defined as $A_n := \ker \varepsilon_n$ for $\varepsilon_n : S_n \to \{\pm 1\} \simeq S_2$
+\end{definition}
+
+\begin{remark}
+    For $n \geq 2$, transpositions exist, which implies that $\varepsilon$ is surjective, with $e \mapsto 1, \tau \mapsto -1$ for $\tau$ some transposition. The First Isomorphism Theorem (Theorem \ref{thm: first isomorphism theorem}) gives that $S_n / A_n \simeq \Z/2\Z$.
+\end{remark}
+
 \section{Classification of Groups of Small Order}
 
 \section{Group Action on Sets}
