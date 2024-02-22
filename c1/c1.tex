@@ -793,6 +793,77 @@ with operation given by composition of maps.
 
 \section{Classification of Groups of Small Order}
 
+\begin{proposition}
+    If $G$ is a finite group, and $\abs{G} = p$ which is prime, then $G \simeq |Z/p\Z$.
+\end{proposition}
+
+\begin{proof}
+    Choose $x \in G$ s.t. $x \neq e$. Denote $H = \inner{x}$. Clearly $\abs{H} \geq 2$, as in particular both $x$ and $e$ are in $H$. By Lagrange, $\abs{H} \mid p$, which implies that $H = G$, i.e. $G$ is cyclic. Proposition \ref{prop: characterization of cyclic group} gives the desired isomorphism.
+\end{proof}
+
+The proposition above gives that for $p = 2, 3, 5, 7$, the group of order $p$ is isomorphic to the corresponding $\Z/p\Z$. The following classifies group of order 4 and 6:
+
+\begin{proposition}
+    For group $G$ with order 4, either $G \simeq \Z/4\Z$, or $G \simeq \Z/2\Z \times \Z/2\Z$.
+\end{proposition}
+
+\begin{proof}
+    Consider the following two cases:
+    \begin{itemize}
+        \item There exists some $x \in G$ s.t. $\abs{x} = 4$, i.e. $G$ is cyclic. Then by Proposition \ref{prop: categorical def of group isomorphism}, $G \simeq \Z/4\Z$.
+        \item $G$ is not cyclic. Lagrange's Theorem gives that for all $x \in G$, $\abs{x} \mid 4$, where the only nontrivial case is $\abs{x} = 2$. Then $G = \{e, a, b, c\}$ with $a^2 = b^2 = c^2 = e$. Notice $ab \neq a, b, e$, which implies that $c = ab$. This characterization gives the isomorphism to $\Z/2\Z \times \Z/2\Z$ given by $a \mapsto (1, 0)$ and $b \mapsto (0, 1)$
+    \end{itemize}
+\end{proof}
+
+\begin{remark}
+    In the proof above, notice $ba \neq e, a, b$, i.e. $c = ab = ba$. Therefore it is abelian. This is often referred to as the \underline{Klein 4-gruop}.
+\end{remark}
+
+Now consider the case where $G$ has 6 elements:
+
+\begin{proposition}
+    If $\abs{G} = 6$, then either $G \simeq \Z/6\Z$, or $G \simeq D_3$. 
+\end{proposition}
+
+\begin{proof}
+    Consider the two cases separately:
+    \begin{itemize}
+        \item $G$ is abelian. By Proposition \ref{prop: characterization of cyclic group}, $G \simeq \Z/6\Z$.
+        \item $G$ is not abelian. Lagrange gives that for all $x \in G$ s.t. $x \neq e$, $\abs{x} = 2$ or $3$.
+        \begin{lemma}
+            If $\abs{G}$ is even, there exists an element of order 2 in $G$.
+        \end{lemma}
+        \begin{proof}
+            Suppose not. Then in particular there cannot exist any element of even order, i.e. for all $x \in G$, $x^{-1} \neq x$. Then consider pairs $(x, x^{-1})$ for all $x$. Together with $e$, this gives odd number of elements, which is a contradiction.
+        \end{proof}
+        Claim that there exists $x \in G$ s.t. $\abs{x} = 3$. Suppose not. Then for all $x \in G, x^2 = e$. By proof for the case where there are 4 elements in the group, this gives that $G$ is abelian, i.e. it has a subgroup $\{ e, x, y, xy \}$ for $x, y \neq e$. But this gives a contradiction with Lagrange's Theorem.
+
+        Let $\abs{\sigma} = 3$. This gives the explicit expression of elements in $G$: $G = \{e, \sigma, \sigma^2, \tau, \tau\sigma, \tau\sigma^2\}$. Notice that $\tau\sigma \neq e, \tau, \sigma, \sigma^2$ by the fact that they are nontrivial and have different order. Then either
+        \begin{itemize}
+            \item $\tau\sigma = \sigma\tau$. But then $(\sigma\tau)^2 = \sigma^2 \neq e$, $(\sigma\tau)^3 = \tau$, which implies that $(\sigma\tau)$ generates $G$. This is a contradiction.
+            \item $\tau\sigma = \sigma^2\tau$. Then this characterize that $G \simeq D_3$.
+        \end{itemize}
+    \end{itemize}
+\end{proof}
+
+\begin{theorem}[Structural Theorem for Finitely Generated Abelian Groups]
+    Let $G$ be a finitely generated abelan group. Then 
+    \[
+        G \simeq \Z^n \times \Pi_{i \in I} (\Z/p_i^{m_i} \Z)
+    \]
+    for $r \in \Z_{\geq 0}$, $p_i$ prime, $m_i \in \Z_{>0}$; and pairs $(p_i, m_i)$ are unique up to reordering.
+\end{theorem}
+
+The proof quite resembles that of Structural Theorem for finitely generated modules over PIDs, and is not repeated here. 
+
+\begin{remark}
+    Since $\Z$ has infinitely many elements, this implies that if $G$ being a finitely generated abelian group is finite, then $r = 0$, and $G \simeq \Pi_{i \in I} \Z/p_i^{m_i}\Z$.
+\end{remark}
+
+\begin{example}
+    Structural theorem directly gives the classification of isomorphism classes of abelian groups with 8 elements: $\Z/8\Z, \Z/2\Z \times \Z/4\Z, \Z/2\Z \times \Z/2\Z \times \Z/2\Z$.
+\end{example}
+
 \section{Group Action on Sets}
 
 \section{Sylow Theorems}
