@@ -9,7 +9,7 @@
 
 \section{Complex Representation}
 
-\vspace*{-1em}
+\textstart
 The motivation of introducing the representation of $G$ is to have a linearized version of group action on sets. Recall that we have the correspondence between action of $G$ on a set $X$ and group homomorphism $G \to S_x$ where $S_x$ is the group of bijective maps on $S$, with the operation defined as composition. Explicitly, this is given by
 \[
     \varphi: G \times X \to X \quad \rightsquigarrow \quad G \to S_x,\ g \mapsto \varphi(g, -) \in (X \to X) 
@@ -19,7 +19,7 @@ We now give the formal definition on vector spaces:
 \begin{definition}[Representation]
     A \textbf{(complex) representation} of a group $G$ is a vector space $V$ over $\C$, together with a group homomorphism 
     \[
-        \rho: G \to \GL(V) := \{ \varphi: V \to V \mid \varphi \text{$\C$-linear isomorphism} \}
+        \rho: G \to \GL(V) := \{ \varphi: V \to V \mid \varphi \text{ $\C$-linear isomorphism} \}
     \]
     Equivalently, a representation of $G$ is a vector space over $\C$ with an action of $G$ on $V$ $\rho: G \times V \to V$ s.t. for all $g \in G$, the induced map $\varphi(g, -)$ os $\C$-linear.
 \end{definition}
@@ -32,6 +32,7 @@ We now give the formal definition on vector spaces:
     The \textbf{dimension} of the representation is $\dim_{\C}V$, with the same notation as above. 
 \end{definition}
 
+\textstart
 For most of the time, we will only consider the representation of finite groups on finite-dimensional vector spaces.
 
 \begin{remark}
@@ -73,6 +74,70 @@ For most of the time, we will only consider the representation of finite groups 
 \end{remark}
 
 \section{Interpretation via the Group Algebra}
+
+\textstart
+Similar to the case of group action where we interpreted the structure of group action by the group homomorphism $G \to S_x$, we would like to have some equivalence to structures that are more explicit, and easier to analyze. This introduces the following definitions:
+
+\begin{definition}[Group Algebra]
+    Let $G$ be a group. Then the \textbf{group algebra over $\C$}, denoted $\C[G]$ is a vector space with a basis $\{ \alpha(g) \mid g \in G \}$ in bijection with elements in $G$ (formally). Endow it with a multiplication $\alpha(g) \cdot \alpha(g) = \alpha(gh)$ compatible with the group structure gives the desired ring structure.
+\end{definition}
+
+\begin{remark}
+    Verifying the ring axioms, we have the fact that the identity in $\C[G]$ to be $\alpha(e)$. This is in fact a $\C$-algebra, with the associated morphism given by $\C \to \C[G]$. Since the image of it are scalars, it is clearly in the center of the group. 
+\end{remark}
+
+\textstart
+Notice that $G$ is not necessarily a finite group. Therefore the vector space can be infinite-dimensional, which we have imposed the requirement that every element should be a finite sum of linear combination of basis. In the following deduction, denote $\sum'$ to be the finite sum. 
+
+\begin{proposition}
+    The group algebra is well-defined.
+\end{proposition}
+
+\begin{proof}
+    This is clear for the cases where $G$ is finite. Consider the case where $G$ is infinite. Then by definition of the group algebra, for all $u, v \in \C[G]$, we have their decomposition into elements in the basis:
+    \[
+        u = \sum_{g \in G}' a_g \alpha(g), \qquad v \in \sum_{g \in G}' b_g \alpha(g)
+    \]
+    Multiplying these two terms together gives
+    \[
+        u \cdot v = \sum_{g \in G} \left( \sum_{g_1 g_2 = g}  (a_{g_1} b_{g_2}) \right) \alpha(g)
+    \]
+    Furthermore there are only finitely many such $a_g$s and $b_g$s being nonzero, implying that there are only finitely many nonzero such products. 
+\end{proof}
+
+\begin{notation}
+    If $G$ is abelian, and the correspondence of elements in $G$ and in $\C[G]$ is written additively. Instead of $\alpha(g)$ one usually writes $\chi^g$ (with the convention that $\chi^g \cdot \chi^h = \chi^{g + h}$).
+\end{notation}
+
+\begin{remark}
+    $\C[G]$ is a commutative ring if and only if $G$ is an abelian group. ``Only if'' is clear as if $\C[G]$ is commutative implies for all $g, h \in G$, they commute. ``If'' results from the fact that for every element in $x \in \C[G]$ there exists a scalar $\lambda$ s.t. $\lambda x = \alpha(g)$ for some $g \in G$ as $\C$ is a field.
+\end{remark}
+
+\begin{example}
+    If $G = (\Z, +)$, identifying $x \leftrightarrow \chi^x$ for $x \in \Z$, we have $\C[G] \simeq \bigoplus_{m ]in \Z} \C\chi^m \simeq S^{-1}\C[x]$ for $S = \inner{x} = \{1, x, x^2, \dots\}$. These are the \underline{Laurent Polynomials}. 
+    
+    If $G = (\Z/n\Z, +)$, we have the identification $x^n = 1$, giving $\C[G] \simeq \C[x]/(x^n - 1)$.
+\end{example}
+
+\begin{proposition}
+    We have the identification between representations of $G$ and $\C[G]$-modules. Morphisms and sub-objects (sub-representations and submodules) are also in correspondence.
+\end{proposition}
+
+\begin{proof}
+    It suffices to verify 1), as identifications in 2) and 3) are induced by 1). 
+    
+    Suppose that $V$ is a representation of $G$, Then $V$ has a structure of $\C[G]$-module, whose addition is the same as in the vector space, and scalar multiplication is given by
+    \[
+        \left( \sum_{g \in G}' (a_g \cdot \alpha(g)) \right) \cdot v = \sum_{g \in G}' (a_g \cdot \alpha(gv))
+    \]
+    Conversely, if $M$ is a $\C[G]$-module, then it has a vector space structure via considering the action $\C \hookrightarrow \C[G]$ which acts on $M$; and the linear map is given by $(g, -)$, where $(g, x) \mapsto \alpha(g) \cdot x$ as specified by the $\C[G]$ module. 
+\end{proof}
+
+\begin{remark}
+    In general, for a representation over a field $\mathbb{F}$ of $G$, it can be identified with $\mathbb{F}[G]$.
+\end{remark}
+
+\section{Examples of Representations}
 
 \section{Irreducible Representations}
 
