@@ -1,0 +1,81 @@
+\documentclass{article}
+\usepackage{../refalg}
+
+\begin{document}
+\Makepagesectionhead{MATH 594}{Representation of Finite Groups}{ARessegetes Stery}
+
+\tableofcontents
+\newpage
+
+\section{Complex Representation}
+
+\vspace*{-1em}
+The motivation of introducing the representation of $G$ is to have a linearized version of group action on sets. Recall that we have the correspondence between action of $G$ on a set $X$ and group homomorphism $G \to S_x$ where $S_x$ is the group of bijective maps on $S$, with the operation defined as composition. Explicitly, this is given by
+\[
+    \varphi: G \times X \to X \quad \rightsquigarrow \quad G \to S_x,\ g \mapsto \varphi(g, -) \in (X \to X) 
+\]
+We now give the formal definition on vector spaces:
+
+\begin{definition}[Representation]
+    A \textbf{(complex) representation} of a group $G$ is a vector space $V$ over $\C$, together with a group homomorphism 
+    \[
+        \rho: G \to \GL(V) := \{ \varphi: V \to V \mid \varphi \text{$\C$-linear isomorphism} \}
+    \]
+    Equivalently, a representation of $G$ is a vector space over $\C$ with an action of $G$ on $V$ $\rho: G \times V \to V$ s.t. for all $g \in G$, the induced map $\varphi(g, -)$ os $\C$-linear.
+\end{definition}
+
+\begin{notation}
+    The map $\rho(g, -): V \to V$ is often abbreviated as $\rho_g$. The representation is denoted by $V$ or $\rho$, with $V$ emphasizing the vector space structure.
+\end{notation}
+
+\begin{definition}[Dimension of Repr.]
+    The \textbf{dimension} of the representation is $\dim_{\C}V$, with the same notation as above. 
+\end{definition}
+
+For most of the time, we will only consider the representation of finite groups on finite-dimensional vector spaces.
+
+\begin{remark}
+    In general, one can consider representations over other fields than $\C$. The reasons why $\C$ is chosen are the followings:
+    \begin{enumerate}[label=\arabic*)]
+        \item If $G$ is finite, then $\abs{G} \in \C$ is always invertible.
+        \item $\C$ is algebraically closed. The implications include, for example, every linear map has an eigenvalue.
+    \end{enumerate}
+    These specialties will often appear in subsequent proofs. 
+\end{remark}
+
+\begin{definition}[Morphism of Repr.]
+    Given two representations of $G$, $V$ and $W$, a \textbf{morphism of representations} (or simply \textbf{$G$-morphism}) is a linear map $f: V \to W$ s.t. $f(gv) = g(fv)$ for all $g \in G$, $v \in V$. This is an \textbf{isomorphism} if $f$ is further bijective.  
+\end{definition}
+
+\begin{remark}
+    Following from the definitions we have the immediate results:
+    \begin{enumerate}[label=\arabic*)]
+        \item If $V_1 \tooh{f} V_2 \tooh{g} V_3$ are morphisms of representation, then so is $g \circ f$ since $g(f(hv)) = g(hf(v)) = h(g(f(v)))$ for all $h \in G$, $v \in V$. This gives the morphisms of objects, i.e. representations of $G$ give a category.
+        \item If $f: V \to W$ is an isomorphism of representations, then so is $f^{-1}$ (simply by writing the equation for definition in the inverse order).
+        \item If $V$ and $W$ are representations of $G$, then $\{ f : V \to W \mid f \text{ $G$-morphism} \} \subseteq \Hom_{\C}(V, W)$ gives a $\C$-vector subspace. This is clear as by the fact that $f$ is linear, $V$ as a representation is closed under addition and scalar multiplication.
+    \end{enumerate}
+\end{remark}
+
+\begin{remark}
+    Given a finite-dimensional representation $\rho: G \to \GL(V)$, choosing a basis $\{e_1, \dots, e_n\}$ of $V$ gives us an isomorphism $V \simeq \C^n$, i.e. we have the description of representations in matrices
+    \[
+        \rho: G \to \GL(V) \simeq \GL_n(\C), \qquad g \mapsto \rho_g = (a_{ij}(g))
+    \]
+    This implies that two representations are isomorphic if and only if there exists some matrix $A \in \GL_n(\C)$ s.t. $(a_{ij}(g)) = A (b_{ij}(g))$. In particular, applying the result twice gives that (with identification of representations and its matrix form) $\rho_g = A \rho_g' A^{-1}$, i.e. conjugate representations are isomorphic. Such morphisms of representations ($A$) are \underline{equivariant}.
+\end{remark}
+
+\begin{definition}[Sub-representation]
+    Given a representation $V$ of $G$, a \textbf{sub-representation} of $V$ is a vector space $W \subseteq V$ s.t. $gv \in W$ for all $v \in W, g \in G$. 
+\end{definition}
+
+\begin{remark}
+    In particular, for $W$ a sub-representation of $V$, it is itself a representation with the map $\rho'$ being $\restr{\rho(-)}{W}$. The inclusion $W \hookrightarrow V$, $x \mapsto X$ is a morphism of representation.
+\end{remark}
+
+\section{Interpretation via the Group Algebra}
+
+\section{Irreducible Representations}
+
+\section{Character Theory}
+
+\end{document}
