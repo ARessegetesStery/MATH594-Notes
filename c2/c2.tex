@@ -119,7 +119,7 @@ Notice that $G$ is not necessarily a finite group. Therefore the vector space ca
     If $G = (\Z/n\Z, +)$, we have the identification $x^n = 1$, giving $\C[G] \simeq \C[x]/(x^n - 1)$.
 \end{example}
 
-\begin{proposition}
+\begin{proposition}\label{prop: repr of G identifiable with C[G]-modules}
     We have the identification between representations of $G$ and $\C[G]$-modules. Morphisms and sub-objects (sub-representations and submodules) are also in correspondence.
 \end{proposition}
 
@@ -138,6 +138,26 @@ Notice that $G$ is not necessarily a finite group. Therefore the vector space ca
 \end{remark}
 
 \section{Examples of Representations}
+
+\textstart
+The following gives some common examples of representations:
+\begin{enumerate}[label=\arabic*)]
+    \item Suppose that $G$ acts on a set $X$. Let $V$ be the free $\C$-vector space associated to $X$, with basis $\{ \alpha(u) \mid u \in X \}$ in bijection with $X$. Define $G \tooh{\rho} \GL(V), g \mapsto \rho_g$, with $\rho_g(\alpha(u)) = \alpha(gu)$. This is the \underline{permutation representation} associated with $X$. This is essentially just the group action, as the representation is completely fixed via specifying its behavior on elements in $X$ (i.e. with coefficient 1). 
+    \item Example 1) applied to the action of $G$ on itself, $G \times G \to G$, $(g, h) \mapsto (gh)$ induces a representation $\C[G]$. This is the \underline{regular representation} of $G$. Viewed under the context of Proposition \ref{prop: repr of G identifiable with C[G]-modules}, this is the standard left $\C[G]$-module structure of itself (rings are left-modules over itself). 
+    \item Direct sum of representations. If $\rho_V: G \to \GL(V)$ and $\rho_W: G \to \GL(W)$ are representations of $G$, then we can get a representation $\rho: G \to \GL(V \oplus W)$, given by 
+    \[
+        \rho_g = (\rho_g^V, \rho_g^W): G \times (V \oplus W) \to (V \oplus W), \quad (g, v \oplus w) \mapsto (gv, gw)
+    \]
+    Under the context of Proposition \ref{prop: repr of G identifiable with C[G]-modules}, this corresponds to the direct sum of modules. 
+    \item Tensor product of representations. Suppose that we have $\rho: G \to \GL(V)$ and $\rho': G \to \GL(V')$ two representations of $G$. Then we can have
+    \[
+        \widetilde{\rho} = \rho \tensor \rho': G \to \GL(V \tensor_{\C} V'), \quad g \mapsto (\rho_g \tensor \rho_g')
+    \]
+    This is indeed a group homomorphism, as tensor product of maps behave functorially. That is, it commutes with composition of maps by the universal property of tensor product:
+    \[
+        (f \tensor g) \circ (f' \tensor g') = (f \circ f') \tensor (g \circ g')
+    \]
+\end{enumerate}
 
 \section{Irreducible Representations}
 
