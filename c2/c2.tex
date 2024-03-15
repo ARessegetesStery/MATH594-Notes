@@ -320,6 +320,204 @@ It is clear that this is linear. Check that this is a group homomorphism:
 
 \section{Character Theory}
 
+\begin{definition}[Character]
+    Fix a representation $\rho: G \to \GL(V)$, with $g \mapsto \rho_g$, the \textbf{character} of $\rho$ is a function
+    \[
+        \chi_{\rho}: G \to \C, \quad g \mapsto \Tr(\rho_g)
+    \]
+\end{definition}
+
+\begin{remark}
+    The definition of character is invariant w.r.t. choice of basis as the trace of a linear map is independent of the choice of basis. 
+\end{remark}
+
+\begin{notation}
+    $\chi(\rho) \in \C$ is often abbreviated to be $\chi_{\rho}$ as is in the notation of representation.
+\end{notation}
+
+\textstart
+The following gives some immediate properties of trace function:
+\begin{enumerate}[label=\arabic*)]
+    \item If $\rho \simeq \rho'$, then $\chi_{\rho} = \chi_{\rho'}$. Recall that by Remark \ref{rmk: repr isom iff conjugate}, $\rho \simeq \rho'$ if and only if there exists some linear map $A$ s.t. for all $g \in G$. $\rho_g = A \circ \rho_g' \circ A^{-1}$, i.e. they are similar. Then the equality in character results directly from the fact that similar matrices have identical trace.
+    \item An immediate corollary to 1) is the fact that each $\chi_{\rho}$ is a \underline{class function}, i.e. takes constant value on the conjugacy class of any $g \in G$. This can be seen via taking $A = \rho_g$, and apply the fact that $\rho$ is a group homomorphism, i.e. $\rho_{g^{-1}} = \rho_g^{-1}$.
+    \item $\chi_{\rho}(e) = \Tr(\Id) = \dim_{\C} V$.
+\end{enumerate}
+
+The following results are also quite useful but are not so immediate, so we formalize them as propositions:
+\begin{proposition}\label{prop: character of inverse of conjugate of character}
+    Let $\rho$ be a representation of a finite group $G$. Then $\chi_{\rho}(g^{-1}) = \overline{\chi_{\rho}(g)}$.
+\end{proposition}
+
+\begin{proof}
+    Since we have $V \simeq \C^n$, we have the identification of $\rho$ as $\rho: G \to \GL(\C^n)$. Gram-Schmidt gives a basis in which the matrix representation of $\rho_g$ is upper-triangular, i.e. in the form of 
+    $\left(
+    \begin{smallmatrix}
+        \lambda_1 & & \ast \\
+        & \ddots & \\
+        & & \lambda_n
+    \end{smallmatrix}\right)
+    $
+    with $\lambda_i$s the eigenvalues. It is clear then that the inverse must also be in the form of 
+    $\left(
+    \begin{smallmatrix}
+        \lambda_1^{-1} & & \ast \\
+        & \ddots & \\
+        & & \lambda_n^{-1}
+    \end{smallmatrix}\right)
+    $
+    . This gives
+    \[
+        \Tr(\rho_g) = \sum_{i = 1}^n \lambda_i, \quad \Tr(\rho_{g^{-1}}) = \sum_{i = 1}^n \lambda_1^{-1}
+    \]
+    But since we have the requirement that $\rho$ is a group homomorphism, for $\abs{G} = m$ we have the constraint
+    \[
+        \begin{pmatrix}
+            \lambda_1^{-1} & & \ast \\
+            & \ddots & \\
+            & & \lambda_n^{-1}
+        \end{pmatrix}^n = \Id \implies \lambda_i^m = 1\ \ \forall i
+    \]
+    In particular we have $\abs{\lambda_i} = 1$, which gives $\lambda_i^{-1} = \overline{\lambda_i}$. Summing together gives the desired result.
+\end{proof}
+
+\begin{proposition}\label{prop: character of direct sum and tensor product}
+    The characters of direct sum of representations, and tensor product of representations have the following relations:
+    \begin{itemize}
+        \item For $\rho = \rho_1 \oplus \rho_2$, $\chi_{\rho} = \chi_{\rho_1} + \chi_{\rho_2}$.
+        \item For $\rho = \rho' \tensor \rho''$, $\chi_{\rho} = \chi_{\rho'} \cdot \chi_{\rho''}$.
+    \end{itemize}
+\end{proposition}
+
+\begin{proof}
+    Choose an appropriate basis for the vector space, and express the representations in that correspondingly.
+
+    Let $V_1$ and $V_2$ be the corresponding vector spaces of $\rho_1$ and $\rho_2$. Then given bases in both $V_1$ and $V_2$, we have a basis of $V = V_1 \oplus V_2$, and the corresponding matrix representation of $\rho$:
+    $
+    \left(\begin{array}{@{}c|c@{}}
+        (\rho_1)_g & \\ \hline
+        & (\rho_2)_g \\
+      \end{array}\right)
+    $
+    which is block diagonal. The trace corresponding to the character can then be computed via
+    \[
+        \Tr(\rho) = \Tr((\rho_1)_g) + \Tr((\rho_2)_g)
+    \]
+
+    For the case with tensor product, consider the representations to be $\rho': G \to \GL(V_1)$ and $\rho'': G \to \GL(V_2)$. Choose bases $e_1, \dots, e_n$ for $V_1$, and $f_1, \dots, f_m$ for $V_2$. Let $(a_{ij})_{n \times n}$ and $(b_{kl})_{m \times m}$ be the corresponding matrix representations for $\rho'$ and $\rho''$. Then $V_1 \tensor V_2$ has a basis $e_i \tensor f_j$. Compute the matrix representation for $\rho$:
+    \begin{align*}
+        \rho_g(e_j \tensor f_{\ell})
+        & = \rho_g'(e_j) \tensor \rho_g'' (f_{\ell}) \\
+        & = \left( \sum_{i = 1}^n a_{ij} e_i \right) \tensor \left( \sum_{k = 1}^m b_{k\ell} f_k \right) \\
+        & = \sum_{i, k} a_{ij} b_{k\ell} \left( e_i \tensor f_k \right)
+    \end{align*}
+    Then
+    \[
+        \Tr(\rho_g) = \sum_{i = j, k = \ell} a_{ij} b_{k\ell} (e_i \tensor f_k) = \sum_{i, k} a_{ii} b_{kk} (e_i \tensor f_k) = \left( \sum_{i} a_{ii} \right) \left( \sum_{k} b_{kk} \right) = \Tr(\rho_g')\cdot\Tr(\rho_g'')
+    \]
+\end{proof}
+
+The character of a representation gives information on its properties, e.g. checking whether a given set of sub-representations gives a decomposition, or checking whether a representation is irreducible, etc. To utilize this concept we need some extra tools on the object:
+
+\begin{notation}
+    Define $\Func(G) := \{ f: G \to \C \}$. This gives a $\C$-vector space of $\dim \abs{G}$. Explicitly, for $G = \{g_1, \dots, g_m\}$ we have the isomorphism $\Func(G) \simeq \C$, $f \mapsto (f(g_1), \dots, f(g_m))$.
+\end{notation}
+
+\begin{definition}[Inner Product of Character]
+    Let $f, g \in \Func(G)$. Define 
+    \[
+        \inner{f, g} := \frac{1}{\abs{G}} \sum_{x \in G} f(x) \overline{g(x)}
+    \]
+\end{definition}
+
+\begin{remark}
+    The inner product gives a Hermitian product on $\Func(G)$. Recall that Hermitian product needs to satisfy $\C$-linearity in the first entry, conjugate $\C$-linear in the second entry, and positive-definite, i.e. for all $f \neq 0, \inner{f, f} > 0$.
+\end{remark}
+
+The following is the main theorem for character of representations:
+
+\begin{theorem}\label{thm: inner product of irred repr.}
+    If $\rho$ and $\rho'$ are non-isomorphic irreducible representations, then $\inner{\chi_{\rho}, \chi_{\rho'}} = 0$, and $\inner{\chi_{\rho}, \chi_{\rho}} = 1$.
+\end{theorem}
+
+The tools we have for such situations are Schur's result (Lemma \ref{lem: Schur}), and the averaging process which makes a linear map into a morphism of representations used in Theorem \ref{thm: decomposition of repr.}. The general strategy is to notice that we have application of $g$ both in the domain and image in the ``averaged'' representation, and $\chi(g^{-1}) = \overline{\chi(g)}$ gives the conjugacy and thus the desired form of the inner product.
+
+\begin{notation}
+    In the proof we use $(a_{ij})_{m \times n}$ to denote the matrices, with the indices dropped if apparent, and $a_{ij}$ (without the parenthesis) to denote the elements in the matrix. 
+\end{notation}
+
+\begin{proof}[Proof of Theorem \ref{thm: inner product of irred repr.}]
+    Assume that $\rho: G \to \GL_n(\C)$ and $\rho': G \to \GL_m(\C)$ are the representations. Denote the matrix representations for $\rho_g, \rho_{g}'$ and $\rho_{g^{-1}}' = (\rho_{g}')^{-1}$ to be $(a_{ij})_{n \times n}$, $(b_{ij})_{m \times m}$ and $(c_{ij})_{m \times m}$, correspondingly. Consider a linear map $\varphi: V \to V'$ with matrix representation $(\varphi_{ij})_{m \times n}$, and the induced morphism of representations $\psi: V \to V'$ given by
+    \[
+        \psi(v) := \sum_{g \in G} g^{-1}(\varphi(gv))
+    \]
+    For proof of this being indeed a representation check Proof of Theorem \ref{thm: decomposition of repr.}. Now consider the matrix representation of $\psi(v)$:
+    \begin{itemize}
+        \item Consider $\rho \nsimeq \rho'$. Then by Schur's Lemma (Lemma \ref{lem: Schur}), we have $\psi = 0$. In particular, every entry of matrix representation of $\psi$ is 0, which gives
+        \[
+            \psi_{ik} = \sum_{g \in G} \left( \sum_{j, \ell} c_{ij}(g) \varphi_{j \ell} a_{\ell k} \right)
+        \]
+        Since this holds for all $\varphi: V \to V'$, decomposing $\varphi$ into the basis given by each entry in the $m$-by-$n$ matrix i.e. with
+        \[
+            \varphi_{j\ell} = 
+            \begin{cases}
+                1, & j = j',\ \ell = \ell' \\
+                0, & \text{otherwise}
+            \end{cases}
+        \]
+        we have for all $i, j', \ell', k$, $\sum_{g \in G} (\sum_{i, k} c_{i j'} a_{\ell' k}(g)) = 0$. In particular, we can take $i = j$ and $\ell = k$, and summing up along the diagonal entries, which gives
+        \[
+            0 = \sum_{g \in G} \left( \sum_{i = 1}^n c_{ii} \right) \left( \sum_{k = 1}^n a_{kk} \right)
+            = \sum_{g \in G} \chi_{\rho'}(g^{-1}) \cdot \chi_{\rho} (g) = \sum_{g \in G} \overline{\chi_{\rho'}(g)} \cdot \chi_{\rho} (g) = \inner{\chi_{\rho}, \chi_{\rho'}}
+        \]
+        \item Now consider the case where $\rho = \rho'$, i.e. $V \simeq V'$. Then Schur (Lemma \ref{lem: Schur}) gives that there exists $\lambda_{j \ell}$ s.t. for $\varphi_{j'\ell'}$ as defined in the previous case
+        \[
+            \psi_{j'\ell', ik} = \sum_{g \in G} c_{ij'}(g) a_{\ell' k}(g) = \lambda_{j', \ell'} \delta_{i, k}
+        \]
+        Now consider $\varphi = \Id$, i.e. $\varphi_{ij} = \delta_{i, j}$. Taking $i = j$ and $k = \ell$ we have
+        \[
+            \sum_{g \in G} \left( \sum_{i, k} c_{ii}(g) a_{kk}(g) \right) = \sum_{i, k} \lambda_{i, k} \delta_{i, k} = \sum_{q} \lambda_{q, q}
+        \]
+        But $\lambda_{i, i} = 1$ for all $i$, which gives
+        \begin{align*}
+            \abs{G} = \sum_{k} \lambda_{k, k}
+            & = \sum_{g \in G} \left( \sum_{i, k} c_{ii}(g) a_{kk}(g) \right) \\
+            & = \sum_{g \in G} \left( \sum_{i} c_{ii}(g) \right) \left( \sum_k a_{kk}(g) \right) \\
+            & = \sum_{g \in G} \chi_{\rho}(g) \cdot \chi_{\rho}(g^{-1}) = \sum_{g \in G} \chi_{\rho}(g) \cdot \overline{\chi_{\rho}(g)} \\
+            & = \sum_{g \in G} \inner{\chi_{\rho}, \chi_{\rho}}
+        \end{align*}
+        where dividing both sides by $\abs{G}$ gives the desired result.
+    \end{itemize}
+\end{proof}
+
+\begin{corollary}
+    From the theorem we have the following immediate results:
+    \begin{enumerate}[label=\arabic*)]
+        \item The number of isomorphism classes of irreducible representations is bounded above by $\dim_{\C} \Func(G) = \abs{G}$. Notice that if $\rho_1, \dots, \rho_r$ are pairwise non-isomorphic irreducible representations, then by Theorem \ref{thm: inner product of irred repr.} $\inner{\chi_i, \chi_j} = 0$ for all $i \neq j$, i.e. they are orthonormal, and in particular linearly independent. But $\dim_{\C} \Func(G) \leq \abs{G}$, so there are at most $\abs{G}$ of them. 
+        \item Let $V$ be any representation of $G$, and $W$ an irreducible representation of $G$, then for irreducible decomposition of $V$: $V = \bigoplus_{i = 1}^r W_i$, $\#\{ i \mid W_i \simeq W \} = \inner{\chi_V, \chi_W}$. 
+        \begin{proof}
+            To see this, by Proposition \ref{prop: character of direct sum and tensor product} we have $\chi_V = \sum_{i = 1}^r \chi_{W_i}$. Then
+            \[
+                \inner{\chi_V, \chi_W} = \inner{\sum_{i = 1}^r \chi_{W_i}, \chi_W} = \sum_{i = 1}^r \inner{\chi_{W_i}, \chi_W}
+                \]
+                where since both $W_i$ and $W$ are irreducible, we have $\inner{\chi_{W_i}, \chi_W} = 1$ if and only if $W \simeq W_i$; and 0 otherwise.
+        \end{proof}
+        \item A representation $V$ of $G$ is irreducible if and only if $\inner{\chi_V, \chi_V} = 1$.
+        \begin{proof}
+            The ``only if'' part is prove in the theorem above. To see the ``if'' part, consider the decomposition of $V$:
+            \[
+                V \simeq W_1^{\oplus a_1} \oplus \dots \oplus W_r^{\oplus a_r}, \quad \chi_V = \sum_{i = 1}^r a_i \chi_{W_i}
+            \]
+            Then use the formula given in the theorem, we have $\inner{\chi_V, \chi_V} = \sum_{i = 1}^r a_i^2$, which is 1 if and only if $r = 1$ and $a_1 = 1$. But this is exactly paraphrasing of the $V$ being irreducible.
+        \end{proof}
+        \item For every representation $V$, we have $V \simeq W$ if and only if $\chi_V = \chi_W$.
+        \begin{proof}
+            The ``only if'' part results from Remark \ref{rmk: repr isom iff conjugate}, where representations are isomorphic if and only if they are conjugate; but conjugate matrices have the same trace, i.e. the representations have the same character.
+
+            To see the ``if'' part, since $\chi_V = \chi_W$, in particular for every irreducible $G$-representation $W'$ we have $\inner{\chi_V, \chi_{W'}} = \inner{\chi_W, \chi_{W'}}$. Testing this through all non-isomorphic irreducible $G$-representations gives the irreducible decomposition of $V$ and $W$, which are the same as the inner products which gives the powers ($a_i$s as in part 3) are the same. This implies that they are actually isomorphic. 
+        \end{proof}
+    \end{enumerate}
+\end{corollary}
+
 \section{Counting Irreducible $G$-Representations}
 
 \end{document}
