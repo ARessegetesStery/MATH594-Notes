@@ -29,7 +29,7 @@ We now give the formal definition on vector spaces:
 \end{notation}
 
 \begin{definition}[Degree of Repr.]
-    The \textbf{degree} of the representation is $\dim_{\C}V$, with the same notation as above. 
+    The \textbf{degree} of a representation $V$ of $G$ is $\dim_{\C}V$. 
 \end{definition}
 
 \textstart
@@ -436,7 +436,7 @@ The character of a representation gives information on its properties, e.g. chec
 The following is the main theorem for character of representations:
 
 \begin{theorem}\label{thm: inner product of irred repr.}
-    If $\rho$ and $\rho'$ are non-isomorphic irreducible representations, then $\inner{\chi_{\rho}, \chi_{\rho'}} = 0$, and $\inner{\chi_{\rho}, \chi_{\rho}} = 1$.
+    Let $\rho$ and $\rho'$ be irreducible representations, then $\inner{\chi_{\rho}, \chi_{\rho'}} = 1$ if they are isomorphic, and $\inner{\chi_{\rho}, \chi_{\rho}} = 0$ otherwise.
 \end{theorem}
 
 The tools we have for such situations are Schur's result (Lemma \ref{lem: Schur}), and the averaging process which makes a linear map into a morphism of representations used in Theorem \ref{thm: decomposition of repr.}. The general strategy is to notice that we have application of $g$ both in the domain and image in the ``averaged'' representation, and $\chi(g^{-1}) = \overline{\chi(g)}$ gives the conjugacy and thus the desired form of the inner product.
@@ -489,7 +489,7 @@ The tools we have for such situations are Schur's result (Lemma \ref{lem: Schur}
     \end{itemize}
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}\label{cor: inner prod. of repr.}
     From the theorem we have the following immediate results:
     \begin{enumerate}[label=\arabic*)]
         \item The number of isomorphism classes of irreducible representations is bounded above by $\dim_{\C} \Func(G) = \abs{G}$. Notice that if $\rho_1, \dots, \rho_r$ are pairwise non-isomorphic irreducible representations, then by Theorem \ref{thm: inner product of irred repr.} $\inner{\chi_i, \chi_j} = 0$ for all $i \neq j$, i.e. they are orthonormal, and in particular linearly independent. But $\dim_{\C} \Func(G) \leq \abs{G}$, so there are at most $\abs{G}$ of them. 
@@ -516,6 +516,49 @@ The tools we have for such situations are Schur's result (Lemma \ref{lem: Schur}
             To see the ``if'' part, since $\chi_V = \chi_W$, in particular for every irreducible $G$-representation $W'$ we have $\inner{\chi_V, \chi_{W'}} = \inner{\chi_W, \chi_{W'}}$. Testing this through all non-isomorphic irreducible $G$-representations gives the irreducible decomposition of $V$ and $W$, which are the same as the inner products which gives the powers ($a_i$s as in part 3) are the same. This implies that they are actually isomorphic. 
         \end{proof}
     \end{enumerate}
+\end{corollary}
+
+\textstart
+The following provides an application of the theorem above and immediate results to the regular representation of a group, which gives a view on all the irreducible $G$-representations.
+
+Recall the regular representation is defined as $\rho^{\mathrm{reg}}: G \to \GL(\C[G])$, where $\C[G] := \bigoplus_{g \in G} \C \alpha(g)$ where $\alpha$ is a formal bijection on the group $G$. The operation is given by $\rho^{\mathrm{reg}}_h (\alpha(g)) := \alpha(gh)$.
+
+\begin{lemma}
+    The character of the regular representation is $\chi_{\rho^{\mathrm{reg}}}(g) = 0$ if $g \neq e$; and $\chi_{\rho^{\mathrm{reg}}}(e) = \dim_{\C}\C[G] = \abs{G}$.
+\end{lemma}
+
+\begin{proof}
+    Recall that the basis of $\C[G]$ is given by all the elements in $G$. In terms of matrix representations, this implies that $\rho^{\mathrm{reg}}_h$ corresponds to the $h$-$gh$ entry being 1 in the matrix for all $h \in G$. In particular, these entries contribute to the trace if and only if $gh = h$, i.e. $g = e$, in which case we have $1$s on the diagonal, giving $\Tr(\rho^{\mathrm{reg}}(g)) = \dim_{\C}(\C[G]) = \abs{G}$.
+\end{proof}
+
+\begin{proposition}\label{prop: decomposition of regular repr.}
+    Let $\rho_1, \dots, \rho_r$ be all the (non-isomorphic) irreducible $G$-representations, with their corresponding degree $d_i$. Then 
+    \[
+        \rho^{\mathrm{reg}} \simeq \bigoplus_{i = 1}^r \rho_i^{\oplus d_i}
+    \]
+\end{proposition}
+
+\begin{proof}
+    Use the result in the lemma above, we have by definition
+    \[
+        \inner{\chi_{\rho^{\mathrm{reg}}}, \chi_{\rho_i}} := \frac{1}{\abs{G}} \sum_{g \in G} \chi_{\rho^{\mathrm{reg}}}(g) \overline{\chi_{\rho_i}(g)} = \frac{1}{\abs{G}} \chi_{\rho^{\mathrm{reg}}}(e) \overline{\chi_{\rho_i}(e)} = d_i
+    \]
+    since $\chi_{\rho^{\mathrm{reg}}}$ is zero except at the identity, where it evaluates to the dimension of the vector space; and as the representation $\rho_i$ is a group homomorphism, we have $\rho_i(e) = \Id$, i.e. $\chi_{\rho_i}(e) = \Tr(\Id) = d_i$. The number of copies are then given by the decomposition according to Corollary \ref{cor: inner prod. of repr.} 2).
+\end{proof}
+
+\begin{corollary}\label{cor: check whether obtained all irred reor.}
+    Taking dimensions on the result of Proposition \ref{prop: decomposition of regular repr.} gives
+    \[
+        \abs{G} = \sum_{i = 1}^r d_i^2
+    \]
+    for $d_i$ being the degree of irreducible representation $\rho_i$. A theorem in the next section gives the fact that the number of $G$-representations is the same as the number of conjugacy classes of $G$. This equation, together with that theorem gives a tool to check whether we have found of all $G$-representations given a group $G$. 
+\end{corollary}
+
+\begin{corollary}
+    By the formula for computing the character for direct sum of representations (Proposition \ref{prop: character of direct sum and tensor product}), we have 
+    \[
+        \chi_{\rho^{\mathrm{reg}}} = \sum_{i = 1}^r d_i \chi_{\rho_i} \implies \sum_{i = 1}^r d_i \chi_{\rho_i}(g) = 0\ (\forall g \neq e)
+    \]
 \end{corollary}
 
 \section{Counting Irreducible $G$-Representations}
