@@ -94,6 +94,7 @@
 
 \def\tensor{\otimes}
 \renewcommand{\implies}{\ \ensuremath{\Longrightarrow}\ }
+\newcommand{\Ind}{\mathrm{Ind}}
 
 \def\normalin{\lhd}
 \def\normaleqin{\unlhd}
@@ -109,6 +110,7 @@
 \definecolor{darkpurple}{HTML}{5e60ce}
 \definecolor{darkgreen}{HTML}{588157}
 \definecolor{darkbrown}{HTML}{7f4f24}
+\definecolor{deepblue}{HTML}{0652DD}
 
 \def\thmstyle#1#2
 {
@@ -125,10 +127,22 @@
 }
 
 \thmstyle{darkblue}{thmbox}
-\thmstyle{darkgray}{rmkbox}
+\thmstyle{deepblue}{notationbox}
+% \thmstyle{darkgray}{rmkbox}
 \thmstyle{darkpurple}{propbox}
 \thmstyle{darkgreen}{lemmabox}
 \thmstyle{darkbrown}{examplebox}
+
+\declaretheoremstyle[
+  headfont=\bfseries\sffamily\color{darkgray!70!black!85}, bodyfont=\normalfont,
+  spaceabove=1em,
+  mdframed={
+          linewidth=2pt,
+          rightline=false, topline=false, bottomline=false,
+          linecolor=darkgray!70!black!50,
+          nobreak=false
+      }
+]{rmkbox}
 
 \declaretheorem[style=thmbox, name=Definition, numberwithin=section]{definition}
 \declaretheorem[style=thmbox, name=Definition, numbered=no]{definition*}
@@ -139,7 +153,7 @@
 \declaretheorem[style=lemmabox, name=Parenthesis, numberwithin=section, sibling=definition]{parenthesis}
 \declaretheorem[style=examplebox, name=Example, numberwithin=section, sibling=definition]{example}
 \declaretheorem[style=rmkbox, name=Remark, numberwithin=section, sibling=definition]{remark}
-\declaretheorem[style=rmkbox, name=Notation, numbered=no]{notation}
+\declaretheorem[style=notationbox, name=Notation, numbered=no]{notation}
 \declaretheorem[style=propbox, name=Proposition, numberwithin=section, sibling=definition]{proposition}
 \declaretheorem[style=examplebox, name=Corollary, numberwithin=section, sibling=definition]{corollary}
 \declaretheorem[style=thmbox, name=Problem, numberwithin=section, sibling=definition]{problem}
