@@ -141,6 +141,42 @@ This section provides tools for describing the zeros of a polynomial, and how th
 
 \section{Characteristic of a Field}
 
+\textstart
+Recall that in the first section we mentioned that there does not necessarily exist ring homomorphisms between arbitrary fields. This, as we will see in the following, implies some constraints on the structure that a field can have.
+
+Let $S$ be an integral domain. Let $\varphi: \Z \to S$ s.t. $n \mapsto n \cdot 1_S$. This is the unique ring homomorphism between $\Z$ and $S$ due to the constraint the $1$ should be mapped to 1. Since $S$ is a domain, and $\Z$ is a PID, $\ker \varphi = (d)$ for $d$ prime or zero. Then either 
+\begin{enumerate}[label=\arabic*)]
+    \item $\ker \varphi = \{0\}$; or
+    \item $\ker \varphi = p\Z$ for some $p$ prime.
+\end{enumerate}
+
+In case 1), if we suppose further that $S = k$ which is a field, then for all $n \in \Z$ $\varphi(n)$ is invertible. By the universal property of the quotient ring, this induces a ring homomorphism (which is also a field extension) $\Frac(\Z) = \Q \ext S$. 
+
+In case 2), we have an injective ring homomorphism $\Z/p\Z \ext S$ for some $p$ prime. Defining $\F_p = \Z/p\Z$, $S$ becomes an $\F_p$-algebra by the $\varphi$ above. 
+
+\begin{definition}[Characteristic]
+    For a field $k$, the \textbf{characteristic} of $k$ is
+    \[
+        \fchar(k) = 
+        \begin{cases}
+            p, & \text{if $\F_p \ext k$ (case 1)} \\
+            0, & \text{if $\Q \ext k$ (case 2)}
+        \end{cases}
+    \]
+\end{definition}
+
+\begin{remark}
+    If $S$ is an $\F_p$-algebra (case 2), the map $F: S \to S$, $u \mapsto u^p$ is the \underline{Frobenius homomorphism}. Check that this is indeed a ring homomorphism:
+    \begin{itemize}
+        \item $F(uv) = F(u) F(v)$. Clear as field is commutative: $(uv)^p = u^p v^p$.
+        \item $F(u + v) = F(u) + F(v)$. Compute: 
+        \[
+            (u + v)^p = u^p + v^p + \underbrace{\sum_{i = 1}^{p - 1} \binom{p}{i} u^{p-i} v^i}_{\text{divisible by $p$}}
+        \]
+        where the last term vanishes, as $\F_p \ext S$ should map $0$ to $0$; and $\bar{p} = \bar{0} \in \F_p$.
+    \end{itemize}
+\end{remark}
+
 \section{Algebraic Extensions}
 
 \section{The Splitting Field of a Polynomial}
