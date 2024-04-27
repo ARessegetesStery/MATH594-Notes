@@ -60,7 +60,7 @@ A class of extensions of which we are particularly interested in, is the extensi
 \textstart
 Recall that two elements $f, g$ are \underline{relative prime} if for all $p \in R$ s.t. $p \mid f$, $p \mid g$, $p$ is invertible. Then we have the following result similar to the case for integer divisibility:
 
-\begin{proposition}
+\begin{proposition}\label{prop: divisibility for relative prime polynomials}
     Let $k$ be a field, and $R = k[x]$. For $f, g, h \in R$ s.t. $f \mid gh$, if $f$ and $g$ are relative prime, then $f \mid h$.
 \end{proposition}
 
@@ -115,6 +115,29 @@ Notice that every field extension $k \ext K$ is a $k$-algebra morphism (ring hom
 \end{example}
 
 \section{Multiplicity of Root}
+
+\textstart
+This section provides tools for describing the zeros of a polynomial, and how they in general can look like. The proposition below says that any polynomial can be factored into two parts, with the first part having roots in the field; and the second part requires extension of the field to decompose completely. 
+
+\begin{definition}[Multiplicity]
+    Let $f \in k[x]$ be a nonzero polynomial for $k$ a field, and $a \in R$ a root of $f$, Then $a$ has \textbf{multiplicity} $m$ if $(x - a)^m \mid f$, but $(x - a)^{m + 1} \nmid f$.
+\end{definition}
+
+\begin{proposition}
+    If $f \in R \smallsetminus \{0\}$, and $a_1, \dots, a_r \in k$ are pairwise distinct roots of $f$ s.t. $a_i$ has multiplicity $m_i$. Then we have the decomposition of $f$: 
+    \[
+        f = \prod_{i = 1}^r (x - a_i)^{m_i} g, \qquad g \in R, \text{$g(a_i) \neq 0$ for all $i$}
+    \]
+    In particular, $\sum_{i} m_i \leq \deg f$.
+\end{proposition}
+
+\begin{proof}
+    Apply induction on $r$: 
+    \begin{itemize}
+        \item \emph{Base case.} Then $m_1$ is the maximal integer satisfying the condition that $(x - a_1)^{m_1} \mid f$. Then define $g$ be such that $f = (x - a_1)^{m_1} g$. 
+        \item \emph{Inductive step.} For $r \geq 2$,  denote $f_1$ be the polynomial s.t. $f = (x - a_1)^{m_1} f_1$. Notice that for all $i$ s.t. $2 \leq i \leq r$, we have $(x - a_i)^{m_i} \mid f$. Then since $(x - a_i)$ and $(x - a_1)$ are relative prime (they are both irreducible) by Proposition \ref{prop: divisibility for relative prime polynomials} we have $(x - a_i)^{m_i} \mid f_1$. Then applying inductive hypothesis gives the desired decomposition of $f$. 
+    \end{itemize}
+\end{proof}
 
 \section{Characteristic of a Field}
 
