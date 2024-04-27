@@ -25,6 +25,7 @@
 \RequirePackage{xspace}
 \RequirePackage{enumitem}
 \RequirePackage{wasysym}
+\RequirePackage[new]{old-arrows}
 
 \RequirePackage{thmtools}
 
@@ -102,6 +103,7 @@
 \def\Stab{\mathrm{Stab}}
 \def\Fix{\mathrm{Fix}}
 \def\ab{\mathrm{ab}}
+\def\ext{\varlonghookrightarrow}
 
 \theoremstyle{definition}
 
@@ -164,7 +166,8 @@
                                    {3ex \@plus.2ex}%
                                    {\normalfont\Large\bfseries}}
 
-\def\textstart{\vspace*{-1em}}
+\newcommand{\nogap}[0]{\vspace{-16pt}}
+\newcommand{\textstart}[0]{\vspace*{-1em}}
 
 \geometry{a4paper,left=0.5in,right=0.5in,top=1in,bottom=1in}
 \linespread{1.4}

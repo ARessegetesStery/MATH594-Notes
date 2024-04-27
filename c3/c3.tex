@@ -9,6 +9,111 @@
 
 \section{Review of Ring Theory}
 
+\textstart
+The Galois Theory originates from the question: Given a polynomial with coefficients in a field (e.g. $\Q$), we want to understand the property of its solutions, and the algebraic structure in which the root lies. This section lays some fundamental notions and results for introducing the whole theory.
+
+Setup the convention. All rings have unit element 1; and all ring homomorphisms map 1 to 1. Inclusion maps, in particular, implies that all subrings of a certain ring must include 1.
+
+\begin{remark}
+    An immediate result is that finite domains are fields.
+
+    Recall that a ring $R$ is a domain if and only if zero does not have non-trivial divisors. That is, for all $x, y \in R \smallsetminus \{0\}$, $xy = 0$. For $a \in R$, $a \neq 0$, consider the map 
+    \[
+        \varphi: R \to R \qquad x \mapsto ax
+    \]
+    Since $R$ is a domain $\varphi$ maps nonzero elements to nonzero elements, which implies that there exists some $x_a$ s.t. $a x_a = 1$. This gives an inverse of $a$.
+\end{remark}
+
+\begin{proposition}
+    If $f: K \to R$ is a ring homomorphism, and $K$ is a field. Then $R \neq \{0\}$ implies that $f$ is injective.
+\end{proposition}
+
+\begin{proof}
+    Recall that the kernel of a particular ring homomorphism is an ideal. Denote $I = \ker (f) \subseteq K$. Suppose that $a \in I$ s.t. $a$ is nonzero. Then $a^{-1} \in I$ which gives $I = (1) = K \implies f(I) = 0$. But as we requre $f(1) = 1_R \implies 1_R = 0_R$, i.e. $R = \{0\}$ which is a contradiction.
+\end{proof}
+
+\begin{corollary}
+    In particular, ring homomorphisms between fields (field extensions) $K \to L$ are injective. Not all fields have extensions (ring homomorphisms) between them.
+\end{corollary}
+
+\textstart
+A class of extensions of which we are particularly interested in, is the extension which gives polynomial a root. $f \in K[x]$ may not have a root; and by extending it $K[x] \ext L[x]$ we may consider roots of $f \in L[x]$ which may have a root.
+
+\begin{proposition}
+    Let $k$ be a field, and $R = k[X]$. Let $f \in R \smallsetminus \{0\}$. Then the followings are equivalent:
+    \begin{enumerate}[label=\arabic*)]
+        \item $f$ is irreducible.
+        \item $(f)$ is a prime ideal.
+        \item $(f)$ is a maximal ideal.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Prove the implications cyclically:
+    \begin{itemize}
+        \item \emph{3) \implies 2).} It is a general fact that maximal ideals are prime. Prove the contrapositive: suppose that an ideal $(f) \subset R$ is not prime, then there exists $a, b \in R$ s.t. $ab \in (f)$ and neither $a$ and $b$ are in $(f)$. Then $(f) \subset (a) \subset R$ which implies that $(f)$ is not maximal.
+        \item \emph{2) \implies 1).} $(f)$ being a prime ideal in $R$ implies that in particular $(f) \neq R$, i.e. $f$ is not invertible. Suppose that there exists $g, h$ not invertible s.t. $f = gh$. Without loss of generality, assume that $g \in (f)$. Then there exists some $u \in R$ s.t. $g = fu$. Multiply on the right by $h$ gives $f = gh = fuh$ which implies that $h$ is invertible, giving a contradiction.
+        \item \emph{3) \implies 1).} $f$ being irreducible implies that $f$ is not invertible, i.e. $(f) \neq R$. Suppose that there exists some maximal ideal $J$ s.t. $(f) \subset J \subset R$. Then since maximal ideals are in particular prime, $J = (g)$ for some $g \in R$. But then this implies that $f = gu$ giving that $u$ is invertible, and therefore $(f) = J$, which is a contradiction.
+    \end{itemize}
+\end{proof}
+
+\textstart
+Recall that two elements $f, g$ are \underline{relative prime} if for all $p \in R$ s.t. $p \mid f$, $p \mid g$, $p$ is invertible. Then we have the following result similar to the case for integer divisibility:
+
+\begin{proposition}
+    Let $k$ be a field, and $R = k[x]$. For $f, g, h \in R$ s.t. $f \mid gh$, if $f$ and $g$ are relative prime, then $f \mid h$.
+\end{proposition}
+
+\begin{proof}
+    Since $k$ is a field, $k[x]$ is a PID (as every element in the coefficient is invertible, for $a, b$ relative prime $(a, b) = (1) = k[x]$). Consider $I = (f, g) \subseteq R$. Since $I$ is principal, $I = (p)$ for some $p \in k[x]$. Therefore $p \mid f$, $p \mid g$, which implies that $p$ is invertible. Then $I = R$. This gives that there exists $A, B \in R$ s.t. $Af + Bg = 1$. Multiplying $h$ on the right gives $Afh + Bgh = h$. Since $f$ divides LHS, $f \mid h$.
+\end{proof}
+
+\begin{proposition}
+    Let $k$ be a field, and $R = k[x]$. If $f \in R \smallsetminus \{0\}$, and denoting $d = \deg f$, then there exists field extensions $k \ext L$ and $a_1, \dots, a_d \in L$, $c \in k$ s.t. $f = c(x - a_1)\cdots (x - a_d)$ in $L[x]$.
+\end{proposition}
+
+\begin{proof}
+    THe key step is to show that if $f$ is irreducible in $R$, then there exists a field extension $k \ext k'$ s.t. $f$ has a root in $k'$.
+
+    Consider $k' = k[x]/(f)$. Since $f$ is irreducible, $(f)$ is a maximal ideal in $R$, and therefore $k'$ is a field. Since elements in $k$ are of degree 0 in $k[x]$. Considering $k \too k[x] \too k' := k[x]/(f)$ gives the injective ring homomorphism (field extension). Let $a = \overline{x} \in k'$. Then $f(a) = \overline{f(x)} = 0$, which implies that $a$ is a root of $f$.
+
+    Proceed the rest of the proof by induction: 
+    \begin{itemize}
+        \item \emph{$d = 0$.} This is the trivial case.
+        \item \emph{$d = 1$.} Then $f = c(x - a)$ for some $c, a \in k$.
+        \item \emph{$d \geq 2$.} Apply the above steps iteratively. Then there exists some $a \in k'$ s.t. $(x - a) \mid f$, i.e. in $k'[x]$ we have the decomposition $f = (x - a) g$ for some $g \in k'[x]$ with $\deg g = \deg f - 1$. Applying the inductive hypothesis (the results holds in lower degrees) gives the full decomposition in $L := k'$. 
+    \end{itemize}
+\end{proof}
+
+\begin{notation}
+    Denote the image of the map $(k[y] \to k, y \mapsto a)$ by $k[a]$. This is the smallest $k$-algebra containing $a$.
+\end{notation}
+
+\begin{proposition}
+    Let $k$ be a field, and $R = k[x]$. Let $f \in R \smallsetminus \{0\}$ be irreducible. Suppose that we have the field extension $k \ext K$, and $a \in K$ is a root of $f$. Then $k[a] \simeq k[x]/(f)$. In particular, $k[a]$ is a field.
+\end{proposition}
+
+\begin{proof}
+    Consider the ring homomorphism $\varphi: k[y] \to K$ s.t. $\varphi(y) = a$. Then by the First Isomorphism Theorem, we have $k[a] = \im \varphi \simeq k[x]/\ker \varphi \simeq k[x]/(f)$ since $f(a) = 0$. 
+\end{proof}
+
+\textstart
+Notice that every field extension $k \ext K$ is a $k$-algebra morphism (ring homomorphisms that are $k$-linear). Since $k$ is a field, this gives $K$ a $k$-vector space structure.
+
+\begin{definition}[Degree]
+    The \textbf{degree} of the field extension $k \ext K$ is $\dim_k K \in \Z_{\geq 0}$ or infinite. 
+\end{definition}
+\nogap
+\begin{definition}[Finite]
+    A field extension is \textbf{finite} if the degree of it is finite. 
+\end{definition}
+
+\begin{example}
+    If $f \in k[x]$ is irreducible, and $K = k[x]/(f)$, then $[K : k] = \deg f$. More generally, if $g \in k[x]$ is a nonzero polynomial, then $\dim_k(k[x]/(g)) = \deg g$.
+
+    This can be seen via applying the division algorithm (since $K[x]$ is an Euclidean Domain. This can be seen via computing the division). Then for all $P \in k[x]$, there exists unique $Q, R \in k[x]$ s.t. $P = gQ + R$, with $\deg R < \deg g$. Then since $\overline{P} = \overline{R}$ in $k[x]/(g)$, $\{ \bar{1}, \bar{x}, \dots, \overline{x^{\deg g - 1}} \}$ gives a basis of $k[x]/(g)$ over $k$.
+\end{example}
+
 \section{Multiplicity of Root}
 
 \section{Characteristic of a Field}
