@@ -266,7 +266,7 @@ The field extensions originating solely from ``including the roots of polynomial
     Therefore, $\Q(\sqrt{d})$ can be seen as a $\Q$-vector space, which has a basis $\{1, \sqrt{Q}\}$, i.e. $\Q(\sqrt{d}) = \{ a + b \sqrt{d} \mid a, b \in \Q \}$. In particular we have $\dim_{\Q} \Q(\sqrt{d}) = 2$ as $\deg f = 2$, resulting from Remark \ref{rmk: degree of minimal polynomial gives degree of extension}.
 \end{example}
 
-\begin{proposition}
+\begin{proposition}\label{prop: finite extensions are algebraic}
     Every finite extension $K/k$ is algebraic. 
 \end{proposition}
 
@@ -274,12 +274,12 @@ The field extensions originating solely from ``including the roots of polynomial
     Denote $[K : k] = n$ which is finite. Regarding $K$ as a $k$-vector space, for all $a \in K$ the set of elements $\{ 1, a, \dots, a^n \}$ are linearly dependent (as there are $(n+1)$ of them). That is, there exists $c_0, \dots, c_n \in k$ s.t. $c_0 + c_1 a + \cdots + c_n a^n = 0$; and $f = c_0 + c_1 x + \cdots + c_n x^n \in k[x] \smallsetminus \{0\}$. This gives a polynomial $f \in k[x]$ s.t. $f(a) = 0$, i.e. $a$ is algebraic. Since $a \in K$ can be taken arbitrarily, we have $K/k$ being algebraic. 
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop: finitely generated algebraic extensions are finite}
     Let $k \ext K$ be a field extension, and $a_1, \dots, a_n \in K$ are algebraic over $k$. Then $k[a_1, \dots, a_n] = k(a_1, \dots, a_n)$; and $k(a_1, \dots, a_n)$ is a finite extension over $k$. 
 \end{proposition}
 
 \begin{proof}
-    Remark \ref{rmk: algebraic implies k[a] = k(a)} gives the case for $n = 1$ $k[a] = k(a)$, and Remark \ref{rmk: degree of minimal polynomial gives degree of extension} (using minimal polynomial) gives that the extension is finite. 
+    Remark \ref{rmk: algebraic implies k[a] = k(a)} gives the case for $n = 1$, $k[a] = k(a)$, and Remark \ref{rmk: degree of minimal polynomial gives degree of extension} (using minimal polynomial) gives that the extension is finite. 
 
     For $n \geq 2$, repeat the argument with the induction hypothesis. First by definition we have $k[a_1, \dots, a_n] = (k[a_1, \dots, a_{n-1}]) [a_n]$; and the same holds for the field extension version (replace brackets with parentheses). Further finite extensions are transitive, by Proposition \ref{prop: degree of composition of field extensions}. Suppose now that $k' = k[a_1, \dots, a_{n-1}] = k(a_1, \dots, a_{n-1})$ is a finite extension over $k$. Then $k[a_1, \dots, a_n] = k'[a_n] = k'(a_n) = k(a_1, \dots, a_n)$ is finite over $k'$; and by hypothesis we know $k'[a_n]$ is finite over $k$ since $k'$ is. 
 \end{proof}
@@ -287,6 +287,72 @@ The field extensions originating solely from ``including the roots of polynomial
 \begin{corollary}
     Finitely generated algebraic field extensions are finite.
 \end{corollary}
+
+\begin{proposition}
+    If $k \ext K \ext L$ are both algebraic field extensions, then so is $k \ext L$.
+\end{proposition}
+
+\begin{proof}
+    Use the above two propositions. Let $a \in L$. Since $L/K$ is algebraic, there exists $f \in K[x] \smallsetminus \{0\}$ s.t. $f(a) = 0$. Let $f = c_0 + c_1 x + \cdots + c_n x^n$, and $k' = k(c_0, \dots, c_n)$. Since all $c_0, \dots, c_n \in K$ are algebraic over $k$, Proposition \ref{prop: finitely generated algebraic extensions are finite} implies that $k'$ is a finite extension over $k$. Further since $a$ is algebraic over $k'$, the extension $k' \ext k'(a)$ is also finite. Proposition \ref{prop: finite extensions are algebraic} implies that the extension $k \ext k'(a)$ is algebraic. That is, $a$ is algebraic over $k$.
+
+    Since this holds for all $a \in L$, the extension $L/k$ is algebraic.
+\end{proof}
+
+\begin{proposition}\label{prop: algebraic closure is a field}
+    If $k \ext K$ is a field extension, then $k' = \{a \in K \mid \text{$a$ algebraic over $k$}\}$ is a subfield of $K$ containing $k$,
+\end{proposition}
+
+\begin{proof}
+    To prove this we need to check:
+    \begin{itemize}
+        \item $k \subseteq k'$. This is clear from the construction of the field.
+        \item $k'$ is closed under additive and multiplicative inverse. 
+        
+        $a \in k'$ implies $-a \in k'$ as $-a$ is the root of a polynomial via considering the minimal polynomial and inverting the corresponding coefficients. $a \in k' \smallsetminus \{0\}$ implies $a^{-1} \in k' \smallsetminus \{0\}$ since $k[a] = k(a)$ as $k(a)$ is finitely generated, and therefore finite and algebraic. $k(a)$ is a field, implying that $a^{-1} \in k(a)$.
+        \item $k'$ is closed under addition and multiplication. That is, for all $a, b \in k'$, $a + b \in k'$ and $ab \in k'$.
+
+        Consider the field $k(a, b)$. Since both $a$ and $b$ are algebraic over $k$, $k(a, b)/k$ is finite by Proposition \ref{prop: finitely generated algebraic extensions are finite}; and by Proposition \ref{prop: finite extensions are algebraic} the extension is algebraic. By definition $k(a, b) \subseteq k'$; and is the smallest field containing both $a$ and $b$; and therefore both $a + b$ and $ab$ are in $k'$.
+    \end{itemize}
+\end{proof}
+
+\begin{definition}[Algebraic Closure]
+    For a field $k$ with field extension $k \ext K$, the field $k' = \{a \in K \mid \text{$a$ algebraic over $k$}\}$ is the \textbf{algebraic closure} of $k$ in $K$. By the above Proposition \ref{prop: algebraic closure is a field}, this is indeed a field.
+\end{definition}
+\nogap
+\begin{definition}[Algebraically Closed]
+    A field $k$ is \textbf{algebraically closed} if every nonzero polynomial over $k$ has a \mbox{root in $k$.}
+\end{definition}
+% using \mbox to suppress newline (otherwise there will be a lagging $k$ in the new line)
+
+\begin{remark}
+    By induction, if $f$ is a nonzero polynomial in $k[x]$ with degree $n$< then there exists $a_1, \dots, a_n \in k$, $c \in k^{\ast}$ s.t. $f = c(x - a_1) \cdots (x - a_k)$. That is, every irreducible polynomial has degree 1.
+\end{remark}
+
+\begin{notation}
+    For a field $k$, the set of invertible (nonzero) elements in it are often denoted as $k^{\ast}$ or $k^{\times}$.
+\end{notation}
+
+\begin{proposition}
+    A field $k$ is algebraically closed if and only if for all field extensions $k \ext K$, for all $a \in K \smallsetminus k$, $a$ is transcendental over $k$.
+\end{proposition}
+
+\begin{proof}
+    Prove implication in two directions:
+    \begin{itemize}
+        \item[$\Rightarrow$:] Suppose that $k$ is algebraically closed, and $a \in K \smallsetminus k$ algebraic over $k$. Then by definition there exists an irreducible polynomial $f \in k[x]$ s.t. $f(a) = 0$. Since $k$ is algebraically closed, the irreducible polynomials are of degree 1, i.e. $\deg f = 1$. Then $a \in k$, which is a contradiction.
+        \item[$\Leftarrow$:] Suppose that for all $a \in K \smallsetminus k$, $a$ is transcendental. Proceed to prove that $k$ is algebraically closed by showing that every irreducible polynomial has a root. 
+        
+        Consider $f \in k[x] \smallsetminus \{0\}$. Consider $K = k[x]/(f)$. Then since $f(\bar{x}) = 0$, $\bar{x}$ is algebraic over $k$. But since all elements in $K \smallsetminus k$ are transcendental, $\bar{x} \in k$. Then in $K$ we have $\bar{x} - a = 0$, for some $a \in k$. Then $f(x) = x - a$ in $K[x]$ which has a root $a$; and as this holds for all $f$, $k$ is algebraically closed.
+    \end{itemize}
+\end{proof}
+
+\textstart
+In summary, a field $k$ being algebraically closed is equivalent to the following conditions:
+\begin{enumerate}[label=\arabic*)]
+    \item For all field extensions $k \ext K$, either $k \simeq K$, or the extension is not algebraic. 
+    \item For all $f \in k[x] \smallsetminus \{0\}$, $f$ factors as a product of polynomials of degree 1.
+    \item Every irreducible $f \in k[x] \smallsetminus \{0\}$ has a root in $k$. 
+\end{enumerate}
 
 \section{The Splitting Field of a Polynomial}
 
