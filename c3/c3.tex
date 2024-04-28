@@ -39,6 +39,10 @@ Setup the convention. All rings have unit element 1; and all ring homomorphisms 
 \textstart
 A class of extensions of which we are particularly interested in, is the extension which gives polynomial a root. $f \in K[x]$ may not have a root; and by extending it $K[x] \ext L[x]$ we may consider roots of $f \in L[x]$ which may have a root.
 
+\begin{notation}
+    A field extension $k \ext K$ is also denoted as $K/k$. These two notations will be used interchangeably.
+\end{notation}
+
 \begin{proposition}
     Let $k$ be a field, and $R = k[X]$. Let $f \in R \smallsetminus \{0\}$. Then the followings are equivalent:
     \begin{enumerate}[label=\arabic*)]
@@ -85,7 +89,7 @@ Recall that two elements $f, g$ are \underline{relative prime} if for all $p \in
     \end{itemize}
 \end{proof}
 
-\begin{notation}
+\begin{notation}\label{not: extending field by algebra}
     Denote the image of the map $(k[y] \to k, y \mapsto a)$ by $k[a]$. This is the smallest $k$-algebra containing $a$.
 \end{notation}
 
@@ -101,18 +105,18 @@ Recall that two elements $f, g$ are \underline{relative prime} if for all $p \in
 Notice that every field extension $k \ext K$ is a $k$-algebra morphism (ring homomorphisms that are $k$-linear). Since $k$ is a field, this gives $K$ a $k$-vector space structure.
 
 \begin{definition}[Degree]
-    The \textbf{degree} of the field extension $k \ext K$ is $\dim_k K \in \Z_{\geq 0}$ or infinite. 
+    The \textbf{degree} of the field extension $k \ext K$, denoted $[K : k]$, is $\dim_k K \in \Z_{\geq 0}$ or infinite. 
 \end{definition}
 \nogap
 \begin{definition}[Finite]
     A field extension is \textbf{finite} if the degree of it is finite. 
 \end{definition}
 
-\begin{example}
+\begin{remark}\label{rmk: degree of minimal polynomial gives degree of extension}
     If $f \in k[x]$ is irreducible, and $K = k[x]/(f)$, then $[K : k] = \deg f$. More generally, if $g \in k[x]$ is a nonzero polynomial, then $\dim_k(k[x]/(g)) = \deg g$.
 
     This can be seen via applying the division algorithm (since $K[x]$ is an Euclidean Domain. This can be seen via computing the division). Then for all $P \in k[x]$, there exists unique $Q, R \in k[x]$ s.t. $P = gQ + R$, with $\deg R < \deg g$. Then since $\overline{P} = \overline{R}$ in $k[x]/(g)$, $\{ \bar{1}, \bar{x}, \dots, \overline{x^{\deg g - 1}} \}$ gives a basis of $k[x]/(g)$ over $k$.
-\end{example}
+\end{remark}
 
 \section{Multiplicity of Root}
 
@@ -178,6 +182,111 @@ In case 2), we have an injective ring homomorphism $\Z/p\Z \ext S$ for some $p$ 
 \end{remark}
 
 \section{Algebraic Extensions}
+
+\textstart
+The field extensions originating solely from ``including the roots of polynomials'' are the nice ones and deserve a better name. The discussions formalizes the concept of ``algebraic closure'' in elementary discussions of polynomials.
+
+\begin{proposition}\label{prop: degree of composition of field extensions}
+    If $k \ext K \ext L$ is a field extension, then $[L:k] = [L:K][K:k]$.
+\end{proposition}
+
+\begin{proof}
+    First consider the cases where one of the degrees is infinite: 
+    \begin{itemize}
+        \item If $[K : k]$ is infinite, then $[L : k]$ is infinite as $K \subseteq L$ is a $K$-vector subspace of $L$. 
+        \item If $[L : K]$ is infinite, then there exists an infinite set of elements which are linearly independent over $K$, which are also linearly independent over $k$ since $k \subseteq K$.
+    \end{itemize}
+    Now consider the case where both $[L:K]$ and $[K:k]$ are finite. Denote $m = [L:K]$ and $n = [K:k]$. Denote $\{a_1, \dots, a_m\}$ be a basis of $L$ over $K$, and $\{b_1, \dots, b_n\}$ be a basis of $K$ over $k$. Notice that $\{a_i b_j \mid 1 \leq i \leq m, 1 \leq j \leq n\}$ gives a basis for $L$ over $k$, as for all $u \in L$, there exists $\lambda_i \in K$, and thus $\mu_{ij} \in k$ s.t.
+    \[
+        u = \sum_{i = 1}^n \lambda_i b_i = \sum_{i, j} \mu_{ij} a_j b_i, \qquad \text{for $\lambda_i = \sum_{j} \mu_{ij} a_j \mu_{ij}$}
+    \]
+    which is a decomposition. They are further linearly independent, as for $u = 0$, since $b_i$s give a basis, $\lambda_i = 0$ for all $i$, and therefore $\mu_{ij} = 0$ for all $i$ and $j$.
+\end{proof}
+
+\begin{notation}\label{not: extending field by field}
+    Let $k \ext K$ bea field extension, and $A \subseteq K$ a subset. Then we denote
+    \[
+        k(A) := \cap_{A \subseteq k'} \left\{ k' \mid k \ext k' \ext K \text{ extension} \right\}
+    \]
+    which is the smallest field sub-extension of $k$ inside $K$ containing $A$. 
+\end{notation}
+
+\begin{remark}
+    It is worth mentioning that this is different from $k[A]$ which is the smallest \emph{$k$-subalgebra} containing $A$:
+    \begin{itemize}
+        \item They are related via $k(A) = \Frac(k[A])$. They are equal in some ``nice'' extensions (see Remark \ref{rmk: algebraic implies k[a] = k(a)} below).
+        
+        By definition we have $k[A] \subseteq k(A)$, as $k[A]$ is only required to be a $k$-algebra instead of a field extension of $k$ (as field extending $k$ can be seen as $k$-vector spaces, which are in particular $k$-algebras). By the universal property of fraction fields, we have $\Frac(k[A]) \subseteq k(A)$, as ring homomorphisms between fields are injective, and by definition for all $f \in k[A]$, $f$ has an inverse in $k(A)$. Further since $A \subseteq \Frac(k[A])$ (also by definition, we have $k(A) = \Frac{k[A]}$).
+        \item Considering multiple elements, we can extend the \hyperref[not: extending field by algebra]{previous notation}, by considering for $A = \{a_1, \dots, a_n\}$, then $k[A] = \im \varphi$ for
+        \[
+            \varphi: k[x_1, \dots, x_n] \to K, \qquad x_i \mapsto a_i
+        \]
+    \end{itemize}
+\end{remark}
+
+\begin{definition}[Finite Generated]
+    A field extension $K/k$ is \textbf{finitely generated} if there exists $a_1, \dots, a_n \in K$ s.t. \newline $k(a_1, \dots, a_n) = K$.
+\end{definition}
+
+\begin{remark}
+    If a field extension $K/k$ is finite, then it is also finitely generated, as $K/k$ being finite implies that there exists some finite basis of $K$ over $k$; and picking one gives the elements that ``finitely generates'' $K$. However, the converse is not true: consider $k \ext k(x) = \Frac(k[x])$ is finitely generated (by $x$) but is not finite (we have the infinite set $\{ x^i \mid i \in \Z \}$ whose elements are linearly independent over $k$)
+\end{remark}
+
+\begin{definition}[Algebraic; Transcendental]
+    Let $k \ext K$ be a field extension. An element $a \in K$ is \textbf{algebraic over $k$} if there exists $f \in k[x] \smallsetminus \{0\}$ s.t. $f(a) = 0$ in $K[x]$. Otherwise $a$ is \textbf{transcendental}. An extension $K/k$ is \textbf{algebraic} if for all $a \in K$, it is algebraic over $k$.
+\end{definition}
+
+\begin{remark}
+    Consider the field extensions $k \ext K \ext L$. Then if $a \in L$ is algebraic over $k$, then $a$ is also algebraic over $K$, as $a$ algebraic over $k$ implies that there exists $f \in k[x]$ s.t. $f(a) = 0$; and by definition we also have $f \in K[x]$.
+\end{remark}
+
+\begin{remark}\label{rmk: kernel of evaluation is prime}
+    Given a field extension $k \ext K$, and $a \in K$. Then $a$ is algebraic if and only if the $\varphi: k[x] \to k, x \mapsto a$ has a non-trivial kernel. This is the direct translation of having a polynomial $f$ with $a$ as its root. Then $\ker \varphi$ is a prime ideal.
+        
+    To prove this, it suffices to show that $k[x]/(\ker \varphi)$ is a domain. This is indeed the case, as $k[x]$ is a domain: for all $g, h \in k[x]$, $g(a) \neq 0$ and $h(a) \neq 0$ implies that $gh(a) \neq 0$, i.e. $gh \notin \ker \varphi$ ($gh \neq \bar{0}$ in $k[x]/(\ker \varphi)$). Therefore, there exists some $f$ s.t. $\ker \varphi = (f)$.
+\end{remark}
+
+\begin{definition}[Minimal Polynomial]
+    $f \in k[x]$ is the \textbf{minimal polynomial} of $a \in K$ if for $\varphi: k[x] \to K$, $x \mapsto a$, $\ker \varphi = (f)$. This is well-defined by the above Remark (Remark \ref{rmk: kernel of evaluation is prime}).
+\end{definition}
+
+\begin{remark}\label{rmk: algebraic implies k[a] = k(a)}
+    For $a$ being algebraic, $f$ is a maximal ideal (by the fact that $k[x]/(\ker \varphi)$ is a domain). Then $k[a] = k[x]/(\ker \varphi)$ is a field. This gives $k[a] = k(a)$.
+\end{remark}
+
+\begin{remark}
+    Given field extension $K/k$, if $a \in K$ is transcendental over $k$, then $k[a] \simeq k[x]$, as since there is no polynomial with root $a$ implies that $k[a]$ can be seen as injecting a formal variable to the field $k[x]$. This further implies $k(a) \simeq k(x)$ (as $k(a) \simeq \Frac(k[a])$; and same for $x$).
+\end{remark}
+
+\begin{example}
+    Suppose that $d \in \Z$ is not a square, and let $a = \sqrt{d}$. Consider the field extension $\Q \to \C$.
+    
+    Since $a$ is not in $\Q$, $a$ cannot be a root of degree 1 polynomials, i.e. the minimal polynomial of $a$ must be of degree at least 2; and we have $a$ as a root of $x^2 - d = 0$, the minimal polynomial of $a$ over $k$ is $x^2 - d = 0$, which also implies that $a$ is algebraic over $\Q$.
+
+    Therefore, $\Q(\sqrt{d})$ can be seen as a $\Q$-vector space, which has a basis $\{1, \sqrt{Q}\}$, i.e. $\Q(\sqrt{d}) = \{ a + b \sqrt{d} \mid a, b \in \Q \}$. In particular we have $\dim_{\Q} \Q(\sqrt{d}) = 2$ as $\deg f = 2$, resulting from Remark \ref{rmk: degree of minimal polynomial gives degree of extension}.
+\end{example}
+
+\begin{proposition}
+    Every finite extension $K/k$ is algebraic. 
+\end{proposition}
+
+\begin{proof}
+    Denote $[K : k] = n$ which is finite. Regarding $K$ as a $k$-vector space, for all $a \in K$ the set of elements $\{ 1, a, \dots, a^n \}$ are linearly dependent (as there are $(n+1)$ of them). That is, there exists $c_0, \dots, c_n \in k$ s.t. $c_0 + c_1 a + \cdots + c_n a^n = 0$; and $f = c_0 + c_1 x + \cdots + c_n x^n \in k[x] \smallsetminus \{0\}$. This gives a polynomial $f \in k[x]$ s.t. $f(a) = 0$, i.e. $a$ is algebraic. Since $a \in K$ can be taken arbitrarily, we have $K/k$ being algebraic. 
+\end{proof}
+
+\begin{proposition}
+    Let $k \ext K$ be a field extension, and $a_1, \dots, a_n \in K$ are algebraic over $k$. Then $k[a_1, \dots, a_n] = k(a_1, \dots, a_n)$; and $k(a_1, \dots, a_n)$ is a finite extension over $k$. 
+\end{proposition}
+
+\begin{proof}
+    Remark \ref{rmk: algebraic implies k[a] = k(a)} gives the case for $n = 1$ $k[a] = k(a)$, and Remark \ref{rmk: degree of minimal polynomial gives degree of extension} (using minimal polynomial) gives that the extension is finite. 
+
+    For $n \geq 2$, repeat the argument with the induction hypothesis. First by definition we have $k[a_1, \dots, a_n] = (k[a_1, \dots, a_{n-1}]) [a_n]$; and the same holds for the field extension version (replace brackets with parentheses). Further finite extensions are transitive, by Proposition \ref{prop: degree of composition of field extensions}. Suppose now that $k' = k[a_1, \dots, a_{n-1}] = k(a_1, \dots, a_{n-1})$ is a finite extension over $k$. Then $k[a_1, \dots, a_n] = k'[a_n] = k'(a_n) = k(a_1, \dots, a_n)$ is finite over $k'$; and by hypothesis we know $k'[a_n]$ is finite over $k$ since $k'$ is. 
+\end{proof}
+
+\begin{corollary}
+    Finitely generated algebraic field extensions are finite.
+\end{corollary}
 
 \section{The Splitting Field of a Polynomial}
 
