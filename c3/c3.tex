@@ -93,7 +93,7 @@ Recall that two elements $f, g$ are \underline{relative prime} if for all $p \in
     Denote the image of the map $(k[y] \to k, y \mapsto a)$ by $k[a]$. This is the smallest $k$-algebra containing $a$.
 \end{notation}
 
-\begin{proposition}
+\begin{proposition}\label{prop: existence of field extending root of polynomial}
     Let $k$ be a field, and $R = k[x]$. Let $f \in R \smallsetminus \{0\}$ be irreducible. Suppose that we have the field extension $k \ext K$, and $a \in K$ is a root of $f$. Then $k[a] \simeq k[x]/(f)$. In particular, $k[a]$ is a field.
 \end{proposition}
 
@@ -288,7 +288,7 @@ The field extensions originating solely from ``including the roots of polynomial
     Finitely generated algebraic field extensions are finite.
 \end{corollary}
 
-\begin{proposition}
+\begin{proposition}\label{prop: transitivity of algebraic extensions}
     If $k \ext K \ext L$ are both algebraic field extensions, then so is $k \ext L$.
 \end{proposition}
 
@@ -315,7 +315,7 @@ The field extensions originating solely from ``including the roots of polynomial
     \end{itemize}
 \end{proof}
 
-\begin{definition}[Algebraic Closure]
+\begin{definition}[Algebraic Closure]\label{def: algebraic closure with ambient field}
     For a field $k$ with field extension $k \ext K$, the field $k' = \{a \in K \mid \text{$a$ algebraic over $k$}\}$ is the \textbf{algebraic closure} of $k$ in $K$. By the above Proposition \ref{prop: algebraic closure is a field}, this is indeed a field.
 \end{definition}
 \nogap
@@ -353,6 +353,97 @@ In summary, a field $k$ being algebraically closed is equivalent to the followin
     \item For all $f \in k[x] \smallsetminus \{0\}$, $f$ factors as a product of polynomials of degree 1.
     \item Every irreducible $f \in k[x] \smallsetminus \{0\}$ has a root in $k$. 
 \end{enumerate}
+
+Recall that we have the \hyperref[def: algebraic closure with ambient field]{algebraic closure in a specific field}. The following theorem seeks to construct such closure without any ambient structure:
+
+\begin{theorem}\label{thm: algebraic closure exists}
+    Given any field $k$, there exists an algebraic extension $k \ext \bar{k}$ s.t. $\bar{k}$ is algebraically closed. Such an extension is an \underline{algebraic closure} of $k$.
+\end{theorem}
+
+\begin{parenthesis}[Direct Limit (of rings)]\label{pth: direct limit}
+    To provide the construction of an algebraic closure, the main step is to iteratively include the roots of the some irreducible polynomials; and we need to ensure that this process terminates. That is, there exists a field containing all the intermediate fields on which we conducted the extension. This parenthesis formalizes this idea.
+
+    \begin{definition}[Directed Set]
+        $(I, \leq)$ is a \textbf{directed set} if for all $i, j \in I$ there exists $k \in I$ s.t. $i \leq k$ and $j \leq k$.
+    \end{definition}
+
+    \begin{definition}[Direct System]
+        Given a directed set $I$, a \textbf{direct system} $(R_i)_{i \in I}$ is a family of rings $R_i$ satisfying:
+        \begin{itemize}
+            \item For all $i \leq j$ in $I$, there exists a ring homomorphism $\varphi_{ij}: R_i \to R_j$; and $\varphi_{ii} = \Id_{R_i}$.
+            \item For all $i \leq j \leq k$ in $I$, the ring homomorphisms above satisfy $\varphi_{ik} = \varphi_{jk} \circ \varphi_{ij}$.
+        \end{itemize}
+    \end{definition}
+
+    \begin{definition}[Direct Limit]
+        Given a direct system $(R_i)_{i \in I}$, the \textbf{direct limit} of the system, denoted $R = \varinjlim R_i$, together with a family of ring homomorphisms $f_i: R_i \to R$ s.t.
+        \begin{itemize}
+            \item $f_j \circ \varphi_{ij} = f_i$.
+            \item The pair $(R, (f_i)_{i \in I})$ is universal with this property, i.e. every ring homomorphism from $R_i$ for all $i$ factors uniquely through $R$. That is, for any ring $T$ and family of ring homomorphisms $g_i: R_i \to T$ s.t. $g_j \circ \varphi_{ij} = g_i$ (the $g_i$s are compatible w.r.t. the system), there exists a unique ring homomorphism $g: R \to T$ s.t. $g \circ f_i = g_i$ for all $i$.
+        \end{itemize}
+    \end{definition}
+
+    The direct limit exists, by considering the class of elements that are closed along the morphisms of $R_i$s: define $R := \left(\bigsqcup_{i \in I} R_i\right)/\sim$, where the equivalence relation $\sim$ is given by $R_i \ni x_i \sim \varphi_{ij}(x_i)$. The operations are given by for $a_i \in R_i$ and $b_j \in R_j$, finding $k$ s.t. $i \leq k$ and $j \leq k$ (which exists as $I$ is a directed set), and define:
+    \[
+        a_i + b_j := \varphi_{ik}(a_i) + \varphi_{jk}(b_j) \in R_k, \qquad
+        a_i b_j := \varphi_{ik}(a_i) \cdot \varphi_{jk}(b_j) \in R_k
+    \]
+    Existence of inverse, and distributivity are guaranteed by the ring structure of $R_j$. Further see that this is well-defined, as for $k' \neq k$ that we have picked s.t. $i \leq k'$ and $j \leq k'$, since the set is directed there exists $\ell$ s.t. $k \leq \ell$ and $k' \leq \ell$. Now use the equivalence relation with $\varphi_{k\ell}$ and $\varphi_{k'\ell}$; and the fact that $\sim$ is an equivalence relation and is therefore transitive. 
+
+    Further the direct limit of a direct system is unique up to isomorphism. Suppose we have two direct limits $R$ and $R'$, there exists $g: R \to R'$ and $g': R' \to R$, by the universal property of the direct limit s.t. $g \circ f_i = f_i'$, $g' \circ f_i' = f_i$. This implies that $g \circ g' = \Id_{R'}$, and $g' \circ g = \Id_{R}$ by the symmetric argument. This gives the isomorphism.
+
+    The last thing we need to notice is that if all $R_i$s are fields, then $R$ is a field, as in the definition of the operation having multiplicative inverse in $R_k$ induces the multiplicative inverse in $R$.
+\end{parenthesis}
+
+Now we can use the above tools to describe the polynomial with variables indexed by a (possibly infinite) set $I$. Given a commutative ring $R$, a set $I$, the polynomial ring $R[x_i \mid i \in I]$ is defined as follows:
+
+For $J \subset I$ finite subset, denote $R_J := R[x_i \mid i \in J]$. Define $\mathcal{P} := \{\text{finite subsets of $I$}\}$, ordered by inclusion. This is a directed set, as for all $M, N \in \mathcal{P}$, we have $M \subseteq I$ and $N \subseteq I$ by definition.
+
+For $J_1 \subseteq J_2$ in $\mathcal{P}$, we have a morphism of $R$-algebras $\varphi_{J_1 J_2}: R_{J_1} \to R_{J_2}$, $x_i \mapsto x_i$ (embeddings). This gives a direct system of $R$-algebras; and we can define $R[x_i \mid i \in I] := \varinjlim (R_J)_{J \in P}$. Notice:
+
+\begin{itemize}
+    \item All $\varphi_{J_1 J_2}$ are injective (as they are embeddings), and therefore the map $R_J \to R[x_i \mid i \in I]$ is also injective.
+    \item Observe that we have $\bigcup_{J \in \mathcal{P}} R_J$ is a direct limit of the system $(R_J)_{J \in \mathcal{P}}$; and since the direct limit is unique up to isomorphisms for a particular directed system, we have $R[x_i \mid i \in I] = \bigcup_{J \in \mathcal{P}} R_J$.
+\end{itemize}
+
+Now prove the theorem:
+
+\begin{proof}[Proof of Theorem \ref{thm: algebraic closure exists}]
+    As we have mentioned, the idea of the proof is to construct a direct system of fields, where each $\varphi$ (which is a field extension here) includes the roots of irreducible polynomials in the base field; then taking the direct limit of the system gives the desired algebraic closure. 
+
+    The first step is to construct a field extension $k \ext k_1$ s.t. for all $f \in k[x]$ irreducible, there exists $a \in k_1$ s.t. $f(a) = 0$. Define $A = \{ f \in k[x] \mid f \text{ irreducible} \}$. Define $R = k[y_f \mid f \in A]$ and $\underline{a} = (f(y_f) \mid f \in A)$ where $y_f$ are formal variables indexed by polynomials in $A$; and the parenthesis in $\underline{a}$ implies that this is an ideal generated by such elements. 
+
+    Claim that $\underline{a} \neq R$. First observe that by definition $\underline{a} \subseteq R$, as in particular we have $f \in k[y_f] \subseteq k[y_f \mid f \in A] =: R$. Suppose that $\underline{a} = R$. Then the condition is translated to:
+    \begin{equation}\label{eq: condition if a_ = R}
+        \tag{$\ast$}        
+        \exists r \in \Z_{>0},\ f_1, \dots, f_n \in A,\ g_1, \dots, g_n \in R, \qquad \sum_{i = 1}^r \underbrace{g_i}_{\in R} \underbrace{f_i (y_{f_i})} _{\in \underline{a}} = 1
+    \end{equation}
+    as the ideal being equal to the whole ring is the same as the ideal containing 1. By Proposition \ref{prop: existence of field extending root of polynomial}, for all $i$ there exists field extension $k \ext k_i$ s.t. there exists $a_i \in k_i$ satisfying $f_i(a_i) = 0$. Since there finitely many (exactly $r$) polynomials, we can do this iteratively and get a field extension $k \ext K$ s.t. there exists field extensions $k_i \ext K$ for all $i$.
+
+    Let $J \subseteq A$ be the finite subset containing all the $f_i$s, and also containing all polynomials $g$ s.t. $y_g$ appears in some $g_i \in k$. Define $\varphi: k[y_g \mid g \in J] \ext K$. $y_{f_i} \mapsto a_i$ for all $i$, and $y_g \mapsto \varepsilon \in K$ which is some value we do not care about. Recall that $a_i$s are defined s.t. $f_i(a_i) = 0$. This is a $k$-algebra morphism. 
+    
+    Now apply $\varphi$ to Eq. \eqref{eq: condition if a_ = R}. Since $\varphi$ is $k$-linear, we have
+    \[
+        0 = \sum_{i = 1}^r \varphi(g_i) f_i(a_i) = \varphi(1) = 1
+    \] 
+    which is a contradiction, as for a field we require $0 \neq 1$. Therefore $\underline{a} \neq R$. Further since $\underline{a}$ is an ideal in $R$, there exists a maximal ideal $M$ in $R$ s.t. $\underline{a} \subseteq R$. Define $k' = R/M$ which is not trivial since $\underline{a} \neq R$. Denote $k_1 := \{ a \in k' \mid \text{$a$ algebraic over $k$} \}$. By Proposition \ref{prop: algebraic closure is a field} this is a subfield of $k'$, and by definition is algebraic over $k$. Now consider $f \in k[x]$ irreducible, and $\overline{y_f} \in k' = R/M$ a formal variable. By definition of algebraic closure, $f(\overline{y_f}) = 0$ in $\bar{k}$; and since $f(y_f) \in \underline{a} \subseteq M$, $\overline{f(y_f)} = f(\overline{y_f}) = 0 \in R/M$, which implies that $\overline{y_f} \in k_1$. Since $k' = R/M$ with $R$ extending elements in the form of $y_f$, every element in $k'$ is in the same as $\overline{y_f}$ for some $f \in A$; and by the previous argument we know $k \ext k'$ is algebraic. That is, every $f \in k[x]$ irreducible has a root in $k_1$.
+
+    Now repeat the process with $k$ replace by $k_1$. Conducting induction gives that for all $f \in k_i[x]$, there exists $a \in k_{i + 1}$, $f(a) = 0$ in $k_{i+1}[x]$. This gives algebraic extensions
+    \[
+        k \ext k_1 \ext k_2 \ext \cdots
+    \]
+    Now take $\bar{k} := \varinjlim k_i$. This is a field by Parenthesis \ref{pth: direct limit} satisfying $k \ext k_i \ext \bar{k}$, and by the following remark $\bar{j} = \bigcup_{i \geq 1} k_i$. Check:
+    \begin{itemize}
+        \item \emph{$\bar{k}$ is algebraic over $k$.} This results from the fact that each of the intermediate extension is algebraic; and the result follows from Proposition \ref{prop: transitivity of algebraic extensions}.
+        \item \emph{$\bar{k}$ is algebraically closed.} For all $f \in \bar{k}[x]$, there exists $i$ s.t. $f \in k_{i}[x]$. Then $f$ has a root in $k_{i + 1}$ which can be extended to $K$ by universal property of direct limit.  
+    \end{itemize}
+\end{proof}
+
+\begin{remark}
+    If the field $k$ is infinite, the algebraic closure $\bar{k}$ is of the same cardinality as $k$.
+\end{remark}
+
+To address the uniqueness of $\bar{k}$, we prove the following theorem that is more general:
 
 \section{The Splitting Field of a Polynomial}
 
