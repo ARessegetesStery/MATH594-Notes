@@ -24,7 +24,7 @@ Setup the convention. All rings have unit element 1; and all ring homomorphisms 
     Since $R$ is a domain $\varphi$ maps nonzero elements to nonzero elements, which implies that there exists some $x_a$ s.t. $a x_a = 1$. This gives an inverse of $a$.
 \end{remark}
 
-\begin{proposition}
+\begin{proposition}\label{prop: ring homs from a field are injective}
     If $f: K \to R$ is a ring homomorphism, and $K$ is a field. Then $R \neq \{0\}$ implies that $f$ is injective.
 \end{proposition}
 
@@ -298,6 +298,10 @@ The field extensions originating solely from ``including the roots of polynomial
     Since this holds for all $a \in L$, the extension $L/k$ is algebraic.
 \end{proof}
 
+\begin{remark}\label{rmk: subextension of algebraic extension is algebraic}
+    Notice that the converse of the statement is also true. If $k \ext L$ is algebraic, then for every element $a \in L$ there exists some $f_a \in k[x]$ s.t. $f_a(a) = 0$. But given extension $k \ext K \ext L$, $k \subseteq K$, which implies $f_a$ is also in $K[x]$; and therefore $L/K$ is algebraic
+\end{remark}
+
 \begin{proposition}\label{prop: algebraic closure is a field}
     If $k \ext K$ is a field extension, then $k' = \{a \in K \mid \text{$a$ algebraic over $k$}\}$ is a subfield of $K$ containing $k$,
 \end{proposition}
@@ -444,6 +448,111 @@ Now prove the theorem:
 \end{remark}
 
 To address the uniqueness of $\bar{k}$, we prove the following theorem that is more general:
+
+\begin{theorem}\label{thm: algebraic extension can be extended to algebraically closure}
+    Given two field extensions $k \ext K$ and $k \ext L$ s.t. $K/k$ is algebraic, and $L$ is algebraically closed. Then there is a morphism of $k$-extensions (as $k$-algebras) $K \ext L$.
+\end{theorem}
+
+To prove the theorem we need Zorn's Lemma:
+\begin{lemma}[Zorn]
+    Given a nonempty ordered set $(A, \leq)$ s.t. every \underline{chain} in $A$ has an \underline{upper bound} in $A$. Then $a$ has a \underline{maximal element}. The terminologies are:
+    \begin{itemize}
+        \item A \underline{chain} is a totally ordered subset.
+        \item An \underline{upper bound} for $B \subseteq A$ is an element $a \in A$ s.t. for all $b \in B, b \leq a$. 
+        \item A \underline{maximal element} in $A$ is some $a \in A$ s.t. for all $a'$ s.t. $a \leq a'$, we have $a' = a$.
+    \end{itemize}
+\end{lemma}
+
+\begin{proof}[Proof of Theorem \ref{thm: algebraic extension can be extended to algebraically closure}]
+    Consider the set $A = \{ (k', \varphi) \}$ where $k'$ is a subfield of $K$ for which there exists extensions $k \ext k' \ext K$; and for $i: k \to k'$, $j: k \to L$ we have $\varphi \circ i = j$. Define the partial order on $A$ be such that $(K', \varphi) \leq (K'', \psi)$ if and only if $K' \subseteq K$, and $\restr{\psi}{k'} = \varphi$.
+
+    Now apply Zorn. Check the followings:
+    \begin{itemize}
+        \item $A$ is non empty. In particular, $(k, j) \in A$.
+        \item Suppose that $B = \{ (K_i, \varphi_i) \mid i \in I \}$ is a chain (totally ordered subset) in $A$, Then $B$ has a maximal element (which also serves as an upper bound) $(K, \varphi)$ given by $K = \bigcup_{i \in I} K_i$ and $\varphi$ be such that $\restr{\varphi}{K_i} = \varphi_i$. Such $\varphi$ exists as $B$ is totally ordered, i.e. for any subset of $B$ the maximal element gives the corresponding $\varphi$.
+    \end{itemize}
+    Then Zorn's Lemma gives that there exists a maximal element $(K', \varphi) \in A$. Then either:
+    \begin{itemize}
+        \item $K' = K$. This gives the desired result. 
+        \item $K' \neq K$. We seek to find a contradiction. Since $K' \subseteq K$, there exists $a \in K \smallsetminus K'$. Since $K/k$ is algebraic by hypothesis, by Remark \ref{rmk: subextension of algebraic extension is algebraic}, $K/K'$ is also algebraic. Let $f \in K'[x]$ be the minimal polynomial of $a$ over $K'$. Try to extend on $a$: 
+        \[
+            K' \ext K'[a] \simeq K'(a) \simeq K'[x]/(f)
+        \]
+        where $K'[a] = K'(a)$ since $a$ is algebraic over $k'$. Since $L$ is algebraically closed, $f$ (considering it in $L[x]$) has a root $b \in L$. Then there exists a unique $K'$-algebra morphism $\varphi': K'(a) \to L$, $a \mapsto b$, which is indeed a $K'$-algebra morphism as any $g \in K[x]$ s.t. $g(a) = 0$ satisfies $f \mid g$, which has $b$ also as a root. But then $(K'(a), \varphi')$ satisfies the condition, which contradicts with the maximality of $(K', \varphi)$.
+    \end{itemize}
+    Therefore $K' = K$ and we have the desired result.
+\end{proof}
+
+\begin{corollary}
+    The algebraic closure of a given field $k$ is unique up to isomorphism.
+
+    Suppose that we have field extensions $k \ext K$ and $k \ext L$, with both $K$ and $L$ algebraically closed. Then applying the above theorem twice gives field extensions $K \ext L$ and $L \ext K$, which are both injective by Proposition \ref{prop: ring homs from a field are injective}. This gives the desired isomorphism.
+\end{corollary}
+
+\begin{notation}
+    Since the algebraic closures of a specific field $k$ are isomorphic, we can simply refer to it as \emph{the} algebraic closure, and denote it with $\bar{k}$.
+\end{notation}
+
+\begin{remark}\label{rmk: misc results on algebraic closure}
+    We have the following immediate results:
+    \begin{enumerate}[label=\arabic*)]
+        \item If $k \ext K$ is algebraic, and $K \ext \overline{K}$ algebraic closure, then $k \ext \overline{K}$ is also an algebraic closure (by considering $f \in k[x]$ as elements of $K[x]$).
+        \item If we have $k \ext K$ a field extension, and $K$ is algebraically closed. Then for $k' := \{a \in K \mid \text{$a$ algebraic over $k$}\}$ we have $k'/k$ an algebraic closure. This is clearly algebraic by definition; and it is closed as if $f \in k'[x] \smallsetminus \{0\}$, there exists $a \in K$ s.t. $f(a) = 0$ as $K$ is algebraically closed. Then $a$ is algebraic over $k$ \implies $k' \ext k'(a)$ finite \implies $k' \ext k'(a)$ algebraic \implies $k \ext k' \ext k'(a)$ algebraic. But this gives the fact that $a$ is algebraic over $k$, and since $a \in K$ by definition $a \in k'$.  
+    \end{enumerate}
+    Notice that we cannot use the same trick in the proof for Theorem \ref{thm: algebraic closure exists} as in that case the extensions $k \ext k_1$ is not necessarily algebraic.
+\end{remark}
+
+\textstart
+Now we can use the above results to classify finite fields:
+
+Let $K$ be a finite field. Since $\Z \to K$ cannot be injective, $\fchar(K) = p$ for some prime $p$. This gives a field extension $\F_p \ext K$; and since $e = [K : \F_p]$ is finite (since $K$ is finite), $\abs{K} = p^e$ for some $e$. Denote $\overline{K}$ to be the algebraic closure of $K$. By Remark \ref{rmk: misc results on algebraic closure} this is also the algebraic closure of $\F_p$.
+
+\begin{claim}\label{clm: fields with p^e elements}
+    $K = \{u \in \overline{K} \mid u^{p^e} = u\}$. This gives the existence of finite fields with order $p^e$.
+\end{claim}
+
+\begin{proof}
+    Notice that $(K^{\times}, \cdot)$ is a finite group with $(p^e - 1)$ elements. Therefore, for all $u \in L$, $u^{p^e - 1} = 1$, which implies that $u^{p^e} = u$ i.e. $K \subseteq $ RHS. Now consider the polynomial $x^{p^e} - x$ in $\overline{K}[x]$, which has $p^e$ roots since $\overline{K}$ is algebraically closed. $\abs{K} = p^e$ gives the desired equality.
+\end{proof}
+
+\begin{proposition}
+    If $K_1$ and $K_2$ are both fields with $p^e$ elements, then $K_1 \simeq K_2$. Without ambiguity we denote such fields as $\F_{p^e}$.
+\end{proposition}
+
+\begin{proof}
+    Consider the extensions:
+
+    \begin{minipage}{\linewidth}
+        \centering
+        \begin{tikzcd}
+            \F_p \arrow[rr, hookrightarrow] \arrow[dd, hookrightarrow] & & K_1\arrow[dd, dashed, hookrightarrow, "\varphi"] \\
+            & & \\
+            K_2 \arrow[rr, hookrightarrow] & & \overline{K_2}
+        \end{tikzcd}
+    \end{minipage}
+
+    This existence of $\varphi$ is guaranteed by Theorem \ref{thm: algebraic extension can be extended to algebraically closure}. Since $\varphi$ is a ring homomorphism between fields, it is injective; and therefore $\abs{\varphi(K_1)} = \abs{K_1} = p^e$ \implies $\varphi(K_1) = \{i \in \overline{K_2} \mid u^{p^e} = u\}$. But this then coincides with $K_2$.
+\end{proof}
+
+\begin{remark}
+    There exists a ring homomorphism $\F_{p^e} \to \F_{p^f}$ if and only if $e \mid f$. 
+\end{remark}
+    
+\begin{proof}
+    Verify both implications:
+    \begin{itemize}
+        \item[$\Rightarrow:$] 
+        \item[$\Leftarrow:$] 
+    \end{itemize}
+\end{proof}
+    
+\begin{remark}
+    Inside the algebraic closure of $\F_p$, $\overline{\F_p}$, for all $e \geq 1$ we have a unique copy of $\F_{p^e}$; and $\overline{\F_p} = \bigcup_{e \geq 1} \F_{p^e}$.
+\end{remark}
+
+\begin{proof}
+    
+\end{proof}
 
 \section{The Splitting Field of a Polynomial}
 
