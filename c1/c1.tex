@@ -53,7 +53,7 @@
         a^n := \begin{cases}
             \underbrace{a\ldots a}_{n}  & n > 0 \\
             e                           & n = 0 \\
-            \underbrace{a\ldots a}_{-n} & n < 0 \\
+            \underbrace{a^{-1}\ldots a^{-1}}_{n} & n < 0 \\
         \end{cases}
     \]
     This gives $a^m \cdot a^n = a^{m + n}$ for all $m, n \in \Z$. The cases where $m$ and $n$ are of the same sign are clear; and for those of opposite sign, applying the same elimination process as Remark \ref{rmk: group immediate results} 3) gives the desired result.
@@ -183,7 +183,7 @@
 \begin{remark}
     Notice that the permutation group structure depends only on the cardinality of the group on which permutations are considered. Explicitly, for $\alpha: \Omega \to \Omega'$ a bijection, there exists an isomorphism between the corresponding groups of permutations: $\beta: S_{\Omega} \to S_{\Omega'}: f \mapsto \alpha \circ f \circ \alpha^{-1}$. This is indeed an isomorphism as this is first a group homomorphism since
     \[
-        \beta(f \circ g) = \alpha \circ f \circ g \circ \alpha^{-1} = \alpha \circ f \circ (\alpha^{-1} \circ) \alpha \circ g \circ \alpha^{-1} = \beta(f) \circ \beta(g)
+        \beta(f \circ g) = \alpha \circ f \circ g \circ \alpha^{-1} = \alpha \circ f \circ (\alpha^{-1} \circ \alpha) \circ g \circ \alpha^{-1} = \beta(f) \circ \beta(g)
     \]
     and this being an isomorphism follows from the fact that there exists an obvious inverse $\beta^{-1}: f \mapsto \alpha^{-1} \circ f \circ \alpha$. Therefore it suffices to denote such permutation group by the cardinality of $\Omega$: for $\Omega = \{1, \dots, n\}$ $S_{\Omega}$ is denoted as $S_n$.
 \end{remark}
