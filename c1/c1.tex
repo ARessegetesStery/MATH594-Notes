@@ -2,7 +2,7 @@
 \usepackage{../refalg}
 
 \begin{document}
-\Makepagesectionhead{MATH 594}{Group}{ARessegetes Stery}
+\Makepagesectionhead{MATH 594}{Group Theory}{ARessegetes Stery}
 
 \tableofcontents  
 \newpage
@@ -151,7 +151,7 @@
 \end{proposition}
 
 \begin{proof}
-    Apply the result of Proposition \ref{prop: subgroup test}. Since $G' \leq G$, $e_G \in G'$, and bby Proposition \ref{prop: grp homo preserve identity and inverse}, $f(e_G) = e_H$, giving that $f(G')$ is nonempty. For all $x, y \in f(G')$, let $u, v \in G'$ s.t. $x = f(u), y = f(v)$. Since $G'$ is a subgroup of $G$, $u\cdot v^{-1} \in G'$. By Proposition \ref{prop: grp homo preserve identity and inverse}, this implies $f(u) \cdot f(v^{-1}) = f(u) \cdot f(v^{-1}) \in f(G')$, which gives that $f(G') \leq H$.
+    Apply the result of Proposition \ref{prop: subgroup test}. Since $G' \leq G$, $e_G \in G'$, and by Proposition \ref{prop: grp homo preserve identity and inverse}, $f(e_G) = e_H$, giving that $f(G')$ is nonempty. For all $x, y \in f(G')$, let $u, v \in G'$ s.t. $x = f(u), y = f(v)$. Since $G'$ is a subgroup of $G$, $u\cdot v^{-1} \in G'$. By Proposition \ref{prop: grp homo preserve identity and inverse}, this implies $f(u) \cdot f(v^{-1}) = f(u) \cdot f(v^{-1}) \in f(G')$, which gives that $f(G') \leq H$.
 \end{proof}
 
 \begin{proposition}\label{prop: kernel gives a subgroup}
@@ -226,7 +226,7 @@
     Proceed by double inclusion:
     \begin{enumerate}
         \item[$\subseteq$:] Proceed to show that RHS satisfies the definition of the $H$s above. For RHS consider $n = 1$, with $x_1 \in G$ which takes all elements in $G$. This gives $A \subseteq$ RHS. Further use Proposition \ref{prop: subgroup test}, which for any $x_1\dots x_m, y_1\dots y_n \in$ RHS, each summand of $x_1 \dots x_m (y_1 \dots y_n)^{-1} = x_1 \dots x_m y_n^{-1} \dots y_1^{-1}$ is either in $A$ or its inverse is in $A$ implying that RHS is a group. Definition above gives the subset relation.
-        \item[$\supseteq$:] It suffices to verify that any element in the specified form is in $\inner{A}$. This is the case as for $x_1\dots x_n$ where for all $i$, either $x_i \in A$ or $-x_i \in A$, $x_i \in \inner{A}$ by definition, and multiplication of two elements in the group is still in the group by closure of the operation.  
+        \item[$\supseteq$:] It suffices to verify that any element in the specified form is in $\inner{A}$. This is the case as for $x_1\dots x_n$ where for all $i$, either $x_i \in A$ or $x_i^{-1} \in A$, $x_i \in \inner{A}$ by definition, and multiplication of two elements in the group is still in the group by closure of the operation.  
     \end{enumerate}
 \end{proof}
 
@@ -255,7 +255,7 @@
         \item[$\Rightarrow$:] Consider $f: \Z \to G$ s.t. $f(1) = a$. This is a group homomorphism,  Then either
         \begin{itemize}
             \item \emph{$f$ is injective.} By definition of cyclic groups, for any $s \in G$ there exists $m \in G$ s.t. $s = a^m$. Then $f(m) = s$ according to the definition of $f$, giving that $f$ is surjective. Then this falls into the first case, giving $G \simeq \Z$.
-            \item \emph{$f$ is not injective.} Then there are nonzero elements in $f$. Since $\ker f \subseteq \Z$, there exists a smallest positive element. Define the map $f_n: \Z/n\Z \to G$ s.t. $[1] \mapsto a$. Check the followings:
+            \item \emph{$f$ is not injective.} Then there are nonzero elements that are mapped to $e$ by $f$. Since $\ker f \subseteq \Z$, there exists a smallest positive element. Define the map $f_n: \Z/n\Z \to G$ s.t. $[1] \mapsto a$. Check the followings:
             \begin{itemize}
                 \item \emph{$f_n$ is well-defined.} It suffices to check that if $[m_1] = [m_2]$, then $f([m_1]) = (f[m_2])$. This is indeed the case as
                 \[
@@ -350,7 +350,7 @@
 
     Use the universal property above (Proposition \ref{prop: universal property of product of groups}), there exists a unique $h: \Z/mn\Z \to \Z/m\Z \times \Z/n\Z$ s.t. $h_1 = f, h_2 = g$ where $h_i$ indicates the projection to $i$-th field after applying $h$. Check that this is an isomorphism:
     \begin{itemize}
-        \item $h$ is injective. Consider the kernel of $f$: for all $[x + mn\Z] \in \ker f$, $[x + m\Z] = 0$ and $[x + n\Z] = 0$. But this implies that $m \mid x$ and $n \mid x$, i.e. $mn \mid x$, which gives $[x + mn\Z] = 0$. That is, elements in $\ker f$ are identically zero, which gives the injectivity.
+        \item $h$ is injective. Consider the kernel of $h$: for all $[x + mn\Z] \in \ker h$, $[x + m\Z] = 0$ and $[x + n\Z] = 0$ as it must be in the kernel of both $h_1$ and $h_2$. But this implies that $m \mid x$ and $n \mid x$, i.e. $mn \mid x$, which gives $[x + mn\Z] = 0$. That is, elements in $\ker h$ are identically zero, which gives the injectivity.
         \item Notice that $\Z/mn\Z$ has $mn$ elements, while $\Z/m \times \Z/n\Z$ has $m \cdot n = mn$ elements. Therefore $h$ being injective implies $h$ being bijective. 
     \end{itemize}
 \end{proof}
@@ -391,7 +391,7 @@
 \end{proposition}
 
 \begin{proof}
-    Define the map $\varphi: \{xH \mid x \in G\} \to \{Hx \mid x \in G\}$, $gH \mapsto Hg^{-1}$. Check that this is well-defined: for $g_1, g_2 \in G$ s.t. $g_1 H = g_2 H$, there exists $h \in H$ s.t. $g_1 = g_2 h$. Then $Hg_1 = H(g_2 h)^{-1} = Hh^{-1} g_2^{-1} = Hg_2^{-1}$. It has inverse $Hg \mapsto g^{-1}H$, with well-definedness similarly proved, which implies that $\varphi$ is a bijection.
+    Define the map $\varphi: \{xH \mid x \in G\} \to \{Hx \mid x \in G\}$, $gH \mapsto Hg^{-1}$. Check that this is well-defined: for $g_1, g_2 \in G$ s.t. $g_1 H = g_2 H$, there exists $h \in H$ s.t. $g_1 = g_2 h$. Then $\varphi(g_1 H) = Hg_1^{-1} = H(g_2 h)^{-1} = Hh^{-1} g_2^{-1} = Hg_2^{-1} = \varphi(g_2 H)$. It has inverse $Hg \mapsto g^{-1}H$, with well-definedness similarly proved. This implies that $\varphi$ is a bijection.
 \end{proof}
 
 \begin{remark}
@@ -405,7 +405,7 @@ Since the number of congruence classes w.r.t. $x \in G$ does not change with cho
 \end{definition}
 
 \begin{remark}
-    For all $g_1, g_2 \in H$, there exists bijections $g_1 H \mapsto g_2 H$ and $H g_1 \mapsto g_2 H$, given by multiplication on the left by $g_2 g_1^{-1}$, and multiplication on the right by $g_1^{-1} g_2$, respectively. 
+    For all $g_1, g_2 \in H$, there exists bijections $g_1 H \mapsto g_2 H$ and $H g_1 \mapsto H g_2$, given by multiplication on the left by $g_2 g_1^{-1}$, and multiplication on the right by $g_1^{-1} g_2$, respectively. 
 \end{remark}
 
 \begin{theorem}[Lagrange]
@@ -421,12 +421,13 @@ Since the number of congruence classes w.r.t. $x \in G$ does not change with cho
 \end{corollary}
 
 \begin{example}[Fermat's Little Theorem]
-    Let $G = (\Z/p\Z)^{\times}$ with $p$ prime. Then $\abs{G} = p - 1$. For $a \in \Z$ s.t. $p \nmid a$, $\abs{[a]} = p-1$, which implies that $a^{p-1} \equiv 1 \mod p$. 
+    Let $G = (\Z/p\Z)^{\times}$ with $p$ prime. Then $\abs{G} = p - 1$. For $a \in \Z$ s.t. $p \nmid a$, $\abs{[a]} = p-1$, which implies that $a^{p-1} \equiv 1 \mod p$ (using the above Corollary). 
 \end{example}
 
+\textstart
 We now seek to define a group structure on the congruence classes modulo a subgroup $H \leq G$. The issue is that the operation is not necessarily well-defined. The natural definition of the group operation is given via $(g_1 H, g_2 H) \mapsto (g_1 g_2 H)$. For $g_1 \equiv_{\ell} g_1' \mod H, g_2 \equiv_{\ell} g_2' \mod H$ we would like $g_1 g_2 \equiv_{\ell} g_1' g_2'$. In terms of the elements, we have $g_1 g_1'^{-1} g_2 g_2'^{-1} \in H$ and we want $g_1 g_2 g_2'^{-1} g_1^{-1} \in H$. This requires extra requirements on $H$.
 
-\begin{claim}
+\begin{claim}\label{clm: constraint on group to have operations on cong classes}
     The following two conditions are equivalent:
     \begin{itemize}
         \item For all $g_1^{-1}g_1' \in H, g_2^{-1}g_2' \in H$, this implies $(g_1 g_2)^{-1}(g_1 g_2)' \in H$.
@@ -442,6 +443,7 @@ We now seek to define a group structure on the congruence classes modulo a subgr
     \end{itemize}
 \end{proof}
 
+\textstart
 This gives rise to the definition of normal subgroups, and the formulation quotient with respect to it, as follows.
 
 \section{Normal Subgroup, Quotient Group and Isomorphism Theorems}
@@ -459,7 +461,7 @@ This gives rise to the definition of normal subgroups, and the formulation quoti
 \end{definition}
 
 \begin{remark}\label{rmk: projection to quotient}
-    Explicitly check that this gives a group structure: by definition we have the identity element $eH$, with the inverse of $g_1 H = (g_1^{-1})H$. The well-definedness of the group follows from the fact that all the left congruence classes of $H$ are well-defined, i.e. operations on it does not depends on the choice if representative. This also gives a group homomorphism $\pi: G \to G/H$ with $x \mapsto xH$. This is indeed a group homomorphism as $\pi(ab) = (ab) H = aH bH = \pi(a) \pi(b)$. 
+    Explicitly check that this gives a group structure: by definition we have the identity element $eH$, with the inverse of $g_1 H = (g_1^{-1})H$. The well-definedness of the group follows from the fact that all the left congruence classes of $H$ are well-defined, i.e. operations on it does not depends on the choice if representative, by Claim \ref{clm: constraint on group to have operations on cong classes}. This also gives a group homomorphism $\pi: G \to G/H$ with $x \mapsto xH$. This is indeed a group homomorphism as $\pi(ab) = (ab) H = aH bH = \pi(a) \pi(b)$. 
 \end{remark}
     
 \begin{remark}
@@ -500,7 +502,7 @@ This gives rise to the definition of normal subgroups, and the formulation quoti
 \end{proof}
 
 \begin{corollary}
-    In Every subgroup with index 2 is normal.
+    Every subgroup with index 2 is normal.
 \end{corollary}
 
 \begin{proof}
@@ -514,8 +516,8 @@ This gives rise to the definition of normal subgroups, and the formulation quoti
 \begin{proof}
     Consider implication in two directions:
     \begin{enumerate}
-        \item[$\Rightarrow$] Consider the group homomorphism induced by the quotient structure: $\pi: G \to G/H$, $g \mapsto gH$. Then $\ker \pi = \{ g \in G \mid gH = H \}$. This implies that $g \in H$.
-        \item[$\Leftarrow$] By Proposition \ref{prop: kernel gives a subgroup} $H$ is a subgroup in $G$. Check that it is normal: for all $h \in H$, $g \in G$, we have
+        \item[$\Rightarrow$:] Consider the group homomorphism induced by the quotient structure: $\pi: G \to G/H$, $g \mapsto gH$. Then $\ker \pi = \{ g \in G \mid gH = H \}$. This implies that $g \in H$.
+        \item[$\Leftarrow$:] By Proposition \ref{prop: kernel gives a subgroup} $H$ is a subgroup in $G$. Check that it is normal: for all $h \in H$, $g \in G$, we have
         \[
             f(ghg^{-1}) = f(g) f(h) f(g^{-1}) = f(g) (f(g))^{-1} = e \implies ghg^{-1} \in H
         \]
@@ -569,7 +571,7 @@ This gives rise to the definition of normal subgroups, and the formulation quoti
 \end{corollary}
 
 \begin{remark}
-    If $f: G \to G'$ is a group homomorphism, and $H'$ is normal in $G$, then $f^{-1}(H')$ is normal in $G$.
+    If $f: G \to G'$ is a group homomorphism, and $H'$ is normal in $G'$, then $f^{-1}(H')$ is normal in $G$.
 \end{remark}
 
 \begin{proof}
@@ -605,11 +607,11 @@ This gives rise to the definition of normal subgroups, and the formulation quoti
 \end{proof}
 
 \begin{theorem}[Third Isomorphism Theorem]
-    Let $G$ a group, and $H, M$ subgroups in $G$ s.t. $H \leq M \leq G$. Then $(G/H)(M/H) \simeq G/M$.
+    Let $G$ a group, and $H, M$ subgroups in $G$ s.t. $H \leq M \leq G$. Then $(G/H)/(M/H) \simeq G/M$.
 \end{theorem}
 
 \begin{proof}
-    Let $p: G \to G/H$ be the projection into the quotient. Consider the group homomorphism $\alpha: G/H \to G/M$, given bu $xH \mapsto xM$. $\ker \alpha = \{ xH \mid x \in M \} = p(M)$. By Parenthesis \ref{pth: quotient preserves normal subgroups} we know that $p(M)$ is normal in $G/H$. The First Isomorphism Theorem (Theorem \ref{thm: first isomorphism theorem}) gives the desired isomorphism. 
+    Let $p: G \to G/H$ be the projection into the quotient. Consider the group homomorphism $\alpha: G/H \to G/M$, given $xH \mapsto xM$. $\ker \alpha = \{ xH \mid x \in M \} = p(M)$. By Parenthesis \ref{pth: quotient preserves normal subgroups} we know that $p(M)$ is normal in $G/H$. The First Isomorphism Theorem (Theorem \ref{thm: first isomorphism theorem}) gives the desired isomorphism. 
 \end{proof}
 
 The following theorem connects the subgroups in the quotient and the subgroups in the original group:
@@ -617,7 +619,7 @@ The following theorem connects the subgroups in the quotient and the subgroups i
 \begin{theorem}[Correspondence]
     Let $G$ be a group, and $H$ a normal subgroup in $G$. Then we have an \emph{order-preserving} bijection:
     \[
-        \Phi: \{ \text{subgroups in }G/H \} \to \{ \text{subgroups of $G$ containing $H$} \} 
+        \Phi: \{ \text{subgroups in }G/H \} \longleftrightarrow \{ \text{subgroups of $G$ containing $H$} \} 
     \]
     which maps normal subgroups to normal subgroups. Being \emph{order-preserving} implies that $U \subseteq V$ if and only if $\Phi(U) \subseteq \Phi(V)$.
 \end{theorem}
@@ -664,7 +666,7 @@ For the formulation of the Second Isomorphism Theorem, we need to first introduc
 \end{theorem}
 
 \begin{proof}
-    Notice $A \cap B \subseteq B$ and $A \subseteq N_G(B)$. Therefore, for all $b \in A \cap B$, $a \in A$, $aba^{-1} \in A \cap B$ by closure of operation in $A$ and $B$ is normal in $A$. Further $B \normalin AB$ as $(ab) b' (ab)^{-1} = abb'b^{-1} a^{-1} \in B$ since $a \in N_G(B)$. Consider $f: A \to AB$, $a \mapsto ab$ for some fixed $b \in B$. Use the result in Remark \ref{rmk: transformation between quotient on normal subgroups} to get the following commutative diagram:
+    Notice $A \cap B \subseteq B$ and $A \subseteq N_G(B)$. Therefore, for all $b \in A \cap B$, $a \in A$, $aba^{-1} \in A \cap B$ by closure of operation in $A$ and $B$ is normal in $A$. Further $B \normalin AB$ as $(ab) b' (ab)^{-1} = abb'b^{-1} a^{-1} \in B$ since $a \in N_G(B)$. Consider $f: A \to AB$, $a \mapsto ab$ for some fixed $b \in B$. $\im f \in B$ as $B$ is a group, and in particular $A \cap B \subseteq B$. Use the result in Remark \ref{rmk: transformation between quotient on normal subgroups} to get the following commutative diagram:
 
     \begin{minipage}{\linewidth}
         \centering
@@ -677,11 +679,12 @@ For the formulation of the Second Isomorphism Theorem, we need to first introduc
     $f$ is an isomorphism by definition, which implies that the induced homomorphism $\bar{f}$ is an isomorphism.
 \end{proof}
 
-\section{Symmetric and Alternating Group}
+\section{The Symmetric and Alternating Group}
 
+\textstart
 Recall that the Symmetric group $S_n$ is defined as 
 \[
-    S_n := \{ f: \{ f: \{1, \dots, n\} \to \{1, \dots, n\} \mid f \text{ bijective} \} \}
+    S_n := \{ f: \{1, \dots, n\} \to \{1, \dots, n\} \mid f \text{ bijective} \}    
 \]
 with operation given by composition of maps.
 
@@ -714,7 +717,7 @@ with operation given by composition of maps.
 \end{example}
 
 \begin{definition}[Cycle]
-    In $S_n$, for $k \geq 2$, a \textbf{$k$-cycle} in $S_n$ is a permutation $\sigma = (a_1, \dots, a_k)$ for $a_1, \dots, a_k \in \{1, \dots, n\}$ where $\sigma_{a_i} = a_{i+1}$ for $i < k$; and $\sigma(a_k) = a_1$; and $\sigma(i) = i$ for $i \notin \{a_1, \dots, a_k\}$.
+    In $S_n$, for $k \geq 2$, a \textbf{$k$-cycle} in $S_n$ is a permutation $\sigma = (a_1, \dots, a_k)$ for $a_1, \dots, a_k \in \{1, \dots, n\}$ where $\sigma(a_i) = a_{i+1}$ for $i < k$; and $\sigma(a_k) = a_1$; and $\sigma(i) = i$ for $i \notin \{a_1, \dots, a_k\}$.
 \end{definition}
 
 \begin{example}\label{ex: notation of permutation using cycles}
@@ -736,7 +739,7 @@ with operation given by composition of maps.
 \end{remark}
 
 \begin{parenthesis} \label{pth: all order-2 group are isomorphic}
-    All groups with 2 elements are isomorphic. $G = {e, a}$ gives $a \cdot a = e$, which implies that $G \simeq \Z/2\Z$.
+    All groups with 2 elements are isomorphic. $G = \{e, a\}$ gives $a \cdot a = e$, which implies that $G \simeq \Z/2\Z$.
 \end{parenthesis}
 
 \begin{example}
@@ -749,19 +752,19 @@ with operation given by composition of maps.
 \end{example}
 
 \begin{definition}[Inversion]
-    \textbf{Inversion}s in $\sigma$ is the set $\{ (i, j) \mid 1 \leq i < j \leq n , \sigma(i) > \sigma(j)\}$.
+    \textbf{Inversion}s in $\sigma$ are elements in the set $\{ (i, j) \mid 1 \leq i < j \leq n , \sigma(i) > \sigma(j)\}$.
 \end{definition}
 
 \begin{definition}[Signature]
-    Consider group homomorphism $\varepsilon: S_n \to \{ \pm 1 \}$ where the operation in $\{ \pm 1 \}$ is integer multiplication, defined as $\sigma \mapsto (-1)^{\text{\# inversions in $\sigma$}}$. $\sigma$ is \underline{even} if $\varepsilon(\sigma) = 1$; and \underline{odd} if $\varepsilon(\sigma) = -1$. 
+    Consider group homomorphism $\varepsilon: S_n \to \{ \pm 1 \}$ where the operation in $\{ \pm 1 \}$ is integer multiplication, defined as $\sigma \mapsto (-1)^{\text{(\# inversions in $\sigma$)}}$. $\sigma$ is \underline{even} if $\varepsilon(\sigma) = 1$; and \underline{odd} if $\varepsilon(\sigma) = -1$. 
 \end{definition}
 
 \begin{example}
     Transpositions are odd. For $\sigma = (i j)$ with $i < j$, written out explicitly it is given by the map
     \[
         \begin{pmatrix}
-            1 & \dots & i & \dots & j \dots & n \\
-            1 & \dots & j & \dots & i \dots & n \\
+            1 & \cdots & i & \cdots & j & \cdots & n \\
+            1 & \cdots & j & \cdots & i & \cdots & n \\
         \end{pmatrix}
     \]
     The inversions are given by $\{ (i, k), (k, j) \mid i < k < j \} \cup \{ (i, j) \}$. The first part has even elements which implies that $\varepsilon(\sigma) = (-1)^1 = -1$. 
@@ -794,7 +797,7 @@ with operation given by composition of maps.
 \section{Classification of Groups of Small Order}
 
 \begin{proposition}
-    If $G$ is a finite group, and $\abs{G} = p$ which is prime, then $G \simeq |Z/p\Z$.
+    If $G$ is a finite group, and $\abs{G} = p$ which is prime, then $G \simeq Z/p\Z$.
 \end{proposition}
 
 \begin{proof}
@@ -849,11 +852,12 @@ Now consider the case where $G$ has 6 elements:
 \begin{theorem}[Structural Theorem for Finitely Generated Abelian Groups]
     Let $G$ be a finitely generated abelan group. Then 
     \[
-        G \simeq \Z^n \times \Pi_{i \in I} (\Z/p_i^{m_i} \Z)
+        G \simeq \Z^r \times \Pi_{i \in I} (\Z/p_i^{m_i} \Z)
     \]
     for $r \in \Z_{\geq 0}$, $p_i$ prime, $m_i \in \Z_{>0}$; and pairs $(p_i, m_i)$ are unique up to reordering.
 \end{theorem}
 
+\textstart
 The proof quite resembles that of Structural Theorem for finitely generated modules over PIDs, and is not repeated here. 
 
 \begin{remark}
@@ -866,6 +870,126 @@ The proof quite resembles that of Structural Theorem for finitely generated modu
 
 \section{Group Action on Sets}
 
+\begin{definition}[Group Action]
+    Let $G$ be a group, and $X$ a set. A \textbf{(left) action} of $G$ on $X$ is a map $G \times X \to X$, written $(g, x) \mapsto gx$, satisfying
+    \begin{itemize}
+        \item $ex = x$ for all $x \in X$.
+        \item $g_1(g_2 x) = (g_1 g_2)x$ for all $g_1, g_2 \in G$, $x \in X$.
+    \end{itemize}
+\end{definition}
+
+\begin{proposition}
+    Left (and therefore right) group actions correspond to group homomorphisms $\varphi: G \to S_X$, where $S_X := \{ f: X \to X \mid f \text{ bijection} \}$ is the set of bijective maps from $X$ to itself. 
+\end{proposition}
+
+\begin{proof}
+    Notice that $\varphi_e = \Id$; and for all $g, h \in G$, $\varphi_g \circ \varphi_h = \varphi_{gh}$ for all $g, h \in G$, which gives $\varphi_g \circ \varphi_{g^{-1}} = \varphi_e = \Id$. Therefore, taking $S_X$ as a group, with the identity being the identity map, and operation the composition of maps, $\varphi$ gives a group homomorphism between $g$ and $S_X$.
+
+    For the other direction, given a group homomorphism $\varphi: G \to S_X$, we get a left action on $X$ given by $(g, x) \mapsto \varphi(g)(x)$.
+\end{proof}    
+
+\begin{example}
+    The following gives some examples of group actions:
+    \begin{enumerate}
+        \item Recall that $S_X$ attains a group structure. Therefore, for all $X$, $S_X$ acts on $X$ by $(f, x) \mapsto fx$ with the corresponding homomorphism $S_X \to S_X$.
+        \item Consider geometrically, $D_n$ acts on the vertices of a regular $n$-gon.
+        \item Let $G$ be a group, and $H \leq G$. Then we have an action of $G$ on the left congruence classes of $G$ modulo $H$, given by $(g, aH) \mapsto (ga) H$. Check that this is well-defined: if $aH = bH$, want to show that $(ga)H = (gb)H$. Hypothesis gives that $aH = bH$, i.e. $a^{-1}b \in H$. But $(ga)^{-1}(gb) = a^{-1} g^{-1} g b = a^{-1}b \in H$, which gives the equality $(ga)H = (gb) H$.
+        \item A group acts on itself via the action of conjugation, given by $(g, x) \mapsto gxg^{-1}$. Clearly, $(e, x) \mapsto exe^{-1} = x$; and $(gh, x) \mapsto (ghxh^{-1} g^{-1}) = (g, (h, x))$.
+    \end{enumerate}
+\end{example}
+
+\begin{definition}
+    Let $x, y \in X$. Then for a group action of $G$ on $X$, $x \sim y$ if there exists $g \in G$ s.t. $gx = y$.
+\end{definition}
+
+\begin{remark}
+    This is an equivalence relation:
+    \begin{itemize}
+        \item \emph{Reflexive.} let $g = e$.
+        \item \emph{Symmetric.} Suppose that there exists $g$ s.t. $gx = y$. Then multiplying $g^{-1}$ on th left gives $g^{-1}(gx) = g^{-1}y$, i.e. $x = g^{-1} y$.
+        \item \emph{Transitive.} Suppose that there exists $g, h \in G$ s.t. $y = gx, z = hy$, then $z = (hg)x$.
+    \end{itemize}
+\end{remark}
+
+\begin{definition}[Orbit]
+    Let there be an action of $G$ on $X$. the \textbf{orbit} of $x \in X$ is defined as
+    \[
+        \Orbit(x) = \{ g(x) \mid g \in G \}
+    \]
+\end{definition}
+
+\begin{definition}[Stabilizer]
+    For all $x \in X$, the \textbf{stabilizer} of $x$ is
+    \[
+        \Stab_G(x) := \{g \in G \mid gx = x\}
+    \]
+\end{definition}
+
+\begin{remark}
+    The stabilizer $\Stab_G(x)$ is a subgroup of $G$. Use the characterization of subgroups:
+    \begin{itemize}
+        \item By definition of group action, $e \in \Stab_G(x)$, which is the unit element.
+        \item If $g, h \in G$, then $gx = x \implies x = g^{-1}x$, i.e. $g^{-1} \in G$. Therefore $g^{-1}h \in G$. 
+    \end{itemize}
+\end{remark}
+
+\begin{lemma}
+    For all $x \in X$, there is a bijection
+    \[
+        (G / \Stab_G(x))_{\ell} \longleftrightarrow \Orbit(x)
+    \]
+    where $(G / \Stab_G(x))_{\ell}$ denotes the left congruence classes of $\Stab_G(x)$. In particular, $\abs{O(x)} = (G : \Stab_G(x))$, i.e. if $G$ is finite, then $\abs{\Orbit(x)} \mid \abs{G}$.
+\end{lemma}
+
+\begin{proof}
+    Notice that $gx = hx$ implies that $(g^{-1}h)x = x$, i.e. $g^{-1}h \in \Stab_G(X) \implies g \Stab_G(x) = h \Stab_G(x)$; and the implication in the inverse direction is similar. This gives a bijection $\{ gx \mid x \in G \} \to (G / \Stab_G(x))_{\ell}$ given by $gx \mapsto g \Stab_G(x)$.
+\end{proof}
+
+\begin{definition}[Transitive]
+    The action of $G$ on $X$ is \textbf{transitive} if there is only one orbit, i.e. for all $x, y \in X$, there exists some $g \in G$ s.t. $x = gy$.
+\end{definition}
+
+\begin{corollary}
+    If the action of $G$ on $X$ is transitive, then for all $x \in X$, $\Orbit(x) = X$. Let $H = \Stab_G(x)$, then there exists a bijection $(G/H)_{\ell} \to X$ given by $gH \mapsto gx$. This corresponds to the action of $G$ on $(G/H)_{\ell}$: $(g, aH) \mapsto (ga)H$.
+\end{corollary}
+
+\begin{remark}
+    If $G$ acts on $X$, then $X = \amalg_{i \in I} \Orbit(x_i)$, where $x_i$s are representatives in each orbit. In particular this can be split as
+    \[
+        \abs{x} = \sum_{x_i} \abs{\Orbit(x_i)} = \abs{\Fix(x)} + \sum_{\abs{\Orbit(x_i)} \geq 2} \abs{\Orbit(x_i)}
+    \]
+    where $\Fix(x) := \{ x \in X \mid gx = x,\ \forall g \}$, i.e. points that are stabilized by the whole group.
+\end{remark}
+
+\begin{definition}[Center]
+    Let $G$ be a group. The \textbf{center} of $g$ is defined as
+    \[
+        Z(G) := \{ x \in G \mid xg = gx,\ \forall g \in G \}
+    \]
+\end{definition}
+
+\begin{definition}[Centralizer]
+    Given $x \in G$, the \textbf{centralizer} of $x$ in $G$ is defined as
+    \[
+        C_G(x) := \{ g \in G \mid xg = gx, \text{i.e. }gxg^{-1} = x \}
+    \]
+    i.e. in which $x$ is in the center. One can also consider the centralizer of a subgroup in a similar manner. 
+\end{definition}
+
+\begin{example}
+    Fix $G$ a group, and consider the action of $G$ on itself by conjugation. $x$ and $y$ are conjugate if $\Orbit(x) = \Orbit(y)$, i.e. there exists $g \in G$ s.t. $x = gyg^{-1}$. In particular, in this case the stabilizers are the same as the centralizers.
+
+    Notice that with the action defined as conjugation, $\abs{\Orbit(x)} = 1$ if and only if $x \in Z(G)$. This gives the class equation 
+    \[
+        \abs{G} = \abs{Z(G)} + \sum_i (G : C_G(x_i))
+    \]
+    where $x_i$ vary over the set of conjugate classes with more than 1 element. 
+\end{example}
+
+\begin{definition}[$p$-group]
+    If $p$ is a prime integer, a \textbf{$p$-group} is a group of order $p^m$ for some $m \geq 1$.
+\end{definition}
+    
 \section{Sylow Theorems}
 
 \section{Application of Sylow Theorems}
