@@ -246,7 +246,7 @@
 \end{remark}
 
 \begin{proposition}\label{prop: characterization of cyclic group}
-    A group $G$ is cyclic if and only if $G \simeq \Z$ if $G$ is infinite, or $G \simeq \Z/n\Z$ for some $n \in \Z_{>0}$.  
+    A group $G$ is cyclic if and only if $G \simeq \Z$ for $G$ infinite, or $G \simeq \Z/n\Z$ for some $n \in \Z_{>0}$.  
 \end{proposition}
 
 \begin{proof}
@@ -387,7 +387,7 @@
 \end{remark}
 
 \begin{proposition}
-    There is a bijection between $xH$ and $Hx$ for all $x \in G, H \leq G$. 
+    There is a bijection between $\{xH \mid x \in G\}$ and $\{Hx \mid x \in G\}$ for all $x \in G, H \leq G$. 
 \end{proposition}
 
 \begin{proof}
@@ -638,7 +638,7 @@ For the formulation of the Second Isomorphism Theorem, we need to first introduc
 \begin{definition}
     Let $B \leq G$. Then the \textbf{normalizer} of $B$ in $G$ is defined as
     \[
-        N_G(B) := \{ g \in G \mid gBg^{-1} \in B \}
+        N_G(B) := \{ g \in G \mid gBg^{-1} \subseteq B \}
     \]
 \end{definition}
 
@@ -938,7 +938,7 @@ The proof quite resembles that of Structural Theorem for finitely generated modu
     \[
         (G / \Stab_G(x))_{\ell} \longleftrightarrow \Orbit(x)
     \]
-    where $(G / \Stab_G(x))_{\ell}$ denotes the left congruence classes of $\Stab_G(x)$. In particular, $\abs{O(x)} = (G : \Stab_G(x))$, i.e. if $G$ is finite, then $\abs{\Orbit(x)} \mid \abs{G}$.
+    where $(G / \Stab_G(x))_{\ell}$ denotes the left congruence classes of $\Stab_G(x)$. In particular, $\abs{\Orbit(x)} = (G : \Stab_G(x))$, i.e. if $G$ is finite, then $\abs{\Orbit(x)} \mid \abs{G}$.
 \end{lemma}
 
 \begin{proof}
