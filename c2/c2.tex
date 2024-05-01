@@ -21,7 +21,7 @@ We now give the formal definition on vector spaces:
     \[
         \rho: G \to \GL(V) := \{ \varphi: V \to V \mid \varphi \text{ $\C$-linear isomorphism} \}
     \]
-    Equivalently, a representation of $G$ is a vector space $V$ over $\C$ with an action of $G$ on it $\rho: G \times V \to V$ s.t. for all $g \in G$, the induced map $\rho(g, -)$ os $\C$-linear.
+    Equivalently, a representation of $G$ is a vector space $V$ over $\C$ with an action of $G$ on it $\rho: G \times V \to V$ s.t. for all $g \in G$, the induced map $\rho(g, -)$ is $\C$-linear.
 \end{definition}
 
 \begin{notation}
@@ -133,6 +133,10 @@ Notice that $G$ is not necessarily a finite group. Therefore the vector space ca
     where the sums are finite. Conversely, if $M$ is a $\C[G]$-module, then it has a $\C$-vector space structure via considering the scalar multiplication as the action $\C \hookrightarrow \C[G]$ which acts on $M$; and the $\C$-linear map associated to each group element $g$ is given by $(g, -)$, where $(g, x) \mapsto \alpha(g) \cdot x$ as specified by the $\C[G]$-module. The linearity is guaranteed by the linearity of scalar multiplication in modules.
 \end{proof}
 
+\begin{corollary}\label{cor: kernel and image of morphism of repr. is repr.}
+    If $F: V \to W$ is a morphism of $G$-representations, then $\ker f \subseteq V$ and $\im f \subseteq W$ are sub-representations. This can be seen via using Proposition \ref{prop: repr of G identifiable with C[G]-modules} to identify representations with $\C[G]$-modules, and see that the kernel and image of a morphism of $R$-modules are both submodules. 
+\end{corollary}
+
 \begin{remark}
     In general, for a representation over a field $\mathbb{F}$ of $G$, it can be identified with $\mathbb{F}[G]$.
 \end{remark}
@@ -164,11 +168,7 @@ The following gives some common examples of representations:
 \textstart
 Similar to the introduction of simple groups in group theory, we would like to have some simple objects in terms of representation, such that for any representation it can be decomposed into the ``combination'' of these simple objects, and understanding these simple objects provides understanding of the whole object. 
 
-Consider the simplest case of representation of $G$, where the associated vector space is 1-dimensional, i.e. is given explicitly by $G \to \GL_1(\C) \simeq \C^{\ast}$ as a group homomorphism. The composition of $\C^{\ast}$ is the multiplication, as here $\C^{\ast}$ is considered as the 1-by-1 complex matrix (1-dimensional linear map). Since $\C^{\ast}$ is commutative, this is the same as the representation $\bar{\rho}: G^{\ab} \to \C^{\ast}$. By Remark \ref{rmk: repr isom iff conjugate}, two representations are isomorphic if and only if they are conjugate; and since $\C^{\ast}$ is commutative, this implies that two representations are isomorphic if and only if they are identical.
-
-\begin{corollary}\label{cor: kernel and image of morphism of repr. is repr.}
-    If $F: V \to W$ is a morphism of $G$-representations, then $\ker f \subseteq V$ and $\im f \subseteq W$ are sub-representations. This can be seen via using Proposition \ref{prop: repr of G identifiable with C[G]-modules} to identify representations with $\C[G]$-modules, and see that the kernel and image of a morphism of $R$-modules are both submodules. 
-\end{corollary}
+Consider the simplest case of representation of $G$, where the associated vector space is 1-dimensional, i.e. is given explicitly by $G \to \GL_1(\C) \simeq \C^{\ast}$ as a group homomorphism. The composition of $\C^{\ast}$ is the multiplication, as here $\C^{\ast}$ is considered as the 1-by-1 complex matrix (1-dimensional linear map). Since $\C^{\ast}$ is commutative, this is the same as the representation $\bar{\rho}: G^{\ab} \to \C^{\ast}$. By Remark \ref{rmk: repr isom iff conjugate}, two representations are isomorphic if and only if they are conjugate; and since $\C^{\ast}$ is commutative, this implies that two representations on $\C$ are isomorphic if and only if they are identical.
 
 The following gives some tools for properly define the concept of ``simple'' objects in terms of representations, and decompose complex objects to those simple ones. From now on, we will consider only $G$ being finite groups, and all representations are finite-dimensional.
 
@@ -195,19 +195,26 @@ The general result above is also true for representations:
     Let $G$ be a finite group. Let $V$ be a finite-dimensional $\C$-representation of $G$, and $W \subseteq V$ a sub-representation. Then there exists another sub-representation $W'$ of $V$ s.t. $V = W \oplus W'$.
 \end{theorem}
 
-\begin{proof}
-    First show that we have similar identifications as in the scenario for vector spaces: for $V$ a representation of $G$, and $W \subseteq V$ a sub-representation, then
+First show that we have similar identifications as in the scenario for vector spaces: 
+\begin{proposition}
+    For $V$ a representation of $G$, and $W \subseteq V$ a sub-representation, then
     \[
         \text{Giving $W'$ sub-repr. s.t. $V = W \oplus W'$} \quad \Longleftrightarrow \quad \text{Giving $p: V \to V$ morphism of repr. s.t. $p^2 = p$, and $\im p = W$}
     \]
+\end{proposition}
+\begin{proof}
+    Prove the equivalence in two directions:
     \begin{itemize}
         \item[$\Rightarrow$:] For $W'$ being a sub-representation, it is in particular a vector subspace of $V$. Then by Parenthesis \ref{pth: equiv in v.s. for internal sum and projection} we have $p: V \to V$ linear map which satisfies the desired conditions. Further verify that this is a morphism of representation: for all $v \in V, g \in G$ we have
         \[
             g(p(v)) = g(p(w + w')) = g(p(w)) = g(w) = p(g(w))
-        \]
-        where the last equality results from the fact that $g(w) \in W$ as $W$ is a sub-representation of $V$. 
+            \]
+            where the last equality results from the fact that $g(w) \in W$ as $W$ is a sub-representation of $V$. 
         \item[$\Leftarrow$:] The decomposition is clear from the result when considering $V, W, W'$ as vector spaces; and the fact that $W'$ is a sub-representation results from the result that $W' = \ker p$ and kernel of morphism of representations is still a representation (Corollary \ref{cor: kernel and image of morphism of repr. is repr.}).
     \end{itemize}
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm: decomposition of repr.}]
     Approach the proof via providing the construction in RHS. For $W \subseteq V$ being a sub-representation, by Parenthesis \ref{pth: equiv in v.s. for internal sum and projection} we have a linear map $p: V \to V$ s.t. $p^2 = p$ and $\im p = W$. Now seek using $p$ to construct a morphism of representations: Define 
     \[
         \tilde{p}: V \to V, \quad v \mapsto \frac{1}{\abs{G}} \sum_{g \in G} g^{-1} p(gv)
@@ -216,7 +223,7 @@ The general result above is also true for representations:
     \begin{align*}
         \tilde{p}(hv)
         & = \frac{1}{\abs{G}} \sum_{g \in G} g^{-1} p(ghv) = h \left( \frac{1}{\abs{G}} \sum_{g \in G} h^{-1} g^{-1} p(ghv) \right) \\
-        & = h\left(\frac{1}{\abs{G}} \sum_{g' \in G} (g')^{-1} p(g'v) \right) & (\text{Use substitution $g' = gh$}) \\
+        & = h\left(\frac{1}{\abs{G}} \sum_{g' \in G} (g')^{-1} p(g'v) \right) & (\text{Apply substitution $g' = gh$}) \\
         & = h(\tilde{p}(v))
     \end{align*}
     Check that $\tilde{p}$ also satisfies the other two conditions, i.e. $\tilde{p}^2 = \tilde{p}$, and $\im \tilde{p} = W$. Notice $\tilde{p(hv)} = h\left(\frac{1}{\abs{G}} \sum_{g' \in G} (g')^{-1} p(g'v) \right)$, where $p(g'v) \in W$, and for elements in $W$ RHS evaluates to be exactly $hv$; and linear combination of elements in $W$ still remains in $W$. Further $W$ is a sub-representation gives the fact that $W$ is invariant under $g$-actions. Let $W' = \ker \tilde{p}$ finishes the proof.
@@ -227,17 +234,18 @@ The general result above is also true for representations:
 \end{remark}
 
 \begin{remark}\label{rmk: counterexample for nonzero char. field or infintie group}
-    It is also vital that we require that $G$ is finite; and the field is of characteristic zero. Otherwise the ``averaging'' process where we divide the sum of all possible representations by the order of $G$ is not valid; and in general Theorem \ref{thm: decomposition of repr.} is \emph{not} true for representations over positive-characteristic fields, or for infinite groups.
+    It is also vital that we require $G$ to be finite; and the field is of characteristic zero. Otherwise the ``averaging'' process where we divide the sum of all possible representations by the order of $G$ is not valid; and in general Theorem \ref{thm: decomposition of repr.} is \emph{not} true for representations over positive-characteristic fields, or for infinite groups.
     
-    A good example given in the homeworks is the followings: take $A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix} \in K^2 = V$ for $K$ some field, and the representation $\rho: G \to \GL(V)$. Such projection $p$ (as in the proof) does not exist for the following cases:
+    A good example given in the homeworks is the followings: take $A = \begin{pmatrix} 1 & 1 \\ 0 & 1 \end{pmatrix}$ acting on $K^2 = V$ for $K$ some field, and consider the representation $\rho: G \to \GL(V)$. Such projection $p$ (as in the proof) does not exist for the following cases:
     \begin{itemize}
         \item $K = \C$, $G = \Z$, and $\rho(1) = A$.
         \item $K = \Z/2\Z$, $G = \Z/2\Z$, and $\rho(\bar{1}) = A$.
-    \end{itemize} 
+    \end{itemize}
+    where the sub-representation is the vector subspace of $V$ preserved by $A$. 
 \end{remark}
 
 \begin{remark}
-    By Proposition \ref{prop: repr of G identifiable with C[G]-modules} we have the identification between $G$-representations on $V$ and $\C[G]$-module structure on $V$. This implies that for $G$ finite, $W \subseteq V$ (finite-dimensional as a $\C$-vector space) being a $\C[G]$-module implies that there exists another $\C[G]$-submodule $W'$ s.t. $V = W \oplus W'$.
+    By Proposition \ref{prop: repr of G identifiable with C[G]-modules} we have the identification between $G$-representations on $V$ and $\C[G]$-module structure on $V$. This implies that for $G$ finite, $W \subseteq V$ (finite-dimensional as a $\C$-vector space) being a $\C[G]$-submodule implies that there exists another $\C[G]$-submodule $W'$ s.t. $V = W \oplus W'$.
 \end{remark}
 
 \begin{definition}[Irreducible]
