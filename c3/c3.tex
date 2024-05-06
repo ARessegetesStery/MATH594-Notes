@@ -15,7 +15,7 @@ The Galois Theory originates from the question: Given a polynomial with coeffici
 Setup the convention. All rings have unit element 1; and all ring homomorphisms map 1 to 1. Inclusion maps, in particular, implies that all subrings of a certain ring must include 1.
 
 \begin{remark}
-    An immediate result is that finite domains are fields.
+    An immediate result is that finite domains that are not the zero ring are fields.
 
     Recall that a ring $R$ is a domain if and only if zero does not have non-trivial divisors. That is, for all $x, y \in R \smallsetminus \{0\}$, $xy = 0$. For $a \in R$, $a \neq 0$, consider the map 
     \[
@@ -77,7 +77,7 @@ Recall that two elements $f, g$ are \underline{relative prime} if for all $p \in
 \end{proposition}
 
 \begin{proof}
-    THe key step is to show that if $f$ is irreducible in $R$, then there exists a field extension $k \ext k'$ s.t. $f$ has a root in $k'$.
+    The key step is to show that if $f$ is irreducible in $R$, then there exists a field extension $k \ext k'$ s.t. $f$ has a root in $k'$.
 
     Consider $k' = k[x]/(f)$. Since $f$ is irreducible, $(f)$ is a maximal ideal in $R$, and therefore $k'$ is a field. Since elements in $k$ are of degree 0 in $k[x]$. Considering $k \too k[x] \too k' := k[x]/(f)$ gives the injective ring homomorphism (field extension). Let $a = \overline{x} \in k'$. Then $f(a) = \overline{f(x)} = 0$, which implies that $a$ is a root of $f$.
 
@@ -204,9 +204,9 @@ The field extensions originating solely from ``including the roots of polynomial
 \end{proof}
 
 \begin{notation}\label{not: extending field by field}
-    Let $k \ext K$ bea field extension, and $A \subseteq K$ a subset. Then we denote
+    Let $k \ext K$ be a field extension, and $A \subseteq K$ a subset. Then we denote
     \[
-        k(A) := \cap_{A \subseteq k'} \left\{ k' \mid k \ext k' \ext K \text{ extension} \right\}
+        k(A) := \bigcap_{A \subseteq k'} \left\{ k' \mid k \ext k' \ext K \text{ extension} \right\}
     \]
     which is the smallest field sub-extension of $k$ inside $K$ containing $A$. 
 \end{notation}
@@ -329,7 +329,7 @@ The field extensions originating solely from ``including the roots of polynomial
 % using \mbox to suppress newline (otherwise there will be a lagging $k$ in the new line)
 
 \begin{remark}
-    By induction, if $f$ is a nonzero polynomial in $k[x]$ with degree $n$< then there exists $a_1, \dots, a_n \in k$, $c \in k^{\ast}$ s.t. $f = c(x - a_1) \cdots (x - a_k)$. That is, every irreducible polynomial has degree 1.
+    By induction, if $k$ is algebraically closed and $f$ is a nonzero polynomial in $k[x]$ with degree $n$< then there exists $a_1, \dots, a_n \in k$, $c \in k^{\ast}$ s.t. $f = c(x - a_1) \cdots (x - a_k)$. That is, every irreducible polynomial in an algebraically closed field has degree 1.
 \end{remark}
 
 \begin{notation}
@@ -483,7 +483,7 @@ To prove the theorem we need Zorn's Lemma:
     Therefore $K' = K$ and we have the desired result.
 \end{proof}
 
-\begin{corollary}
+\begin{corollary}\label{cor: algebraic closure is unique}
     The algebraic closure of a given field $k$ is unique up to isomorphism.
 
     Suppose that we have field extensions $k \ext K$ and $k \ext L$, with both $K$ and $L$ algebraically closed. Then applying the above theorem twice gives field extensions $K \ext L$ and $L \ext K$, which are both injective by Proposition \ref{prop: ring homs from a field are injective}. This gives the desired isomorphism.
@@ -515,7 +515,7 @@ Let $K$ be a finite field. Since $\Z \to K$ cannot be injective, $\fchar(K) = p$
     Notice that $(K^{\times}, \cdot)$ is a finite group with $(p^e - 1)$ elements. Therefore, for all $u \in L$, $u^{p^e - 1} = 1$, which implies that $u^{p^e} = u$ i.e. $K \subseteq $ RHS. Now consider the polynomial $x^{p^e} - x$ in $\overline{K}[x]$, which has $p^e$ roots since $\overline{K}$ is algebraically closed. $\abs{K} = p^e$ gives the desired equality.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop: F_pe are isomorphic}
     If $K_1$ and $K_2$ are both fields with $p^e$ elements, then $K_1 \simeq K_2$. Without ambiguity we denote such fields as $\F_{p^e}$.
 \end{proposition}
 
@@ -534,24 +534,32 @@ Let $K$ be a finite field. Since $\Z \to K$ cannot be injective, $\fchar(K) = p$
     This existence of $\varphi$ is guaranteed by Theorem \ref{thm: algebraic extension can be extended to algebraically closure}. Since $\varphi$ is a ring homomorphism between fields, it is injective; and therefore $\abs{\varphi(K_1)} = \abs{K_1} = p^e$ \implies $\varphi(K_1) = \{i \in \overline{K_2} \mid u^{p^e} = u\}$. But this then coincides with $K_2$.
 \end{proof}
 
-\begin{remark}
+\begin{example}\label{ex: f_pe extends to f_pf iff e divides f}
     There exists a ring homomorphism $\F_{p^e} \to \F_{p^f}$ if and only if $e \mid f$. 
-\end{remark}
+\end{example}
     
 \begin{proof}
     Verify both implications:
     \begin{itemize}
-        \item[$\Rightarrow:$] 
-        \item[$\Leftarrow:$] 
+        \item[$\Rightarrow:$] Since we have the field extension $\F_{p^e} \ext \F_{p^f}$, we can view $\F_{p^f}$ as a $\F_{p^e}$-vector space. As further we have two fields being finite, $\abs{\F_{p^f}} = \left( \abs{\F_{p^e}} \right)^{\dim_{\F_{p^e}} \F_{p^f}}$. In particular this implies that $e \mid f$.
+        \item[$\Leftarrow:$] By Claim \ref{clm: fields with p^e elements} we know that the elements in the field $\F_{p^f}$ are those in the set $\{ u \in \overline{\F_{p^f}} \mid u^{p^f} = u \}$. Now Consider the roots of the polynomial $f = x^{p^f} - x$ in $\overline{\F_{p^f}}$. Since $\F_{p^f}$ embeds naturally into its algebraic closure, the image is exactly the roots of $f$. Since $e \mid f$, there exists $n$ s.t. $f = ne$. Notice then that $f$ factors as follows:
+        \[
+            f = x^{p^f} - x = \left( x^{p^e} - x \right) \left( \sum_{i = 1}^{n-1} p^{i(p^e - 1)} \right)
+        \]
+        which implies that elements satisfying the relation $u^{p^e} = u$ in particular also satisfy $u^{p^f} = u$; and by Claim \ref{clm: fields with p^e elements} these give the elements in field $\F_{p^e}$. This gives the field extension $\F_{p^e} \ext \F_{p^f} \ext \overline{\F_{p^f}}$ (and also by the uniqueness of algebraic closure (Corollary \ref{cor: algebraic closure is unique}) we have $\overline{\F_{p^e}} = \overline{\F_{p^f}}$).
     \end{itemize}
 \end{proof}
     
-\begin{remark}
+\begin{example}
     Inside the algebraic closure of $\F_p$, $\overline{\F_p}$, for all $e \geq 1$ we have a unique copy of $\F_{p^e}$; and $\overline{\F_p} = \bigcup_{e \geq 1} \F_{p^e}$.
-\end{remark}
+\end{example}
 
 \begin{proof}
-    
+    Proceed to verify the inclusion in both directions:
+    \begin{enumerate}
+        \item[$\subseteq$] For any element $u \in \overline{\F_p}$, consider its minimal polynomial over $\F_p$. Let $f_u \in \F_p[x]$ be the polynomial of $u$. Then $u \in \F_p(u) \simeq \F_p[x]/(f_u)$. By Remark \ref{rmk: degree of minimal polynomial gives degree of extension} we have $\abs{\F_p(u)} = p^{\deg f} \implies u \in \F_{p^{\deg f}} \subseteq \bigcup_{e \geq 1} \F_{p^e}$. 
+        \item[$\supseteq$] By Example \ref{ex: f_pe extends to f_pf iff e divides f} we have the embedding of $\F_{p^e}$ to its algebraic closure; and also such closures can be identified by the uniqueness of algebraic closure and viewing $\F_{p^n}$ as elements satisfying relation $u^{p^n} = u$ by Claim \ref{clm: fields with p^e elements}.
+    \end{enumerate}
 \end{proof}
 
 \section{The Splitting Field of a Polynomial}
