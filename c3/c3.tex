@@ -450,7 +450,7 @@ Now prove the theorem:
 To address the uniqueness of $\bar{k}$, we prove the following theorem that is more general:
 
 \begin{theorem}\label{thm: algebraic extension can be extended to algebraically closure}
-    Given two field extensions $k \ext K$ and $k \ext L$ s.t. $K/k$ is algebraic, and $L$ is algebraically closed. Then there is a morphism of $k$-extensions (as $k$-algebras) $K \ext L$.
+    Given two field extensions $k \ext K$ and $k \ext L$ s.t. $K/k$ is algebraic, and $L$ is algebraically closed. Then there is a morphism of $k$-extensions $K \ext L$, where a morphism of $k$-extensions is a morphism of $k$-algebras which is the identity map when restrict to $k$.
 \end{theorem}
 
 To prove the theorem we need Zorn's Lemma:
@@ -563,6 +563,52 @@ Let $K$ be a finite field. Since $\Z \to K$ cannot be injective, $\fchar(K) = p$
 \end{proof}
 
 \section{The Splitting Field of a Polynomial}
+
+\begin{definition}[Splitting Field]
+    Let $k$ be a field, and $f \in k[x] \smallsetminus \{0\}$. A \textbf{splitting field} of $f$ is a field extension $k \ext K$ s.t. 
+    \begin{enumerate}[label=\arabic*)]
+        \item $f$ factors in $K[x]$ as a product of degree-1 polynomials.
+        \item If there exists $K'$ s.t. $k \subseteq K' \subseteq K$ which also satisfies 1), then $K' = K$,
+    \end{enumerate}
+    Equivalently, for a splitting field of $f$, denoted $K$, we can write $f$ in $K[x]$ as $f = c(x - a_1) \cdots (x - a_n)$ with $c, a_1, \dots, a_n \in K$; and $K = k(a_1, \dots, a_n)$. 
+\end{definition}
+
+\begin{example}
+    $\C$ is the splitting field of $x^2 + 1$. $\Q(\sqrt{2})$ is the splitting field of $x^2 - 2$.
+\end{example}
+
+\textstart
+From what we had proved previously (Corollary \ref{cor: algebraic closure is unique}), we know that algebraic closure is unique up to isomorphism, so we would expect the splitting field to be unique up to isomorphisms as well. The followings use (which will also be the case for most proofs regarding existence of extensions) the algebraic closure to construct such extensions.
+
+\begin{theorem}\label{thm: splitting field is unique}
+    If $f \in k[x] \smallsetminus \{0\}$, then
+    \begin{enumerate}
+        \item There exists a splitting field $k \ext K$ of $f$.
+        \item If we have $k \ext K$, $k \ext K'$ splitting fields of $f$, then $K \simeq K'$ as $k$-extensions.
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    If $K$ is the splitting field of $f \in k[x]$, then $K/k$ is a finite extension, as in particular $K$ is generated (as a $k$-vector space) by finitely many algebraic elements over $k$, namely the roots of $f$. By Proposition \ref{prop: finitely generated algebraic extensions are finite} the extension is then finite.
+\end{remark}
+
+\begin{proof}[Proof of Theorem \ref{thm: splitting field is unique}]
+    Prove the two statements respectively:
+    \begin{enumerate}[label=\arabic*)]
+        \item Consider $k \ext \bar{k}$ the algebraic closure of $k$. Then there exists $c, a_1, \dots, a_n \in \bar{k}$ s.t. $f = c(x - a_1) \cdots (x - a_n)$. Then $K = k(a_1, \dots, a_n)$ is the splitting field of $f$, by definition.
+        \item Let $k \ext K$ and $k \ext K'$ be the splitting fields of $f$. Let $K' \ext \overline{K'}$ be the algebraic closure. By the remark above, $K/k$ is algebraic. Since $\overline{K'}$ is algebraically closed, by Theorem \ref{thm: algebraic extension can be extended to algebraically closure} there exists $\varphi: K \to \overline{K'}$ s.t. $\restr{\varphi}{k} = \restr{\Id}{k}$. Since $K$ and $K'$ are splitting fields of $f$ over $k$, we can write $f = c(x - a_1) \cdots (x - a_n)$ in $K[x]$, and $f = c'(x - a_1') \cdots (x - a_n')$ in $K'[x]$. This gives the similar expression of the fields as in the remark: 
+        \[
+            K = k(a_1, \dots, a_n), \qquad K' = k(a_1', \dots, a_n')
+        \]
+        Consider the ring homomorphism $K[x] \ext K'[x] \subseteq \overline{K'}[x]$ induced by $\varphi$, we have
+        \[
+            f = \varphi(f) = c(x - \varphi(a_1)) \cdots (x - \varphi(a_n))
+        \]
+        since $f \in k[x]$ and $\varphi$ as a morphism between $k$-extensions is the identity map when restricted to $k$. Therefore $\varphi$ permutes $a_i$s, which gives $\varphi(K) \subseteq K'$ and $\varphi(K') \subseteq K$, i.e. $\varphi(K) = K'$, and $\varphi$ is bijection and thus a ring isomorphism.
+    \end{enumerate}
+\end{proof}
+
+
 
 \section{Separable Extensions}
 
