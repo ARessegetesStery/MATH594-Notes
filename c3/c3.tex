@@ -868,6 +868,80 @@ THe following results characterize the ``nice'' feature of a field extension bei
 
 \section{Algebraic Independence \& Transcendence Degree$^{\ast}$}
 
+\textstart
+The introduction of transcendental degree seeks to give an invariant that measures how far the an extension $k \ext K$ is from being algebraic. We would denote this as $\trdeg(K/k)$ and give a formal definition later. But we would desire the following properties from it:
+\begin{enumerate}[label=\arabic*)]
+    \item $\trdeg{K/k} = 0$ if the extension $k \ext K$ is algebraic. 
+    \item If $k \ext K = k(x_1, \dots, x_n)$ where $x_1, \dots, x_n$ are formal (not algebraic), then $\trdeg(K/k) = n$.
+    \item Given extensions $k \ext K \ext L$, $\trdeg(L/k) = \trdeg(K/k) + \trdeg{L/K}$.
+\end{enumerate}
+
+\begin{definition}[Algebraic Independence]
+    Given a field extension $k \ext K$, a subset $A \subset K$ is \textbf{algebraically independent} (over $k$) if for all $n$ for every $a_1, \dots, a_n \in A$ distinct, and every $f \in k[x_1, \dots, x_n]$, $f \neq 0$ implies $f(a_1, \dots, a_n) \neq 0$. Otherwise we say that $A$ os \textbf{algebraic dependent}.
+\end{definition}
+
+\begin{remark}
+    We have the following immediate results:
+    \begin{enumerate}[label=\arabic*)]
+        \item For $A = \{a\}$, i.e. containing only one element, then $A$ is algebraically independent if and only if $a$ is not algebraic over $k$. 
+        \item By definition, $A$ is algebraically independent if and only if for all $B \subseteq A$ finite, $B$ is algebraically independent. 
+        \item Given $a_1, \dots, a_n \in k$, they being algebraically independent if and only if for $\varphi: k[x_1, \dots, x_n] \to k$, $x_i \mapsto a_i$ as a $k$-algebra homomorphism satisfies $\ker \varphi = \{0\}$, i.e. $k(a_1, \dots, a_n) \simeq k(x_1, \dots, x_n)$.
+    \end{enumerate}
+\end{remark}
+
+\begin{example}
+    Take $R = k[x, y]/(x^2 + y^2 - 1)$, consider $k \ext R \ext \Frac(R)$, $\bar{x}$ and $\bar{y}$ are algebraically dependent, as we have the relation $(\bar{x})^2 + (\bar{y})^2 = 1$.
+\end{example}
+
+\begin{proposition}\label{prop: transitivity of alg. indep.}
+    Given a field extension $k \ext K$, let $A$ be a set, and $B = A \sqcup \{b\}$ inside field $K$. Then $B$ is algebraically independent over $k$ if and only if $A$ is algebraically independent over $k$, and $b$ is not algebraic over $k(A)$.
+\end{proposition}
+
+\begin{proof}
+    By definition if $B$ is algebraically independent, then $A$ must be algebraically independent. For $b$ not algebraic over the $k(A)$ prove the contrapositive: suppose that $B$ is algebraic over $k(A)$, then there exists $0 \neq P = c_0 + c_1 y + \cdots + c_d y^d \in k(A)[y]$ s.t. $P(b) = 0$. Since $c_i \in k(A)$, we can write $c_i = \frac{f_i (a_1, \dots, a_n)}{g_i (a_1, \dots, a_n)}$ for $f_i, g_i \in k[x_1, \dots, x_n]$ and $a_i \in A$. $P(b) = 0$ implies that $\sum_{i = 0}^d f_i (x_1, \dots, x_n) b^i = 0$. But notice that $P \neq 0$, and $P$ can be viewed as a polynomial in $\{a_1, \dots, a_n, b\}$, which implies that $A$ is not algebraically independent. 
+
+    The other direction is clear by definition.
+\end{proof}
+
+\begin{proposition}
+    Every algebraically independent subset $A \subseteq K$ over $k$ is contained in a maximal such subset.
+\end{proposition}
+
+\begin{proof}
+    Apply Zorn's Lemma. Show that the set $\mathcal{B} = \{B \subseteq K \mid A \subseteq B, \text{$B$ algebrically independent over $k$}\}$ with order of inclusion satisfies the hypotheses in Zorn's Lemma:
+    \begin{itemize}
+        \item $\mathcal{B}$ is nonempty. In particular, it contains $A$.
+        \item If $(B_i)_{i \in I}$ is a chain in $\mathcal{B}$, it is bounded above by $\overline{B} = \bigcup_{i \in I} B_i \in B$. It is indeed algebraically independent as every finite subset of $\overline{B}$ is contained in some $B_i$ since every two such $B_i$s are comparable (as a chain is totally ordered). 
+    \end{itemize}
+\end{proof}
+
+\begin{proposition}
+    A subset $A \subseteq L$ is a maximal algebraically independent subset over $k$ of $K$ if $A$ is algebraically independent, and $k(A) \ext K$ is an algebraic extension. 
+\end{proposition}
+
+\begin{proposition}
+    By definition, if $A$ is algebraically independent, then it is maximal if and only if for all $b \in K \smallsetminus A$, $b$ is algebraic over $k(A)$ (otherwise by Proposition \ref{prop: transitivity of alg. indep.} we can adjoin an element to this set while keeping its algebraic independence). This is exactly saying that $k(A) \ext K$ is algebraic.
+\end{proposition}
+
+\begin{definition}[Transcendental Basis]
+    Given a field extension $K/k$, a \textbf{transcendental basis} of $K/k$ is a maximal algebraically independent subset of $K$ over $k$.
+\end{definition}
+\nogap
+\begin{definition}[Transcendental Degree]
+    Given a field extension $K/k$, the \textbf{transcendental degree}, denoted $\trdeg(K/k)$ is the number of elements of a transcendental basis. It is in $\Z_{\geq 0} \cup \infty$.
+\end{definition}
+
+\textstart
+We are using the similar nomenclature as for vector spaces, so we would expect similar properties for being ``independent'' or ``a basis'':
+
+\begin{theorem}
+    If given $K/k$ is a field extension, and $a_1, \dots, a_n \in K$ s.t. $k(a_1, \dots, a_n) \ext K$ is algebraic (i.e. this is a maximal algebraically independent set), then for all $\{b_1, \dots, b_m\}$ algebraically independent over $k$, $m \leq n$.
+\end{theorem}
+
+\begin{proof}
+    
+\end{proof}
+
 \section{The Fundamental Theorem of Galois Theory}
 
 \section{Norm and Trace Maps}
