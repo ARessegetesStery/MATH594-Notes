@@ -596,7 +596,7 @@ From what we had proved previously (Corollary \ref{cor: algebraic closure is uni
     Prove the two statements respectively:
     \begin{enumerate}[label=\arabic*)]
         \item Consider $k \ext \bar{k}$ the algebraic closure of $k$. Then there exists $c, a_1, \dots, a_n \in \bar{k}$ s.t. $f = c(x - a_1) \cdots (x - a_n)$. Then $K = k(a_1, \dots, a_n)$ is the splitting field of $f$, by definition.
-        \item Let $k \ext K$ and $k \ext K'$ be the splitting fields of $f$. Let $K' \ext \overline{K'}$ be the algebraic closure. By the remark above, $K/k$ is algebraic. Since $\overline{K'}$ is algebraically closed, by Theorem \ref{thm: algebraic extension can be extended to algebraical closure} there exists $\varphi: K \to \overline{K'}$ s.t. $\restr{\varphi}{k} = \restr{\Id}{k}$. Since $K$ and $K'$ are splitting fields of $f$ over $k$, we can write $f = c(x - a_1) \cdots (x - a_n)$ in $K[x]$, and $f = c'(x - a_1') \cdots (x - a_n')$ in $K'[x]$. This gives the similar expression of the fields as in the remark: 
+        \item Let $k \ext K$ and $k \ext K'$ be the splitting fields of $f$. Let $K' \ext \overline{K'}$ be the algebraic closure. By the remark above, $K/k$ is algebraic. Since $\overline{K'}$ is algebraically closed, by Theorem \ref{thm: algebraic extension can be extended to algebraical closure} there exists $\varphi: K \to \overline{K'}$ s.t. $\restr{\varphi}{k} = \Id_k$. Since $K$ and $K'$ are splitting fields of $f$ over $k$, we can write $f = c(x - a_1) \cdots (x - a_n)$ in $K[x]$, and $f = c'(x - a_1') \cdots (x - a_n')$ in $K'[x]$. This gives the similar expression of the fields as in the remark: 
         \[
             K = k(a_1, \dots, a_n), \qquad K' = k(a_1', \dots, a_n')
         \]
@@ -734,7 +734,7 @@ THe following results characterize the ``nice'' feature of a field extension bei
     \begin{enumerate}[label=\arabic*)]
         \item For every $f \in K[x]$ irreducible, if $f$ has a root in $L$, then $f$ factors as degree-1 polynomials in $L[x]$.
         \item There is a (possibly infinite) family of polynomials $(f_i)_{i \in I}$ in $K[x]$ s.t. $L$ is the splitting field of this family. That is, all $f_i$ factors as a product of degree-1 polynomials in $L[x]$, and there is no $L'$ with $K \subset L' \subset L$ which satisfies the same property. 
-        \item Given an algebraic closure $L \ext \bar{L}$, any ring homomorphism $\sigma: L \ext \bar{L}$ satisfying $\restr{\sigma}{K} = \restr{\Id}{K}$ satisfies $\sigma(L) \subseteq L$.
+        \item Given an algebraic closure $L \ext \bar{L}$, any ring homomorphism $\sigma: L \ext \bar{L}$ satisfying $\restr{\sigma}{K} = \Id_K$ satisfies $\sigma(L) \subseteq L$.
     \end{enumerate}
 \end{definition}
 
@@ -803,6 +803,68 @@ THe following results characterize the ``nice'' feature of a field extension bei
 \end{proof}
 
 \section{Galois Extensions}
+
+\begin{definition}[Galois Group]
+    Let $K \ext L$ be an algebraic extension. The \textbf{Galois Group} of $L/K$ is
+    \[
+        G(L/K) := \{ \sigma \in \Aut(L) \mid \restr{\sigma}{K} = \Id_K \}
+    \]
+    with the group operation defined as composition.
+\end{definition}
+
+\begin{definition}[Galois Extension]
+    A field extension is \textbf{Galois} if it is both normal and separable. 
+\end{definition}
+
+\begin{theorem}
+    For $K \ext L$ a finite Galois extension, $\abs{G(L/K)} = [L : K]$.
+\end{theorem}
+
+\begin{proof}
+    Since $L/K$ is finite and separable, by Theorem \ref{thm: primitive element theorem} there exists a primitive $a \in L$ s.t. $L = K(a)$. Let $f$ be the minimal polynomial of $a$ over $K$. By Remark \ref{rmk: degree of minimal polynomial gives degree of extension} we know $\deg f = [L : K]$.
+
+    Now consider the algebraic closure $K \ext L \ext \bar{L}$. THen $f$ factors as $f = (x - a_1) \cdots (x - a_n)$ with $a_1 = a$, $a_i \in \bar{L}$ for all $i$, and $n = [L : K]$. Since $L/K$ is normal, $a_i \in L$ for all $i$ as $a \in L$; and since $L/K$ is separable, all $a_i$s are distinct. Further as $f \in K[x]$, for all $\sigma \in G(L/K)$, $f = \sigma(f) = (x - \sigma(a_1)) \cdots (x - \sigma(a_n))$. Then $\sigma(a_i) \in \{a_1, \dots, a_n\}$ for all $i$.
+
+    Define $\varphi: G(L/K) \to \{a_1, \dots, a_n\}$, $\sigma \mapsto \sigma(a_1)$. Check:
+    \begin{itemize}[label=$-$]
+        \item \emph{$\varphi$ is injective.} Since $L = K(a)$, two automorphisms in $G(L/K)$ agreeing on $a$ must be identical as by definition they must fix $K$.
+        \item \emph{$\varphi$ is surjective.} For all $i$, since $f$ is irreducible over $K$, we have $K(a) \simeq K[x]/(f) \simeq K(a_i)$ as $K$-algebras. Extend this to $\sigma: L \to L$, i.e. making the following diagram commute:
+
+        \begin{minipage}{\linewidth}
+            \centering
+            \begin{tikzcd}
+                K(a) \arrow[rr, "\sim"] \arrow[d, equal] & & K(a_i) \arrow[d, symbol=\subseteq] \\
+                L \arrow[rr, dashed, "\sigma"] & & L
+            \end{tikzcd}
+        \end{minipage}
+
+        Notice that $\sigma$ must be surhective, as
+        \[
+            [K(a) : K] = [L : K] = [K(a_i) : K] \leq [\sigma(L) : K]
+        \]
+        which implies that $L \subseteq \sigma(L)$ and therefore $\sigma$ is an automorphism, i.e. is in $G(L/K)$. This gives a pre-image and thus implies that $\varphi$ is surjective. Since $\{a_1, \dots, a_n\}$ is a finite set, $\abs{G(L/K)} = \abs{\{a_1, \dots, a_n\}} = n$.
+    \end{itemize}
+\end{proof}
+
+\begin{remark}
+    With the same notation as in the proof, we have a group homomorphism $G(L/K) \to S_n \simeq S_{\{a_1, \dots, a_n\}}$, $\sigma \mapsto (a_i \mapsto \sigma(a_i))$. Since it is both injective and surjective as given by the proof, the induced action of $G(L/K)$ on $\{a_1, \dots, a_n\}$ is transitive.
+\end{remark}
+
+\begin{corollary}
+    Automorphisms in $G(L/K)$ permutes the roots of minimal polynomials of elements in $L$ over $K$. 
+\end{corollary}
+
+\begin{example}
+    The followings give some examples of Galois extensions and the corresponding Galois Group:
+    \begin{enumerate}
+        \item $\R \ext \C$ is a Galois extension of degree 2. It is normal as $\C$ is the splitting field of $x^2 + 1$, and it is separable as $\R$ is characteristic-0. $G(\C/\R) = \{\Id, \sigma\}$ where $\sigma$ is the complex conjugation (corresponding to $S_2$).
+        \item For $d \in \Z_{\geq 0}$ not a perfect square, $\Q \ext \Q(\sqrt{d})$ is a Galois extension of degree 2. It is normal as $\Q(\sqrt{d})$ is the splitting field of $x^2 - d$, and it is separable as $\Q$ is characteristic-0. $G(\Q(\sqrt{d})/\Q) = \{\Id, \sigma\}$ where $\sigma: (a + b\sqrt{d}) \mapsto (a - b\sqrt{d})$.
+        \item $\F_p \ext \F_{p^e}$ is a Galois extension with degree $e$. It is normal as $\F_{p^e}$ is the splitting field of $x^{p^e} - x$; and it is separable as $\F_{p^n}$ is perfect for all $n$. The Galois group is then $G(\F_{p^e}/\F_p) = \pair{\sigma}$ where $\sigma$ is the \underline{Frobenius endomorphism}: $x \mapsto x^p$, with $\sigma^e = \Id$ and $\abs{\pair{\sigma}} = e$.
+        
+        A sidenote is that using this perspective it is clearer that there exists an embedding $\F_{p^e} \ext \F_{p^f}$ if and only if $e \mid f$, as this is equivalent to saying that $\sigma^f = \Id$. 
+        \item The extension $\Q \exth{\deg 3} \Q(\sqrt[3]{2}) \exth{\deg 2} \Q(\sqrt[3]{2}, \omega)$ where $\omega$ is the 3-rd root of unity, is Galois, as it is the splitting field of $x^3 - 2$ (normal) and $\Q$ is perfect (separable). Since $G(\Q(\sqrt[3]{2}, \omega)/\Q)$ is not cyclic, $G(\Q(\sqrt[3]{2}, \omega)/\Q) \simeq S_3$ by cardinality.
+    \end{enumerate}
+\end{example}
 
 \section{Algebraic Independence \& Transcendence Degree$^{\ast}$}
 
