@@ -608,9 +608,124 @@ From what we had proved previously (Corollary \ref{cor: algebraic closure is uni
     \end{enumerate}
 \end{proof}
 
-
-
 \section{Separable Extensions}
+
+\begin{definition}[Separable Extension]\label{def: separable extension}
+    Let $k \ext K$ be an algebraic field extension. An element $a \in K$ is \textbf{separable over $k$} if its minimal polynomial $f \in k[x]$ satisfies any of the following conditions:
+    \begin{enumerate}[label=\arabic*)]
+        \item $a$ is not a multiple root of $f$.
+        \item $f' \neq 0$.
+        \item Either $\fchar(k) = 0$, or $\fchar(k) = p > 0$, and $f \notin k[x^p]$.
+    \end{enumerate}
+    Such a polynomial $f$ is a \textbf{separable polynomial}. A field extension $k \ext K$ is \textbf{separable} if the minimal polynomial of any element in $K$ is separable. 
+\end{definition}
+
+\begin{proposition}
+    The three conditions in Definition \ref{def: separable extension} for separability over a field are equivalent.
+\end{proposition}
+
+\begin{proof}
+    Verify the following implications:
+    \begin{itemize}
+        \item \emph{2) \implies 1).} Prove the contrapositive. Suppose that $a$ is a root of $f$ with multiplicity at least 2. Then we have $(x - a)^2 \mid f \implies (x - a) \mid f'$, i.e. $f'(a) = 0$. Since $f$ is minimal, $f' \mid f$, and yet we require $\deg f' = \deg f$, which implies that $f = 0$.
+        \item \emph{1) \implies 2).} Prove the contrapositive by reversing the logic above. $f$ minimal implies $f'(a) = 0$ if and only if $f \mid f'$. But $f'(a) = 0 \implies (x - a)^2 \mid f$, i.e. $a$ is a multiple root of $f$.
+        \item \emph{3) \implies 2).} If $\fchar(k) = 0$, then $f' = 0$ if and only if $f$ is constant, which cannot be a minimal polynomial. If $\fchar(k) = p$, then if $f' = 0$ either $f$ is constant (which cannot be the case) or every term of $f'$ vanishes because of characteristic-$p$, i.e. $f \in k[x^p]$.
+        \item \emph{2) \implies 3).} Reverse the logic above and verify by the same computation.
+    \end{itemize}
+\end{proof}
+
+\begin{remark}
+    Notice that the condition 2) $f' \neq 0$ does not depend on whether $f$ splits into degree-1 polynomials. Therefore, if $f \in k[x]$ is separable, then $f$ cannot have any multiple roots in any algebraic closure of $k$.
+\end{remark}
+
+\begin{definition}[Perfect Field]
+    A field $k$ is \textbf{perfect} if every extension $k \ext K$ is separable.
+\end{definition}
+
+\begin{proposition}
+    A field $k$ is perfect if and only if $\fchar(k) = 0$, or $\fchar(k) = p$ with $k = k^p$, i.e. the map $\varphi: k \to k, x \mapsto x^p$ is an isomorphism.
+\end{proposition}
+
+\begin{proof}
+    For the case where $k$ is characteristic-0, any minimal polynomial $f$ must be of degree at least 1, giving $f' \neq 0$ which satisfies condition 2).
+
+    Now consider the case where $\fchar{k} = p$. Show the following two implications:
+    \begin{itemize}
+        \item \emph{If there exists $a \in k \smallsetminus k^p$, then $k$ is not perfect.} Let $k \ext \bar{k}$ be an algebraic closure, and let $b \in \bar{k}$ be a root of $f = x^p - a$. Claim that $f$ is irreducible in $k$ (which implies that $b$ is not separable over $k$ as it is a multiple root). In $k[x]$, $f = x^p - a = x^p - b^p = (x - b)^p$ since $\fchar{k} = p$. Therefore, if $f = gh$ in $k[x]$ with $\deg g > 0$ and $\deg h > 0$, $g$ must taken the form of $g = c(x - b)^i$ for $1 \leq i \leq p - 1$. But then consider the coefficient of $x$, which gives $cib \in k$. Since $c, i \neq 0$ in $k$, $b \in k$, which is a contradiction.
+        \item \emph{If $k = k^p$, then $k$ is perfect.} Suppose that we have the algebraic extension $k \ext K$. Choose $u \in K$ arbitrarily, with minimal polynomial $f$. If $u$ is not separable over $k$, then by definition $f \in k[x^p]$, i.e. we can write $f$ as
+        \[
+            f = \sum_{i = 0}^n a_i x^{p^i} = \sum_{i = 0}^n b_i^p x^{p^i} = \left( \sum_[i = 1]^n b_i x^i \right)^p
+        \]
+        where the first equality results from $k = k^p$, and the second equality results from $\fchar{k} = p$. But this contradicts with the irreducibility of $f$.
+    \end{itemize}
+\end{proof}
+
+\begin{example}
+    The followings give some examples of separability of extensions:
+    \begin{enumerate}
+        \item Every field of characteristic 0 is perfect by the proposition above.
+        \item Every algebraically closed field $k$ is perfect, as the only algebraic extension from $k$ is $k \ext k$.
+        \item Every finite field $\F_{p^e}$ is perfect, as Claim \ref{clm: fields with p^e elements} gives that $u \in \F_{p^e} \implies u^{p^e} = u$, i.e. $\left(u^{p^{e-1}}\right)^p = u$; and using the proposition above gives the desired result.
+        \item Fields in the form of $k(x)$ where $\fchar{k} = p > 0$ is not perfect. Suppose that $x \in \left( k(x) \right)^p$, then $x = \left( \frac{f}{g} \right)^p$ for some $f, g \in K[x]$, i.e. $x g^p = f^p$. Counting the degree of the polynomial on both sides, we have $1 \equiv 0 \mod{p}$, which is a contradiction.
+    \end{enumerate}
+\end{example}
+
+\begin{proposition}\label{prop: transitivity of separable extensions, backwards}
+    If we have field extensions $k \ext k_1 \ext k_2$ s.t. the extension $k \ext k_2$ is separable, then both $k \ext k_1$ and $k_1 \ext k_2$ are separable. 
+\end{proposition}
+
+\begin{proof}
+    $a \in k_1$ can be considered as an element in $k_2$; and since $k \ext k_2$ is separable, $a$ is not a multiple root of its minimal polynomial over $k$, which implies that $k \ext k_1$ is separable. 
+
+    For the second result, consider $b \in k_2$. Let $g$ be its minimal polynomial over $k$, and $h$ be its minimal polynomial over $k_1$. $h$ being minimal implies that $h \mid g$. Since $k \ext k_2$ is separable, $b$ is not a multiple root of $g$, and therefore is not a multiple root of $h$. Since this holds for all $b \in k_2$, the extension $k_1 \ext k_2$ is also separable.
+\end{proof}
+
+\textstart
+The converse of the proposition above also holds, but we will prove this later.
+
+THe following results characterize the ``nice'' feature of a field extension being separable:
+
+\begin{definition}[Primitive Element]
+    Given a field extension $E/F$, $\alpha \in F$ is a \textbf{primitive element} if $E = F(\alpha)$.
+\end{definition}
+\nogap
+\begin{definition}[Simple Extension]
+    A field extension $E/F$ is simple if there exists a primitive element for the extension.
+\end{definition}
+
+\begin{theorem}\label{thm: primitive element theorem}
+    Every finite separable extension is simple. 
+\end{theorem}
+
+\begin{proof}
+    Since $K/k$ is finite, there exists a basis of $K$ seen as a $k$-vector field. In particular there exists $a_1, \dots, a_n \in K$ s.t. $K = k(a_1, \dots, a_n)$. Perform induction on $n$:
+    \begin{itemize}
+        \item \emph{$n = 1$.} Clear.
+        \item \emph{$n \geq 2$.} It suffices to show the case for $n = 2$, as since the extension is finite, recursively apply the result for $n = 2$ will give the general result. Suppose that $K = k(a, b)$ for $a, b \in K$. 
+        
+        If $k$ is a finite field, then $K$ is also finite, which implies that $K^{\times}$ is a cyclic group. Let $c \in K^{\times}$ be a generator of $K^{\times}$. Then we have $K = k(c)$.
+
+        Now suppose that $k$ is finite. We seek to prove a stronger result: if $c_{\lambda} = a \lambda + b$ for $\lambda \in k$, then $c_{\lambda}$ is a primitive element for finitely many $\lambda$. Fix $\lambda \in k$. Suppose that $c_{\lambda}$ is not primitive, i.e. we have $k(c_{\lambda}) \subseteq k(a, b)$ a proper extension. Then we must have $a \notin k(c_{\lambda})$ (as otherwise we get $k(c_{\lambda}) \ni c_{\lambda} - a\lambda = b$). Let $f, g \in k(c_{\lambda})[x]$ be the minimal polynomials of $a$ and $b$ over $k(c_{\lambda})$. Then in the algebraic closure $K \ext \overline{K}$, $f$ and $g$ factors as 
+        \[
+            f = (x - a_1) \cdots (x - a_n), \qquad g = (x - b_1) \cdots (x - b_m)
+        \]
+        Without loss of generality assume that $a = a_1$ and $b = b_1$. Since $a \notin k(c_{\lambda})$, $n \geq 2$. Now consider the extensions $k \ext k(c_{\lambda}) \ext k(a, b)$. Since $k \ext k(a, b)$ is separable, $k \ext k(c_{\lambda})$ is also separable, which by definition implies that all the $a_i$s are distinct. Now consider $\varphi: k(c_{\lambda})(a_1) \isom k(c_{\lambda})(a_2)$ which sends $a_1 \mapsto a_2$. We then have the commutative diagram:
+
+        \begin{minipage}{\linewidth}
+            \centering
+            \begin{tikzcd}
+                k(c_{\lambda}) \arrow[rr, hookrightarrow] \arrow[rrdd, hookrightarrow] & & k(c_{\lambda})(a_1) \arrow[dd, "\varphi"] \arrow[rr, hookrightarrow] & & \bar{k} \arrow[dd, "\psi"] \\
+                & & & & \\
+                & & k(c_{\lambda})(a_2) \arrow[rr, hookrightarrow] & & \bar{k}
+            \end{tikzcd}
+        \end{minipage}
+        This induces an isomorphism $\psi: \bar{k} \to \bar{k}$ via specifying $\psi(b) = \psi(b_1) = b_i$ for some $i$. Since $\psi$ should fix $k(c_[\lambda])$, we require
+        \[
+            a_2 \lambda + b_i = \psi(a \lambda + b) = \psi(c_{\lambda}) = a \lambda + b \implies \lambda = \frac{b_i - b}{a - a_2}
+        \]
+        Such lambda exists since $a \neq a_2$ by the previous result that all $a_i$s are distinct; and there are only finitely many of them as there are finitely many distinct $b_i$s.
+    \end{itemize}
+\end{proof}
 
 \section{Normal Extensions}
 
