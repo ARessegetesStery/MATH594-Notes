@@ -449,7 +449,7 @@ Now prove the theorem:
 
 To address the uniqueness of $\bar{k}$, we prove the following theorem that is more general:
 
-\begin{theorem}\label{thm: algebraic extension can be extended to algebraically closure}
+\begin{theorem}\label{thm: algebraic extension can be extended to algebraical closure}
     Given two field extensions $k \ext K$ and $k \ext L$ s.t. $K/k$ is algebraic, and $L$ is algebraically closed. Then there is a morphism of $k$-extensions $K \ext L$, where a morphism of $k$-extensions is a morphism of $k$-algebras which is the identity map when restrict to $k$.
 \end{theorem}
 
@@ -463,7 +463,7 @@ To prove the theorem we need Zorn's Lemma:
     \end{itemize}
 \end{lemma}
 
-\begin{proof}[Proof of Theorem \ref{thm: algebraic extension can be extended to algebraically closure}]
+\begin{proof}[Proof of Theorem \ref{thm: algebraic extension can be extended to algebraical closure}]
     Consider the set $A = \{ (k', \varphi) \}$ where $k'$ is a subfield of $K$ for which there exists extensions $k \ext k' \ext K$; and for $i: k \to k'$, $j: k \to L$ we have $\varphi \circ i = j$. Define the partial order on $A$ be such that $(K', \varphi) \leq (K'', \psi)$ if and only if $K' \subseteq K$, and $\restr{\psi}{k'} = \varphi$.
 
     Now apply Zorn. Check the followings:
@@ -531,7 +531,7 @@ Let $K$ be a finite field. Since $\Z \to K$ cannot be injective, $\fchar(K) = p$
         \end{tikzcd}
     \end{minipage}
 
-    This existence of $\varphi$ is guaranteed by Theorem \ref{thm: algebraic extension can be extended to algebraically closure}. Since $\varphi$ is a ring homomorphism between fields, it is injective; and therefore $\abs{\varphi(K_1)} = \abs{K_1} = p^e$ \implies $\varphi(K_1) = \{i \in \overline{K_2} \mid u^{p^e} = u\}$. But this then coincides with $K_2$.
+    This existence of $\varphi$ is guaranteed by Theorem \ref{thm: algebraic extension can be extended to algebraical closure}. Since $\varphi$ is a ring homomorphism between fields, it is injective; and therefore $\abs{\varphi(K_1)} = \abs{K_1} = p^e$ \implies $\varphi(K_1) = \{i \in \overline{K_2} \mid u^{p^e} = u\}$. But this then coincides with $K_2$.
 \end{proof}
 
 \begin{example}\label{ex: f_pe extends to f_pf iff e divides f}
@@ -596,7 +596,7 @@ From what we had proved previously (Corollary \ref{cor: algebraic closure is uni
     Prove the two statements respectively:
     \begin{enumerate}[label=\arabic*)]
         \item Consider $k \ext \bar{k}$ the algebraic closure of $k$. Then there exists $c, a_1, \dots, a_n \in \bar{k}$ s.t. $f = c(x - a_1) \cdots (x - a_n)$. Then $K = k(a_1, \dots, a_n)$ is the splitting field of $f$, by definition.
-        \item Let $k \ext K$ and $k \ext K'$ be the splitting fields of $f$. Let $K' \ext \overline{K'}$ be the algebraic closure. By the remark above, $K/k$ is algebraic. Since $\overline{K'}$ is algebraically closed, by Theorem \ref{thm: algebraic extension can be extended to algebraically closure} there exists $\varphi: K \to \overline{K'}$ s.t. $\restr{\varphi}{k} = \restr{\Id}{k}$. Since $K$ and $K'$ are splitting fields of $f$ over $k$, we can write $f = c(x - a_1) \cdots (x - a_n)$ in $K[x]$, and $f = c'(x - a_1') \cdots (x - a_n')$ in $K'[x]$. This gives the similar expression of the fields as in the remark: 
+        \item Let $k \ext K$ and $k \ext K'$ be the splitting fields of $f$. Let $K' \ext \overline{K'}$ be the algebraic closure. By the remark above, $K/k$ is algebraic. Since $\overline{K'}$ is algebraically closed, by Theorem \ref{thm: algebraic extension can be extended to algebraical closure} there exists $\varphi: K \to \overline{K'}$ s.t. $\restr{\varphi}{k} = \restr{\Id}{k}$. Since $K$ and $K'$ are splitting fields of $f$ over $k$, we can write $f = c(x - a_1) \cdots (x - a_n)$ in $K[x]$, and $f = c'(x - a_1') \cdots (x - a_n')$ in $K'[x]$. This gives the similar expression of the fields as in the remark: 
         \[
             K = k(a_1, \dots, a_n), \qquad K' = k(a_1', \dots, a_n')
         \]
@@ -654,7 +654,7 @@ From what we had proved previously (Corollary \ref{cor: algebraic closure is uni
         \item \emph{If there exists $a \in k \smallsetminus k^p$, then $k$ is not perfect.} Let $k \ext \bar{k}$ be an algebraic closure, and let $b \in \bar{k}$ be a root of $f = x^p - a$. Claim that $f$ is irreducible in $k$ (which implies that $b$ is not separable over $k$ as it is a multiple root). In $k[x]$, $f = x^p - a = x^p - b^p = (x - b)^p$ since $\fchar{k} = p$. Therefore, if $f = gh$ in $k[x]$ with $\deg g > 0$ and $\deg h > 0$, $g$ must taken the form of $g = c(x - b)^i$ for $1 \leq i \leq p - 1$. But then consider the coefficient of $x$, which gives $cib \in k$. Since $c, i \neq 0$ in $k$, $b \in k$, which is a contradiction.
         \item \emph{If $k = k^p$, then $k$ is perfect.} Suppose that we have the algebraic extension $k \ext K$. Choose $u \in K$ arbitrarily, with minimal polynomial $f$. If $u$ is not separable over $k$, then by definition $f \in k[x^p]$, i.e. we can write $f$ as
         \[
-            f = \sum_{i = 0}^n a_i x^{p^i} = \sum_{i = 0}^n b_i^p x^{p^i} = \left( \sum_[i = 1]^n b_i x^i \right)^p
+            f = \sum_{i = 0}^n a_i x^{p^i} = \sum_{i = 0}^n b_i^p x^{p^i} = \left( \sum_{i = 1}^n b_i x^i \right)^p
         \]
         where the first equality results from $k = k^p$, and the second equality results from $\fchar{k} = p$. But this contradicts with the irreducibility of $f$.
     \end{itemize}
@@ -728,6 +728,79 @@ THe following results characterize the ``nice'' feature of a field extension bei
 \end{proof}
 
 \section{Normal Extensions}
+
+\begin{definition}[Normal Extension]\label{def: normal extension}
+    An algebraic extension $K \ext L$ is a \textbf{normal extension} if it satisfies one of the following three conditions:
+    \begin{enumerate}[label=\arabic*)]
+        \item For every $f \in K[x]$ irreducible, if $f$ has a root in $L$, then $f$ factors as degree-1 polynomials in $L[x]$.
+        \item There is a (possibly infinite) family of polynomials $(f_i)_{i \in I}$ in $K[x]$ s.t. $L$ is the splitting field of this family. That is, all $f_i$ factors as a product of degree-1 polynomials in $L[x]$, and there is no $L'$ with $K \subset L' \subset L$ which satisfies the same property. 
+        \item Given an algebraic closure $L \ext \bar{L}$, any ring homomorphism $\sigma: L \ext \bar{L}$ satisfying $\restr{\sigma}{K} = \restr{\Id}{K}$ satisfies $\sigma(L) \subseteq L$.
+    \end{enumerate}
+\end{definition}
+
+\begin{proposition}
+    The three conditions in the Definition \ref{def: normal extension} for normal extensions are equivalent. 
+\end{proposition}
+
+\begin{proof}
+    Verify the following implications:
+    \begin{itemize}
+        \item \emph{1) \implies 2).} Choose a family of elements $(a_i)_{i \in I}$ s.t. $L = K(a_i \mid i \in I)$. Since the extension $L/K$ is algebraic, for all $i$, $a_i$ has a minimal polynomial $f_i$. Since $f_i$ has a root $a_i$ in $L$, it factors as
+        \[
+            f_i = (x - a_{i1}) \cdots (x - a_{i n_i}), \qquad \text{where } a_{i1} = a_i,\ a_{ij} \in L
+        \]
+        Then we can write $L = K(a_{ij} \mid i \in I, 1 \leq j \leq n_i)$, which exactly implies that $L$ is the splitting field of $(f_i)_{i \in I}$.
+        \item \emph{2) \implies 3).} If $L$ is the splitting field of $(f_i)_{i \in I}$, then $f_i = (x - a_{i1}) \cdots (x - a_{i n_i})$ with $a_{i1} = a_i$, and $a_{ij} \in L$ for all $i$, $j$. Since $\sigma$ fixes elements in $K$, 
+        \[
+            f_i = \sigma(f_i) = \sigma(c_1) (x - \sigma(a_{i1})) \cdots (x - \sigma(a_{i n_i}))
+        \]
+        Then $\sigma(a_{ij}) \in \{a_{i1}, \dots, a_{i n_i}\} \subseteq L$ for all $j$. Since 2) gives that $L = K(a_{ij} \mid i \in I, 1 \leq j \leq n_i)$, we know $\sigma(L) \subseteq L$ as $\sigma$ fixes $K$ and is thus uniquely determined by its action on $a_{ij}$s.
+        \item \emph{3) \implies 1).} Let $f \in K[x]$ be irreducible, and has a root $a \in L$. Let $L \ext \bar{L}$ be an algebraic closure. Prove by contradiction: suppose that $f$ has a root $b \in \bar{L} \smallsetminus L$. Consider the map $\varphi: K(a) \to K(b)$ fixing $K$ and mapping $a$ to $b$. Since $K(a) \ext L$ is algebraic, and $\bar{L}$ is algebraically closed, by Theorem \ref{thm: algebraic extension can be extended to algebraical closure} there exists a unique $\sigma: L \ext \bar{L}$ extending $\varphi$, i.e. we have the following commutative diagram:
+        
+        \begin{minipage}{\linewidth}
+            \centering
+            \begin{tikzcd}
+                K \arrow[rr, hookrightarrow] \arrow[rrdd, hookrightarrow] & & K(a) \arrow[dd, "\varphi"] \arrow[rr, hookrightarrow] & & L \arrow[dd, dashed, "\sigma"] \\
+                & & & & \\
+                & & K(b) \arrow[rr, hookrightarrow] & & \bar{L}
+            \end{tikzcd}
+        \end{minipage}
+        But then $\sigma(a) = b \notin L$ which gives a contradiction.
+    \end{itemize}
+\end{proof}
+
+\begin{remark}
+    From the proof, if the extension we have $K \ext L$ is a finite normal extension, then there exists finitely many $f_1, \dots, f_r \in K[x]$ s.t. $L$ is the splitting field of $(f_1, \dots, f_r)$ then equivalently $L$ is the splitting field of $f = \prod_{i = 1}^r f_i$.
+\end{remark}
+
+\begin{example}
+    The following gives some examples of normal extensions:
+    \begin{enumerate}
+        \item The algebraic closure $K \ext \bar{K}$ is normal as by definition any ring homomorphism $\sigma$ has the property $\sigma(K) \subseteq K$.
+        \item If $K \ext L$ is a degree-2 extension, then $L/K$ is normal. If $a \in L \smallsetminus K$, and $f$ is the minimal polynomial of $a$, then by Remark \ref{rmk: degree of minimal polynomial gives degree of extension} $\deg f = 2$, i.e. $f = (x-a)(x-b) \in K[x]$. Then since $a \in L$, $b \in L$ as $a + b \in K \subseteq L$. But this implies that $L$ is the splitting field of $f$ and therefore $L/K$ is normal. \
+        \item The extension $\Q \ext \Q(\sqrt[3]{2})$ is normal as $\Q(\sqrt[3]{2})$ does not contain all the roots of $x^3 - 2$.
+    \end{enumerate}
+\end{example}
+
+\begin{proposition}
+    Let $K \ext L \ext L'$ be algebraic extensions, and $L'/K$ is normal. Then there exists normal sub-extension $L \ext \tilde{L} \ext L'$ s.t. $\tilde{L}/K$ is normal. This is the \underline{normal closure} of $L$ over $K$.
+\end{proposition}
+
+\begin{proof}
+    Write $L = K(a_i \mid i \in I)$. Denote $f_i \in K[x]$ as the minimal polynomial of $a_i$. Since $L'/K$ is normal, we can factor $f_i = \sigma(f_i) = \sigma(c_1) (x - \sigma(a_{i1})) \cdots (x - \sigma(a_{i n_i}))$ with $a_i = a_{i1}$, and $a_{ij} \in L'$ for all $j$. If we have $L \subseteq \tilde{L} \subseteq L'$ where $\tilde{L}/L$ is normal, then $a_{ij} \in \tilde{L}$, which implies that $K(a_{ij} \mid i \in I, 1 \leq j \leq n_i) \subseteq \tilde{L}$. Since $K \ext K(a_{ij} \mid i \in I, 1 \leq j \leq n_i)$ is the splitting field of the family of polynomials $(f_i)_{i \in I}$, $\tilde{L}/K$ is normal.
+\end{proof}
+
+\begin{remark}
+    If we have $K \ext L \ext L_1'$ and $K \ext L \ext L_2'$ algebraic extensions s.t. $L_1'/L$ and $L_2'/L$ are normal, then the corresponding normal closures of $L$ in $L_1'$ and $L_2'$ are isomorphic as $k$-extensions.
+\end{remark}
+
+\begin{proposition}
+    If $K \ext L \ext L'$ are algebraic extensions, and $L'/K$ is normal, then $L'/L$ is normal.
+\end{proposition}
+
+\begin{proof}
+    Suppose that $f \in L[x]$ is irreducible, and has a root $a \in L'$, then $f$ is a minimal polynomial of $a$ over $L$. Let $g \in K[x]$ be the minimal polynomial of $a$ over $K$. By definition $g(a) = 0$, which implies that $f \mid g$ in $L[x]$. Since $L'/K$ is normal, $g$ factors as a product of degree-1 polynomials in $L'[x]$, which implies that $f$ also factors as a product of degree-1 polynomials in $L'[x]$, which is exactly the definition of $L'/L$ being normal. 
+\end{proof}
 
 \section{Galois Extensions}
 
