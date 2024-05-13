@@ -850,7 +850,7 @@ THe following results characterize the ``nice'' feature of a field extension bei
     With the same notation as in the proof, we have a group homomorphism $G(L/K) \to S_n \simeq S_{\{a_1, \dots, a_n\}}$, $\sigma \mapsto (a_i \mapsto \sigma(a_i))$. Since it is both injective and surjective as given by the proof, the induced action of $G(L/K)$ on $\{a_1, \dots, a_n\}$ is transitive.
 \end{remark}
 
-\begin{corollary}
+\begin{corollary}\label{cor: elements of galois group permutes roots of minimal polynomial}
     Automorphisms in $G(L/K)$ permutes the roots of minimal polynomials of elements in $L$ over $K$. 
 \end{corollary}
 
@@ -1018,6 +1018,147 @@ This is somewhat related to ring theory: we state without proof the following re
 \end{theorem}
 
 \section{The Fundamental Theorem of Galois Theory}
+
+\textstart
+We now return to the discussion of Galois Theory. We have introduced the \underline{Galois Group} of a field extension $k \ext K$:
+\[
+    G(K/k) := \{ \sigma \in \Aut(K) \mid \sigma(u) = u, \forall u \in k \}
+\]
+The following section seeks to establish the relation between the structure of the Galois Group and the corresponding field extension. 
+
+\begin{proposition}
+    If $K = k(\alpha)$, then $\abs{G(K/k)} \leq [K : k]$ with equality if and only if $K/k$ is normal, and $\alpha$ is separable over $k$.
+\end{proposition}
+
+\begin{proof}
+    Every $k$-algebra homomorphism $\sigma: K \ext \bar{K}$ is uniquely determined by $\sigma(\alpha)$; and if $f \in k[x]$ is the minimal polynomial of $\alpha$, by Corollary \ref{cor: elements of galois group permutes roots of minimal polynomial} $\sigma$ permutes the roots of $f$ in $\bar{K}$. Then we have the chain of inequalities:
+    \[
+        \abs{G(K/k)} \leq \abs{\{\sigma: K \to \bar{K} \mid \text{$\sigma$ is a morphism of $k$-algebra}\}} \leq \text{\# distinct roots of $f$} \leq \deg f = [K : k]
+    \]
+    and we have equalities when $f$ is separable, and $K$ is the splitting field of $f$. 
+\end{proof}
+
+\begin{theorem}[Fundamental Theorem of Galois Theory]\label{thm: fundamental theorem of galois theory}
+    Let $K/k$ be a finite Galois extension. Then we have two maps:
+    \begin{minipage}{\linewidth}
+        \centering
+        \vspace{1em}
+        \begin{tikzcd}
+            \{k \ext L \ext K\} \arrow[rr, shift left, "\Phi"] & & \{\text{subgroups of $G = G(K/k)$}\} \arrow[ll, shift left, "\Psi"]
+        \end{tikzcd}
+        \vspace{1em}
+    \end{minipage}
+    where $\Phi(L) = G(K/L)$, and for $H \leq G$, $\Psi(H) = K^{H} := \{u \in K \mid \sigma(u) = u, \forall \sigma \in H\}$. They further satisfy the following two properties:
+    \begin{enumerate}[label=\arabic*)]
+        \item $\Phi$ and $\Psi$ are order-reversing, inverse bijections.
+        \item $H \leq G$ is a normal subgroup if and only if $k \ext K^H$ is a normal extension. In this case, the group homomorphism
+        \[
+            G(K/k) \to G(K^H/k), \qquad \sigma \mapsto \restr{\sigma}{K^H}
+        \]
+        induces an isomorphism $G/H \simeq G(K^H/k)$. 
+    \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+    We first consider some simple examples of such correspondence:
+    \begin{enumerate}[label=\arabic*)]
+        \item The correspondence is \emph{order-reversing}: If $H_1 \leq H_2 \leq G$, then $K^{H_2} \subseteq K^{H_1}$ (as $H_2$ fixes fewer elements); and for $k \ext L_1 \ext L_2 \ext K$, $G(K/L_2) \leq G(K/L_1)$.
+        \item For simplicity in the followings we will write $K^H$ for $\Psi(H)$. Notice for $H \leq G$, $H \leq G(K/K^H)$, as $K^H$ by definition is the set of elements fixed by $H$; and in the other direction for extensions $k \ext L \ext K$, $G(K/L)$ fixes $L$. We need to prove the equality. 
+    \end{enumerate}
+\end{remark}
+
+\textstart
+Before proving the main theorem we need some more tools to describe $[K : K^H]$ for $H \leq G(K/k)$:
+
+\begin{proposition}
+    Given a field $K$ and a group $G$, any mutually distinct group homomorphisms $\chi_1, \dots, \chi_n: G \to K^{\times}$ are linearly independent as elements of $\Func(G;K)$ as a $K$-vector space.
+\end{proposition}
+
+\begin{proof}
+    Prove by contradiction. Suppose that we have a relation $\sum_{i = 1}^n a_i \chi_i = 0$, with not all $a_i$s being zero. Without loss of generality, assume $n$ is minimal, i.e. all $a_i$s are nonzero. Separate the cases:
+    \begin{itemize}
+        \item $n = 1$. Then $a_1 \chi_1 = 0$; but since $\chi_1 \in K^{\times}$ which cannot be zero, $a_1 = 0$. Contradiction.
+        \item $n > 1$. By definition we have
+        \begin{equation}\tag{$\ast$}\label{eq: lin indep. of Func(G;K)}
+            \sum_{i = 1}^n a_i\chi_i(g) = 0 \quad \forall g \in G
+        \end{equation}
+        Since $\chi_i$s are distinct, there exists $h \in G$ s.t. $\chi_1(h) \neq \chi_n(h)$. Fix $h$, and choose $g \in G$ arbitrarily. Since $\chi_i$s are group homomorphisms, we have by linear independence
+        \[
+            \sum_{i = 1}^n a_i \chi_i(hg) = 0 = \sum_{i = 1}^n a_i \chi_i(h) \chi_i(g) \qquad \forall g \in G
+        \]
+        Multiplying $\chi_1(h)$ on the right of Eq. \eqref{eq: lin indep. of Func(G;K)}, and subtract the RHS of the equality above, we have
+        \[
+            \sum_{i = 0}^n a_i \underbrace{(\chi_i(h) - \chi_1(h))}_{\text{zero iff $i = 1$}} \chi_i(g) = 0 \qquad \forall g \in G
+        \]
+        which contradicts the minimality of $n$.
+    \end{itemize}
+\end{proof}
+
+\begin{corollary}\label{cor: distinct gp homs in Aut(K) are lin. indep.}
+    If $\sigma_1, \dots, \sigma_n \in \Aut(K)$ are distinct group homomorphisms, and $K$ is a field, then $\sigma_1, \dots, \sigma_n$ are linearly independent in $\Func(K; K)$ viewed as a $K$-vector space.
+\end{corollary}
+
+\begin{proof}
+    $\restr{\sigma_1}{K^{\times}}, \cdots, \restr{\sigma_n}{K^{\times}}$ are distinct group automorphisms on $K^{\times}$. Apply the above proposition.
+\end{proof}
+
+\begin{proposition}
+    Let $K$ be a field, and $A \subseteq \Aut(K)$ a subset. For $L = \{u \in K \mid \sigma(u) = u, \forall u \in A\}$, $[K : L] \geq \abs{A}$.
+\end{proposition}
+
+\begin{proof}
+    May assume that $[K : L] = n$ is finite, and $u_1, \dots, u_n$ is a basis of $K$ over $L$ (as a $L$-vector space). 
+
+    Argue by contradiction: suppose that we have $\sigma_1, \dots, \sigma_{n+1} \in A$ distinct. Consider the system of linear equations over $L$:
+    \[
+        \sum_{i = 1}^{n+1} \sigma_i(u_j) x_i = 0, \qquad 1 \leq j \leq n
+    \]
+    This is a system with $n$ equations and $(n+1)$ variables, which must exist a nontrivial solution $(a_1, \dots, a_{n+1})$. Since $u_i$s give a basis of $K$ over $L$, this is equivalent to having
+    \[
+        \sum_{i = 1}^{n+1} a_i \sigma_i(u_j) = 0\ (\forall j) \implies \sum_{i = 1}^{n+1} a_i \sigma_i = 0
+    \]
+    contradicting Corollary \ref{cor: distinct gp homs in Aut(K) are lin. indep.}.
+\end{proof}
+
+\begin{proposition}\label{prop: degree of ext equals order of galois group}
+    If $A \subseteq \Aut(K)$ is a finite group, with the same notation as above we have equality $[K : L] = \abs{A}$.
+\end{proposition}
+
+\begin{proof}
+    It is already proven that $[K : L] \geq \abs{A}$. Now suppose that $[K : L] > \abs{A}$ for $A = \{\sigma_1, \dots, \sigma_d\}$. Then there exists elements $u_1, \dots, u_{d+1} \in K$ that are linearly independent over $L$. 
+
+    Apply the similar strategy as before. Consider the linear system of equations over $K$: 
+    \[
+        \sum_{i = 1}^{d+1} \sigma_j(u_i) x_i = 0, \qquad 1 \leq j \leq d
+    \]
+    As there are $d$ equations with $d+1$ variables, there exists a nontrivial solution $(a_1, \dots, a_{d+1})$ s.t.
+    \[
+        \sum_{i = 1}^{d+1} a_i \sigma(u_i) = 0 \qquad \forall \sigma \in A
+    \]
+    In particular we can ignore all nonzero $a_i$s and get $L$-linearly independent elements $u_1, \dots, u_m$ in $K$ s.t. 
+    \begin{equation}\tag{$\ast$}\label{eq: lin indep. in K/L}
+        \sum_{i = 1}^m a_i\sigma(u_i) = 0 \qquad \text{$a_i \neq 0\ (\forall i)$, $m$ minimal}
+    \end{equation}
+    Then either
+    \begin{itemize}
+        \item $m = 1$. $a_1 \sigma(u_1) = 0$. Take in particular $\sigma = \Id$, this gives $a_1 u_1 = 0 \implies u_1 = 0$ but this contradicts with $\{u_1\}$ being linearly independent. 
+        \item $m > 1$. Multiply Eq. \eqref{eq: lin indep. in K/L} by $a_1^{-1}$ on the left, we can assume that $a_1 = 1$. Further take $\sigma = \Id$ in Eq. \eqref{eq: lin indep. in K/L}, we have $\sum_{i = 1}^m a_i u_i = 0$. Suppose that all $a_i$s are nonzero. Since $u_i$s are linearly independent over $L$, after reordering we may assume that $a_m \notin L$ (otherwise $\{u_m\}$ is not linearly independent). Then there exists $\tau \in A$ s.t. $\tau(a_m) \neq a_m$. Applying $\tau$ to Eq. \eqref{eq: lin indep. in K/L} gives (recalling that $\tau$ is a group homomorphism)
+        \[
+            \sum_{i = 1}^m \tau\underset{\text{runs through $A$}}{(a_i) \underbrace{\tau \sigma}(u_i)} = 0\ (\forall \sigma \in A) \implies \sum_{i = 1}^m \tau(a_i) \sigma(u_i) = 0 \ (\forall \sigma \in A)
+        \]
+        Subtracting Eq. \eqref{eq: lin indep. in K/L} gives (recalling that without loss of generality we may assume $a_1 = 1$, and $\tau$ is an automorphism on $K$)
+        \[
+            \sum_{i = 1}^m \underbrace{\left(\tau(a_i) - a_i\right)}_{\text{zero iff $i = 1$}} \sigma(u_i) = 0 \qquad \forall \sigma \in A
+        \]
+        which contradicts the minimality of $m$. 
+    \end{itemize}
+\end{proof}
+
+\textstart
+We now use the above results to prove the main theorem:
+\begin{proof}[Proof of Theorem \ref{thm: fundamental theorem of galois theory}]
+    
+\end{proof}
 
 \section{Norm and Trace Maps}
 
