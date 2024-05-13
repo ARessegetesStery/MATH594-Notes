@@ -903,7 +903,7 @@ The introduction of transcendental degree seeks to give an invariant that measur
     The other direction is clear by definition.
 \end{proof}
 
-\begin{proposition}
+\begin{proposition}\label{prop: existence of max alg. indep. subset}
     Every algebraically independent subset $A \subseteq K$ over $k$ is contained in a maximal such subset.
 \end{proposition}
 
@@ -915,13 +915,13 @@ The introduction of transcendental degree seeks to give an invariant that measur
     \end{itemize}
 \end{proof}
 
-\begin{proposition}
-    A subset $A \subseteq L$ is a maximal algebraically independent subset over $k$ of $K$ if $A$ is algebraically independent, and $k(A) \ext K$ is an algebraic extension. 
+\begin{proposition}\label{prop: max. alg. indep. iff alg. extension}
+    A subset $A \subseteq L$ is a maximal algebraically independent subset over $k$ of $K$ if and only if $A$ is algebraically independent, and $k(A) \ext K$ is an algebraic extension. 
 \end{proposition}
 
-\begin{proposition}
+\begin{proof}
     By definition, if $A$ is algebraically independent, then it is maximal if and only if for all $b \in K \smallsetminus A$, $b$ is algebraic over $k(A)$ (otherwise by Proposition \ref{prop: transitivity of alg. indep.} we can adjoin an element to this set while keeping its algebraic independence). This is exactly saying that $k(A) \ext K$ is algebraic.
-\end{proposition}
+\end{proof}
 
 \begin{definition}[Transcendental Basis]
     Given a field extension $K/k$, a \textbf{transcendental basis} of $K/k$ is a maximal algebraically independent subset of $K$ over $k$.
@@ -934,13 +934,88 @@ The introduction of transcendental degree seeks to give an invariant that measur
 \textstart
 We are using the similar nomenclature as for vector spaces, so we would expect similar properties for being ``independent'' or ``a basis'':
 
-\begin{theorem}
+\begin{theorem}\label{thm: cardinality of max. alg. indep. subset}
     If given $K/k$ is a field extension, and $a_1, \dots, a_n \in K$ s.t. $k(a_1, \dots, a_n) \ext K$ is algebraic (i.e. this is a maximal algebraically independent set), then for all $\{b_1, \dots, b_m\}$ algebraically independent over $k$, $m \leq n$.
 \end{theorem}
 
 \begin{proof}
-    
+    After reordering the elements, we may assume that $a_i = b_i$ for all $1 \leq i \leq r$. If $r = m$ then this is exactly hat we need.
+
+    Now suppose that $r < m$. It is enough to show that there exists $i > r$ s.t. the extension $k(a_1, \dots, a_{i-1}, a_{i+1}, \dots, a_n, b_{r+1}) \ext K$ is algebraic. If that is the case, then after finitely many steps we will get the set $b_n$s (as we can identify $a_1, \dots, a_r, a_{r+1}$ with the corresponding elements in $b$ and apply the argument recursively). This then implies that $r = m$.
+
+    Since $b_{r+1}$ is algebraic over $k(a_1, \dots, a_n)$, there exists nonzero $f \in k(a_1, \dots, a_n)[y]$ s.t. $f(b_{r+1}) = 0$. Getting rid of the denominators of the polynomial we can without loss of generality assume that the coefficients of $f$ are in the form of $P(a_1, \dots, a_n)$, i.e. we have nonzero $g \in k[x_1, \dots, x_n, y]$ s.t. $g(a_1, \dots, a_n, b_{r+1}) = 0$ via evaluating $f$ on $b_{r+1}$ on the coefficients given by $g$. Since $b_1, \dots, b_{r}, b_{r+1}$ are algebraically independent over $k$. Without loss of generality we can assume that $x_n$ appears with nonzero coefficient in $g$. Now write
+    \[
+        g = \sum_{i = 0}^p g_i(x_1, \dots, x_{n-1}, y) x_n^i
+    \]
+    If there exists $j$ s.t. $g_j(a_1, \dots, a_{n-1}, b_{r+1}) \neq 0$, then $a_n$ is algebraic over $k(a_1, \dots, a_{n-1}, b_{r+1})$. This gives the algebraic extension
+    \[
+        k(a_1, \dots, a_{n-1}, b_{r+1}) \ext k(a_1, \dots, a_n, b_{r+1}) \ext K
+    \]
+    Otherwise there exists $g_j \neq 0$ s.t. $g_j(a_1, \dots, a_{n-1}, b_{r+1}) = 0$. Repeat the process with $g$ replaced with $g_j$. This process must terminate as $g \neq 0$.
 \end{proof}
+
+\begin{corollary}
+    Every two transcendental basis of $K$ over $k$ have the same number of elements (or are in bijection, for the infinite case).
+\end{corollary}
+
+\begin{proposition}
+    If $K = k(a_1, \dots, a_n)$, then there exists a subset $A \subseteq \{a_1, \dots, a_n\}$ that is a transcendental basis over $k$. In particular, $\trdeg(K/k) \leq n$.
+\end{proposition}
+
+\begin{proof}
+    Let $A \subseteq \{a_1, \dots, a_n\}$ be the maximal subset which is algebraically independent (which exists by Proposition \ref{prop: existence of max alg. indep. subset}). But by Proposition \ref{prop: transitivity of alg. indep.} this implies that if $a_i \notin A$, then $a_i$ is algebraic over $k(A)$. Therefore, $k(A) \ext K = k(a_1, \dots, a_n)$ is algebraic, i.e. $A$ is a transcendental basis. 
+\end{proof}
+
+\begin{proposition}\label{prop: trdeg is additive}
+    If we have $k \ext K \ext L$ field extensions, then $\trdeg(L/k) = \trdeg(K/k) + \trdeg(L/K)$.
+\end{proposition}
+
+\begin{proof}
+    First deal with the cases where RHS is infinite:
+    \begin{itemize}[label=$-$]
+        \item If $\trdeg(K/k)$ is infinite, then a transcendental basis for $K/k$ is part of a transcendental basis of $L/k$ as $L$ can be viewed as a vector space over $K$. 
+        \item If $\trdeg(L/K)$ is infinite, then in a transcendental basis for $L/K$ are in particular algebraically independent over $k$, which implies that $\trdeg(L/k)$ is infinite.
+    \end{itemize}
+    Now we may assume that we have a finite transcendental basis $a_1, \dots, a_m$ for $K/k$ and $b_1, \dots, b_n$ for $L/K$. Claim that $\{a_1, \dots, a_m, $ $b_1, \dots, b_n\}$ gives a transcendental basis of $L/k$. Verify the followings:
+    \begin{enumerate}[label=\arabic*)]
+        \item The sub-extensions are algebraic since $a_i$s and $b_i$s are transcendental bases for the corresponding extensions (by Theorem \ref{prop: max. alg. indep. iff alg. extension})
+        \[
+            k(a_1, \dots, a_m, b_1, \dots, b_n) \ext K(b_1, \dots, b_n) \ext L
+        \]
+        By Proposition \ref{prop: transitivity of algebraic extensions} we have the extension $L/k(a_1, \dots, a_m, b_1, \dots, b_n)$ being algebraic. 
+        \item The set $\{a_1, \dots, a_m, b_1, \dots, b_n\}$ is algebraically independent over $k$. Proceed to show by induction on $i$ for $0 \leq i \leq n$ that $\{a_1, \dots, a_m, b_1, \dots, b_i\}$ are algebraically independent over $k$:
+        
+        For $i = 0$ the result is clear by hypothesis. For the inductive step it suffices to show that $b_{i+1}$ is not algebraically dependent on $\{a_1, \dots, a_m, b_1, \dots, b_i\}$, then by Proposition \ref{prop: transitivity of alg. indep.} we have the set $\{a_1, \dots, a_m, b_1, \dots, b_i, b_{i+1}\}$ algebraically independent over $k$. This is clear as $b_j$s give a transcendental basis over $K$, and are therefore algebraically independent over $k$. Taking $i = n$ gives the algebraic independence over $k$. 
+    \end{enumerate}
+\end{proof}
+
+Verify that we indeed have the desired properties of transcendental degree as mentioned in the beginning of the section:
+\begin{enumerate}[label=\arabic*)]
+    \item $\trdeg(K/k) = 0$ if and only if the extension $k \ext K$ is algebraic. This comes as a corollary of Proposition \ref{prop: max. alg. indep. iff alg. extension}.
+    \item $K = k(a_1, \dots, a_n)$ if and only if $\trdeg(K/k) \leq n$, with equality if and only if $a_i$s are algebraically independent. This results from Theorem \ref{thm: cardinality of max. alg. indep. subset}.
+    \item The proposition above (Proposition \ref{prop: trdeg is additive}) gives the additivity of transcendental degree.
+\end{enumerate}
+
+\begin{remark}
+    The results above implies that $k(x_1, \dots, x_m) \simeq k(x_1, \dots, x_n)$ as $k$-algebras (where $x_i$s are formal variables) if and only if $m = n$. Notice that for $m \neq n$ they can still be isomorphic as fields: take $k = \Q(x_1, x_2, \dots)$ (with infinitely many variables) and let $m = 0$ and $n = 1$, with the isomorphism $x_i \mapsto x_{i+1}$. But this is clearly not $k$-linear. 
+\end{remark}
+
+\begin{definition}[Purely Transcendental]
+    A finitely generated field extension $K/k$ is \textbf{purely transcendental} if $K \simeq k(x_1, \dots, x_n)$ as $k$-algebras for some $n$. 
+\end{definition}
+
+This is somewhat related to ring theory: we state without proof the following results:
+
+\begin{definition}[Dimension (Ring)]
+    Given a commutative ring $R$, its \textbf{dimension} is defined as
+    \[
+        \dim R := \sup_n \{ n \mid \exists\ p_0 \subsetneqq \cdots \subsetneqq p_n, \text{ $p_i \subseteq R$ prime ideals} \}
+    \]
+\end{definition}
+
+\begin{theorem}
+    Given a field $k$ and a domain $R$, if $R$ is a finitely generated $k$-algebra, then $\dim R = \trdeg(\Frac(R)/k)$.
+\end{theorem}
 
 \section{The Fundamental Theorem of Galois Theory}
 
