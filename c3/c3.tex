@@ -1177,7 +1177,7 @@ We now use the above results to prove the main theorem:
             \end{minipage}
             \vspace{1em}
 
-            Since the extension $k \ext K$ is also normal, and we have the natural extension $K \ext \bar{L}$, apply again \hyperref[def: normal extension]{3) of normal extensions} $\bar{\tau}(K) \subseteq K$, which gives a pre-image for any automorphism in $G(L/k)$. Apply the first isomorphism theorem gives $G/H \simeq G(L/k)$.
+            Since the extension $k \ext K$ is also normal, and we have the natural extension $K \ext \bar{L}$ (by Theorem \ref{thm: algebraic extension can be extended to algebraical closure}), apply again \hyperref[def: normal extension]{3) of normal extensions} $\bar{\tau}(K) \subseteq K$, which gives a pre-image for any automorphism in $G(L/k)$. Apply the first isomorphism theorem gives $G/H \simeq G(L/k)$.
             \item[$\Leftarrow$] Suppose now we have $H \normaleqin G$. We want to show that the corresponding field extensions $k \ext K^H \ext K$ is normal.
             
             Since $k \ext K$ is Galois it suffices to show that $k \ext K^H$ is normal. Suppose that we have a morphism of $k$-algebras $\tau: K^H \to \bar{K}$. This can be extended to $\sigma: K \to \bar{K}$ via forcing the commutative condition as above. Since $k \ext K$, $\sigma$ fixes $k$ and preserves $K$, i.e. $\sigma \in G = G(K/k)$. Therefore to show that the extension is normal we need to show that for all $\sigma \in G(K/k)$, $\sigma(K^H) \subseteq K^H$. 
@@ -1188,6 +1188,92 @@ We now use the above results to prove the main theorem:
 \end{proof}
 
 \section{Norm and Trace Maps}
+
+\textstart
+This section introduces the norm and trace of any extension $K \ext L$. They are natural extension of norm amd trace of linear maps, as in particular $L$ can be viewed as a $K$-vector space. These two maps characterize the extension.
+
+\begin{definition}[Norm; Trace]
+    Let $K$ be a field, $A$ a commutative $K$-algebra, with $\dim_K(A)$ finite. Define for $a \in A$ the $K$-linear map $\varphi_a: A \to A, x \mapsto ax$. Define
+    \begin{itemize}
+        \item The \textbf{norm} $\Norm_{A/K}(a) = \det(\varphi_a) \in K$.
+        \item The \textbf{trace} $\Tr_{A/K}(a) = \tr(\varphi_a) \in K$.
+    \end{itemize}
+\end{definition}
+
+\begin{example}
+    Consider the following examples for the norm and trace map:
+    \begin{enumerate}[label=\arabic*)]
+        \item If $a \in K$, $\varphi_a = a \cdot \Id_K$. Let $n = \dim_K A$, then $\Norm_{A/K}(a) = a^n$, $\Tr_{A/K}(a) = na$.
+        \item Let $d \in \Z$ be not a square. Consider the field extension $K = \Q \ext L = \Q(\sqrt{d})$. $L$ as a $K$-vector space has a basis $\{1, \sqrt{d}\}$. For $a = a_1 + a_2 \sqrt{d}$, we have
+        \[
+            \varphi_a = 
+            \begin{pmatrix}
+                a_1 & d a_2 \\
+                a_2 & a_1
+            \end{pmatrix}
+            \qquad \text{with}\ 
+            \Norm_{A/K}(a) = a_1 - d a_2^2,\ \Tr_{A/K}(a) = 2a_1
+        \]
+        \item If $a \in A$ is nilpotent, then $\varphi_a$ is a nilpotent operator, which implies that $\Norm_{A/K}(a) = 0$, $\Tr_{A/K}(a) = 0$.
+    \end{enumerate}
+\end{example}
+
+\begin{remark}\label{rmk: props of norm and trace maps}
+    The norm and trace have similar properties as the determinant and trace of matrices:
+    \begin{enumerate}[label=\arabic*)]
+        \item $\Tr_{A/K}: A \to K$ is $K$-linear. If $a_1, a_2 \in A$, $\lambda_1, \lambda_2 \in K$, then $\varphi_{\lambda_1 a_1 + \lambda_2 a_2} = \lambda_1 \varphi_{a_1} + \lambda_2 \varphi_{a_2}$; and taking trace of a matrix (i.e. the map $\tr: M_n(K) \to K$) is $K$-linear.
+        \item $\Norm_{A/K}(a_1 a_2) = \Norm_{A/K}(a_1) \cdot \Norm_{A/K}(a_2)$. For all $a_1, a_2 \in A$, $\varphi_{a_1 a_2} = \varphi_{a_1} \circ \varphi_{a_2}$; and the determinant $\det: M_n(K) \to K$ is multiplicative. If $A = L$ is a field, then $N_{L/K}: L^{\times} \to K^{\times}$ is a group homomorphism.
+        \item We have the \underline{transitive formula}: given a field extension $k \ext A$, we have
+        \[
+            \Norm_{A/k} = \Norm_{K/k} \circ \Norm_{A/K}, \qquad \Tr_{A/k} = \Tr_{K/k} \circ \Tr_{A/K}
+        \]
+        \begin{proof}
+            
+            Write out the basis for the corresponding algebras. Choose $e_1, \dots, e_m$ a basis for $K$ as a $k$-vector space, and $f_1, \dots, f_n$ a basis for $A$ as a $K$-vector space. Then $(e_i f_r)$ for $1 \leq i \leq n$, $1 \leq r \leq m$ gives a basis of $A$ as a $k$-vector space. Fix $a \in A$, define $(c_{ij}) \in K$ and $(\gamma_{ijrs}) \in k$ as 
+            \[
+                a f_j = \sum_{i = 1}^n c_{ij} f_i, \qquad c_{ij} e_s = \sum_{r = 1}^m \gamma_{ijrs} e_r
+            \]
+            Verify the equality of both sides:
+            \[
+                \mathrm{RHS} = \Tr_{K/k} \circ \Tr_{A/K}(a) = \sum_{i = 1}^n \Tr_{K/k} (c_{ii}) = \sum_{i = 1}^n \sum_{r = 1}^m \gamma_{iirr}
+            \]
+            while $\varphi_a$ in the basis for $A$ over $k$ can be expressed as
+            \[
+                a f_j e_s = \sum_{i = 1}^n c_{ij} f_i e_s = \sum_{i = 1}^n \sum_{r = 1}^m \gamma_{ijrs} f_i e_r \quad \implies \quad \mathrm{LHS} = \Tr_{A/K}(a) = \sum_{i = 1}^n \sum_{r = 1}^m \gamma_{iirr}
+            \]
+        \end{proof}
+        \item Given $K \ext K'$ a field extension, we have $\Tr_{(A \tensor_K K')/K'}(a \tensor 1) = \Tr_{A/K}(a)$.
+        \begin{proof}
+            Notice that for $e_1, \dots, e_n$ a basis of $A$ over $K$, $e_1 \tensor 1, \dots, e_n \tensor 1$ gives a basis of $A \tensor_K K'$ over $K'$. The matrix representation of $\varphi_{a \tensor 1}$ and $\varphi_a$ are the same; and therefore the traces are identical.
+        \end{proof}
+        \item For $A = A_1 \times A_2$, via considering the trace and determinant for block matrices we have
+        \[
+            \Tr_{A/K}(a_1, a_2) = \Tr_{A_1/K}(a_1) + \Tr_{A_2/K}(a_2) \qquad \Norm_{A/K}(a_1, a_2) = \Norm_{A_1/K}(a_1) \cdot \Norm_{A_2/K}(a_2)
+        \]
+    \end{enumerate}
+\end{remark}
+
+\textstart
+The trace uniquely characterizes separable extensions:
+
+\begin{theorem}\label{thm: ext separable iff trace nonzero}
+    Given $K \ext L$ a finite field extension, $L/K$ is separable if and only if $\Tr_{L/K} \neq 0$.
+\end{theorem}
+
+\begin{proof}
+    To prove the proof we need the following intermediate results:
+    \begin{lemma}\label{lem: simple ext of separable elem gives nonzero trace}
+        If $K \ext K' = K(\alpha)$ where $\alpha$ is separable over $K$. Then $\Tr_{K'/K} \neq 0$.
+    \end{lemma}
+    \nogap
+    \begin{lemma}\label{lem: simple ext of nilpotent elem gives zero trace}
+        If $K \ext K' = K(\alpha)$ where $\fchar(K) = p$, $\alpha \notin K$, $\alpha^p \in K$. Then $\Tr_{K'/K} = 0$.
+    \end{lemma}
+    These two implies the theorem:
+    \begin{itemize}
+        \item If $L/K$ is not separable, then there exists $\alpha \in L$ that is not separable over $K$. 
+    \end{itemize}
+\end{proof}
 
 \section{Solvability by Radicals}
 
