@@ -1263,17 +1263,102 @@ The trace uniquely characterizes separable extensions:
 \begin{proof}
     To prove the proof we need the following intermediate results:
     \begin{lemma}\label{lem: simple ext of separable elem gives nonzero trace}
-        If $K \ext K' = K(\alpha)$ where $\alpha$ is separable over $K$. Then $\Tr_{K'/K} \neq 0$.
+        Suppose that we have $K \ext K' = K(\alpha)$ where $\alpha$ is separable over $K$. Then $\Tr_{K'/K} \neq 0$.
     \end{lemma}
     \nogap
     \begin{lemma}\label{lem: simple ext of nilpotent elem gives zero trace}
-        If $K \ext K' = K(\alpha)$ where $\fchar(K) = p$, $\alpha \notin K$, $\alpha^p \in K$. Then $\Tr_{K'/K} = 0$.
+        Suppose that we have $K \ext K' = K(\alpha)$ where $\fchar(K) = p$, $\alpha \notin K$, $\alpha^p \in K$. Then $\Tr_{K'/K} = 0$.
     \end{lemma}
     These two implies the theorem:
     \begin{itemize}
-        \item If $L/K$ is not separable, then there exists $\alpha \in L$ that is not separable over $K$. 
+        \item If $L/K$ is not separable, then there exists $\alpha \in L$ that is not separable over $K$. Let $f$ be the minimal polynomial of $\alpha$. By \hyperref[def: separable extension]{3) in the definition} $f \in k[x^p]$, i.e. $f = g(x^p)$ for $g \in k[x]$. Consider the chain of extensions
+        \[
+            K \ext K(\alpha^p) = K[x]/(g) \ext K(\alpha) = K[x]/(f) \ext L
+        \]
+        Lemma \ref{lem: simple ext of nilpotent elem gives zero trace} gives $\Tr_{K(\alpha)/K(\alpha^p)} = 0$. Remark \ref{rmk: props of norm and trace maps} 3) gives 
+        \[
+            \Tr_{L/K} = \Tr_{K(\alpha^p)/K} \circ \underbrace{\Tr_{K(\alpha)/K(\alpha^p)}}_{= 0} \circ \Tr_{L/K(\alpha)} = 0
+        \]
+        \item If $L/K$ is separable, \hyperref[thm: primitive element theorem]{Primitive Element Theorem} gives $L = K(\alpha)$ for $\alpha \in L$. Apply Lemma \ref{lem: simple ext of separable elem gives nonzero trace} gives $\Tr_{L/K} \neq 0$.
+    \end{itemize}
+    Now prove the two lemmas:
+    \begin{proof}[Proof of Lemma \ref{lem: simple ext of separable elem gives nonzero trace}]
+        Let $K \ext \bar{K}$ be the algebraic closure, and $A = K' = K(\alpha)$. By Remark \ref{rmk: props of norm and trace maps} 4), $\Tr_{A \tensor_K \bar{K}/\bar{K}} = 0$ if and only if $\Tr_{A/K} = 0$. Applying with $A = K(\alpha)$ gives
+        \[
+            A \tensor_K \bar{K} = K(\alpha) \tensor_K \bar{K} = K[x]/(f) \tensor_K\bar{K}
+        \]
+        where $f$ is the minimal polynomial of $\alpha$ over $K$, and $K[\alpha] \simeq K[x]/(f)$ (via considering the ring homomorphism $K[x] \to K$, $x \mapsto \alpha$). Since $\alpha$ is separable over $K$, $f$ splits in $\bar{K}$, i.e. we have
+        \[
+            K' \tensor_K K\simeq \bar{K}[x]/(f) = \bar{K}[x]/(x - a_1) \cdots (x - a_n) \simeq \prod_{i = 1}^{n}\bar{K}[x]/(x - a_i) \simeq \left( \bar{K} \right)^n
+        \]
+        where all $a_1, \dots, a_n \in \bar{K}$ are distinct, and $n = \deg f$. Then $\Tr_{A/K} = \Tr_{K' \tensor_K \bar{K}/\bar{K}}(a_1, \dots, a_n) = a_1 + \cdots + a_n \neq 0$.
+    \end{proof}
+    \begin{proof}[Proof of Lemma \ref{lem: simple ext of nilpotent elem gives zero trace}]
+        Let $\beta = \alpha^p \in K$. Then the minimal polynomial of $\alpha$ is $x^p - \beta$. The minimal polynomial cannot be of lower degree: suppose the minimal polynomial is $g$ with $\deg g < p$, then the gcd of $g(0)$ and $\beta$ must also be in $K$. Further since $\beta = \alpha^p$, $g(0) = \alpha^q$ for $q \nmid p$. But this implies that $\alpha \in K$ which is a contradiction.
+
+        Similarly by Remark \ref{rmk: props of norm and trace maps} 4),
+        \[
+            K' \tensor_K \bar{K} \simeq K[x]/(x^p - \beta) \tensor_K \bar{K} \simeq \bar{K}[x]/(x^p - \beta) \simeq \bar{K}[x]/(x - \alpha)^p
+        \]
+        A basis of $K' \tensor_K \bar{K}$ as a $\bar{K}$-vector space is $\{\bar{1}, \overline{x - \alpha}, \cdots, \overline{(x - \alpha)^{p-1}}\}$, and is of dimension $p$. To compute $\Tr_{K'/K}$ we only need to compute $\Tr_{(K' \tensor_K \bar{K})/\bar{K}}$ on the basis elements, but
+        \begin{itemize}
+            \item $\Tr_{(K' \tensor_K \bar{K})/\bar{K}}(1) = \dim_{\bar{K}} (K' \tensor_K \bar{K}) = p = 0$.
+            \item $\Tr_{(K' \tensor_K \bar{K})/\bar{K}}(\overline{(x - \alpha)^i}) = 0$ since $\overline{(x - \alpha)^i}$ is nilpotent. 
+        \end{itemize}
+    \end{proof}
+    This finishes the whole proof.
+\end{proof}
+
+Recall that in Proposition \ref{prop: transitivity of separable extensions, backwards} we proved the if the large extension is separable, then the intermediate extensions are also separable. With the theorem above the converse is straightforward:
+
+\begin{corollary}\label{prop: transitivity of separable extensions, forwards}
+    If $K_1 \ext K_2 \ext K_3$ are field extensions, and $K_3/K_2$ and $K_2/K_1$ are separable, then $K_3/K_1$ is separable. 
+\end{corollary}
+
+\begin{proof}
+    $\Tr_{K_3/K_1} = \Tr_{K_2/K_1} \circ \Tr_{K_3/K_2} \neq 0$ where by Theorem \ref{thm: ext separable iff trace nonzero} $\Tr_{K_2/K_1}$ and $\Tr_{K_3/K_2}$ are nonzero. Apply the theorem again gives that $K_3/K_1$ is separable. 
+\end{proof}
+
+\begin{remark}
+    The reasoning can be conducted backwards to get the previous result (Proposition \ref{prop: transitivity of separable extensions, backwards}) as well. 
+\end{remark}
+
+\begin{corollary}\label{cor: extension generated by separable elements is separable}
+    Given a field extension $K \ext L = K(a_i \mid i \in I)$. If $a_i$s are algebraic and separable over $K$. Then $L/K$ is a separable algebraic extension.
+\end{corollary}
+
+\begin{proof}
+    For all $a \in L$, it must lie in $K(a_i \mid i \in I_0)$ for some $I_0$, where $I_0$ is finite. Therefore, it suffices to deal with the finite case.
+
+    Suppose that $I$ is finite. Then we can write $L = K(a_1, \dots, a_n)$. Apply induction on $n$: 
+    \begin{itemize}
+        \item For $n = 1$, Lemma \ref{lem: simple ext of separable elem gives nonzero trace} gives $\Tr_{K(a_1)/K} \neq 0$. Apply Theorem \ref{thm: ext separable iff trace nonzero} gives $K \ext K(a_1)$ separable. 
+        \item Inductive step. Consider the field extensions
+        \[
+            K \ext K' = K(a_1, \dots, a_{n-1}) \ext K(a_1, \dots, a_{n}) = K'(a_n)
+        \]
+        Inductive hypothesis gives that the first extension is separable, and the argument for $n = 1$ gives that the second extension is separable. Proposition \ref{prop: transitivity of separable extensions, backwards} gives that the whole extension is separable. 
     \end{itemize}
 \end{proof}
+
+\textstart
+With the theorem and results in corollary we can discuss a bit further about separable extensions:
+
+\begin{proposition}
+    Let $K \ext L$ be an algebraic extension, then $L' := \{ \alpha \in L \mid \alpha \text{ separable over $K$}\} \subseteq L$ is a subfield of $L$ containing $K$.
+\end{proposition}
+
+\begin{proof}
+    By Corollary \ref{cor: extension generated by separable elements is separable}, $K \ext K(L')$ is separable. But $K(L') = L'$: $L'$ contains $K(L')$ as in particular $L'$ contains $K$; and the inclusion in the other direction is clear.
+\end{proof}
+
+\begin{definition}[Separable Closure]
+    $L' := \{ \alpha \in L \mid \alpha \text{ separable over $K$}\} \subseteq L$ is the \textbf{separable closure} of $K$ in $L$. A separable closure of a field $K$ is its separable closure in an algebraic closure $K \ext \bar{K}$.
+\end{definition}
+\nogap
+\begin{definition}[Purely Inseparable]
+    An algebraic extension $K \ext L$ is \textbf{purely inseparable} if for any element $\alpha \in L \smallsetminus K$, the minimal polynomial of $\alpha$ over $K$ is not separable. 
+\end{definition}
 
 \section{Solvability by Radicals}
 
