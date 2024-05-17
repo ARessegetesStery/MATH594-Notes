@@ -408,7 +408,7 @@ Since the number of congruence classes w.r.t. $x \in G$ does not change with cho
     For all $g_1, g_2 \in H$, there exists bijections $g_1 H \mapsto g_2 H$ and $H g_1 \mapsto H g_2$, given by multiplication on the left by $g_2 g_1^{-1}$, and multiplication on the right by $g_1^{-1} g_2$, respectively. 
 \end{remark}
 
-\begin{theorem}[Lagrange]
+\begin{theorem}[Lagrange]\label{thm: Lagrange}
     Let $G$ be a group. If $H \leq G$, and $G$ is finite, then $\abs{G} = \abs{H} \cdot (G : H)$.
 \end{theorem}
 
@@ -849,7 +849,7 @@ Now consider the case where $G$ has 6 elements:
     \end{itemize}
 \end{proof}
 
-\begin{theorem}[Structural Theorem for Finitely Generated Abelian Groups]
+\begin{theorem}[Structural Theorem for Finitely Generated Abelian Groups]\label{thm: structural theorem}
     Let $G$ be a finitely generated abelan group. Then 
     \[
         G \simeq \Z^r \times \Pi_{i \in I} (\Z/p_i^{m_i} \Z)
@@ -980,16 +980,46 @@ The proof quite resembles that of Structural Theorem for finitely generated modu
     Fix $G$ a group, and consider the action of $G$ on itself by conjugation. $x$ and $y$ are conjugate if $\Orbit(x) = \Orbit(y)$, i.e. there exists $g \in G$ s.t. $x = gyg^{-1}$. In particular, in this case the stabilizers are the same as the centralizers.
 
     Notice that with the action defined as conjugation, $\abs{\Orbit(x)} = 1$ if and only if $x \in Z(G)$. This gives the class equation 
-    \[
+    \begin{equation}\label{eq: class equation}
         \abs{G} = \abs{Z(G)} + \sum_i (G : C_G(x_i))
-    \]
+    \end{equation}
     where $x_i$ vary over the set of conjugate classes with more than 1 element. 
 \end{example}
 
 \begin{definition}[$p$-group]
     If $p$ is a prime integer, a \textbf{$p$-group} is a group of order $p^m$ for some $m \geq 1$.
 \end{definition}
-    
+
+\begin{proposition}\label{prop: center of p group has order divisible by p}
+    If $G$ is a $p$-group, then $Z(G) \neq \{e\}$. Further by the \hyperref[eq: class equation]{class equation}, $p \mid Z(G)$.
+\end{proposition}
+
+\begin{proof}
+    Consider divisibility by $p$ on both sides of the class equation. For the second term on RHS, for all $i$ s.t. $G \neq C_G(x_i)$, since $C_G(x_i)$ is a subgroup by \hyperref[thm: Lagrange]{Lagrange} $(G : C_G(x)) \mid \abs{G} = p^m$. Further as $G \neq C_G(x_i)$, $p \mid (G : C_G(x))$, $\abs{G} = p^m$ gives $p \mid \abs{G}$, which implies that $p \mid \abs{Z(G)}$.
+\end{proof}
+
+\begin{corollary}
+    If $p$ is prime, then every group with $p^2$ elements is abelian:
+\end{corollary}
+
+\begin{proof}
+    By \hyperref[thm: structural theorem]{structrual theorem}, either $G \simeq \Z/p^2\Z$, or $G \simeq \Z/p\Z \times \Z/p\Z$. Since $G$ is a $p$-group, by Proposition \ref{prop: center of p group has order divisible by p}, $p \mid \abs{Z(G)}$. \hyperref[thm: Lagrange]{Lagrange} gives $\abs{Z(G)} \mid p^2$. Then either:
+    \begin{itemize}
+        \item $\abs{Z(G)} = p^2$. Then $G$ is by definition abelian.
+        \item $\abs{Z(G)} = p$. Notice that $Z(G) \normaleqin G$. Consider the group $G/Z(G)$. This has $p$ elements, and is therefore cyclic. Let $x Z(G)$ be a generator of $G/Z(G)$. Then for all $a, b \in G$, there exists $i, j \in \Z$ and $a', b' \in Z(G)$ s.t. $a = x^i a'$, $b = x^j b'$. But notice that $ab = ba$, i.e. $G$ is abelian, which is a contradiction.
+    \end{itemize}
+\end{proof}
+
+\begin{remark}
+    The above result cannot be generalized. That is, for $H \normalin G$, $H$ abelian and $G$ cyclic, $G$ is not necessarily abelian. Consider the counterexample where $G = S_3$, $H = \pair{\sigma} = \{e, \sigma, \sigma^2\}$.
+\end{remark}
+
+\begin{remark}
+    If $G$ acts on $X$, $G$ also acts on $\mathcal{P}(X)$, the power set of $X$. Explicitly, for $A \in \mathcal{P}(X)$, $gA = \{gx \mid x \in A\}$. This also extends to the conjugacy of a subset in a similar manner. 
+
+    If $X$ is a group (e.g. $G$ itself) then this gives a group automorphism, which sends subgroups by subgroups, via left-composing with a group element. 
+\end{remark}
+
 \section{Sylow Theorems}
 
 \section{Application of Sylow Theorems}
