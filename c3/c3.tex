@@ -1403,4 +1403,116 @@ As we wrap up the discussion of Galois Theory, we would like to see how the Galo
     The previous result shows that if $K_1/K$ and $K_2/K$ are finite Galois extensions, then $K_1 K_2/K$ is also a finite Galois extension. Further $G(K_1 K_2/K)$ can be described using $G(K_1/K)$ and $G(K_2/K)$. Further notice that the isomorphism between Galois group resembles the Second Isomorphism Theorem.
 \end{remark}
 
+\textstart
+We now turn to associating Galois extensions with polynomials, seeking to describe the field ``generated via adding its roots'':
+
+\begin{definition}[Galois Group of a Polynomial]
+    Let $K$ be a field, and $f \in K[x]$ with $\deg f \geq 1$ and $f$ separable. If $K \ext L$ is the splitting field of $f$, then $L/K$ is a finite Galois extension. The corresponding Galois group $G(L/K)$ is the \textbf{Galois group of $f$}.
+\end{definition}
+
+\textstart
+\label{goto: order of galois group bounded by order of Sn}
+Consider the algebraic closure $K \ext \bar{K}$, with $a_1, \dots, a_n \in \bar{K}$ roots of $f$. Then $L = K(a_1, \dots, a_n)$. For $\sigma \in G(L/K)$, since $f$ has coefficients in $K$, and $\restr{\sigma}{K} = \Id_K$, each $\sigma(a_i)$ is a root of $f$, i.e. $\sigma$ permutes the roots of $f$. This gives a group homomorphism
+\[
+    \varphi: G(L/K) \to S_n, \qquad \sigma \mapsto (i \mapsto j \text{ for $\sigma(a_i) = a_j$})
+\]
+As is shown in the previous introduction to Galois extensions, $\varphi$ is injective, as for $\sigma \in \ker \varphi$, $\sigma(a_i) = a_i$ for all $i$. By definition $\sigma$ fixes $K$, and therefore fixes $L = K(a_1, \dots, a_n)$, i.e. $\sigma = \Id_L$. This implies that $\abs{G(L/K)} \leq \abs{S_n} = n!$. We have also seen that in general $\varphi$ is not surjective.
+
+Consider now the case where $\varphi$ is actually an isomorphism. Let $F$ be a field, and $L = F(x_1, \dots, x_n)$ where all the $x_i$s are formal variables. Notice that for all $\sigma \in S_n$, the universal property of $F[x_1, \dots, x_n]$ gives a ring homomorphism
+\[
+    g_{\sigma}: F[x_1, \dots, x_n] \to F[x_1, \dots, x_n], \qquad x_1 \mapsto x_{\sigma(1)}
+\]
+Further by definition we have $g_{\sigma\tau} = g_{\sigma} g_{\tau}$. This implies that each $g_{\sigma}$ is an $F$-algebra automorphism. This induces 
+\[
+    \widetilde{g_{\sigma}}: F(x_1, \dots, x_n) \to F(x_1, \dots, x_n) = L
+\]
+which is a ring homomorphism fixing $F$. We then have a group homomorphism $S_n \to G(F(x_1, \dots, x_n)/F)$ (notice that the extension $F \ext F(x_1, \dots, x_n)$ is not necessarily Galois). It is injective as for $g_{\sigma} = \Id$, $g_{\sigma}(x_i) = x_i$ for all $i$, i.e. $\sigma(i) = i$ for all $i$. This gives a subgroup of $G(F(x_1, \dots, x_n)/F)$ isomorphic to $S_n$.
+
+Now consider $K = \{u \in F(x_1, \dots, x_n) \mid \widetilde{g_{\sigma}}(u) = u, \forall \sigma \in S_n\}$. By \hyperref[thm: fundamental theorem of galois theory]{Fundamental Theorem of Galois Theory 2)} we have the field extensions $F \ext K \ext L$. By hypothesis $G(L/K) \simeq S_n$, which by Proposition \ref{prop: degree of subext equals order of galois subgroup} the degree of the extension $L/K$ is equal to $\abs{S_n} = n!$.
+
+Define $S_1, \dots, S_n \in F[x_1, \dots, x_n]$ s.t. 
+\[
+    \prod_{i = 1}^n (x - x_i) = x^n - S_1(x) x^{n-1} + \cdots + (-1)^n S_n(x)
+\]
+where
+\[
+    \left.
+    \begin{array}{l}
+        S_1(x) = x_1 + \cdots + x_n \\
+        S_2(x) = \sum_{i < j} x_i x_j\\
+        \cdots \\
+        S_n(x) = x_1 \cdots x_n
+    \end{array}
+    \ \ 
+    \right\}
+    \quad
+    \text{\underline{elementary symmetric functions} in } x_1, \dots, x_n
+\]
+Notice that since $\sigma \in G(L/K)$ permutes only the roots of the polynomial, $S_1, \dots, S_n \in K$. This results in the field extension
+\[
+    F \ext F(S_1, \dots, S_n) \ext \underbrace{K \ext L}_{\deg = n!}
+\]
+where $L$ is the splitting field of $f \in F(S_1, \dots, S_n)[x]$. \hyperref[goto: order of galois group bounded by order of Sn]{Previously} we have $\abs{L/F(S_1, \dots, S_n)} \leq \abs{S_n} = n!$. This gives the conclusion $K = F(S_1, \dots, S_n)$ if $\varphi: G(L/K) \to S_n$ is an isomorphism.
+
+\begin{remark}
+    One can also show that for $F$ an infinite field, for $c_1, \dots, c_n \in F$ \underline{in genenral} the polynomial $g = x^n + c_1 x^{n-1} + \cdots + c_n \in F[x]$ also has the property that there exists an isomorphism between the Galois group of $g$ and $S_n$, where \underline{in general} means that there exists $h \in F[x_1, \dots, x_n]$ of degree at least 1 s.t. $h(c_1, \dots, c_n) \neq 0$.
+\end{remark}
+
+\textstart
+Now we introduce the relation between solvability of Galois groups and solvability of polynomials:
+
+\begin{definition}[Root Extension]
+    Given a field $K$, an extension $K \ext K'$ is a \textbf{root extension} if there exists a sequence of field extensions
+    \[
+        K = K_1 \ext K_2 \ext \cdots \ext K_r = K'
+    \]
+    s.t. for all $2 \leq i \leq n$, $K_i = K_{i-1}(a_i)$ where $a_i^{m_i} \in K_{i-1}$ for some $m_i \in \Z_{\geq 0}$. Notice that $K_i$ is not required to contain all the roots of $a_i^{m_i}$.
+\end{definition}
+\nogap
+\begin{definition}[Resolved by Radicals]
+    Let $K$ be a field, and $f \in K[x]$ with $\deg f \geq 1$. Then $f$ is \textbf{resolved by radicals} if inside the algebraic closure $\bar{K}$ of $K$, the splitting field $L$ of $f$ lies inside a root extension $K'$ of $K$.
+\end{definition}
+
+\begin{theorem}\label{thm: solvable by radicals iff galois group is solvable}
+    Let $K$ be a field that is characteristic-0. Then $f \in K[x]$ is resolved by radicals if and only if its Galois group is solvable. 
+\end{theorem}
+
+\textstart
+Recall that a group is solvable if there exists a chain
+\[
+    \{e\} = G_0 \normaleqin \cdots \normaleqin G_r = G, \qquad \text{$G_i/G_{i-1}$ abelian}
+\]
+For $G$ finite and solvable, $G_i/G_{i-1}$ is finite and abelian. Applying the Structural Theorem implies that $G_i/G_{i-1}$ is cyclic. 
+
+\begin{example}
+    Recall that we discussed about the solvability of symmetric groups of small order:
+    \begin{enumerate}
+        \item If $\deg (f) \leq 4$, $f$ is solvable by radicals: the case is trivial for $S_1$ and $S_2$; and we have
+        \[
+            \{e\} \normaleqin \pair{\sigma} \normaleqin S_3 \qquad \{e\} \normaleqin K_4 \normaleqin A_4 \normaleqin S_4
+        \]
+        \item For $n = \deg(f) \geq 5$, $S_n$ is not solvable, which implies that there exists $f$ that is not solvable by radicals (Abel's Theorem).
+    \end{enumerate}
+\end{example}
+
+\textstart
+We omit the proof of the theorem, and instead show some results that are helpful with the proof of theorem.
+\begin{proposition}
+    Let $K$ be a field, and $m \in \Z_{\geq 0}$, satisfying either $\fchar(K) = 0$, or $\fchar(K) = p \nmid m$; and $K$ contains $m$-th root of unity in $\bar{K}$.
+    \begin{enumerate}[label=\arabic*)]
+        \item If $K \subseteq K' = K(a)$ s.t. $a^m = b \in K$, then $G(K'/K) \simeq \Z/m'\Z$ with $m' \mid m$.
+        \item If $K \ext L$ Galois, s.t. $G(L/K) \simeq \Z/m\Z$, then there exists $a \in L$ s.t. $L = K(a)$ and $a^m \in K$.
+    \end{enumerate}
+\end{proposition}
+
+\textstart
+The proof is related to Kummer Theory, and is omitted.
+
+\begin{lemma}
+    If $\fchar(K) = 0$, and $\zeta$ is a primitive $n$-th root of unit. Then $G(K(\zeta)/K)$ is abelian.
+\end{lemma}
+\begin{proof}
+    To get an automorphism, consider $\sigma$ where $\sigma(\zeta)$ is also a primitive $n$-th root of unit. Then $\sigma(\zeta) = \zeta^j$ for $j$ relative prime with $n$. This gives $G(K(\zeta)/K) \simeq (\Z/n\Z)^{\times}$ which is abelian.
+\end{proof}
+
 \end{document}
