@@ -661,7 +661,7 @@ For the formulation of the Second Isomorphism Theorem, we need to first introduc
     which gives $a_1 b_1 (a_2 b_2)^{-1} = a' b'$ for $a' = a_1 a_2^{-1}$ and $b = a_2 b_1 b_2^{-1} a_2^{-1} \in B$.
 \end{remark}
 
-\begin{theorem}[Second Isomorphism Theorem]
+\begin{theorem}[Second Isomorphism Theorem]\label{thm: second isomorphism theorem}
     Let $A$ and $B$ be subgroups of $G$. Further let $A \subseteq N_G(B)$. Then $A \cap B \normaleqin A$ and $B \normaleqin AB$; and we have the isomorphism $A/(A \cap B) \simeq AB/B$.
 \end{theorem}
 
@@ -1038,29 +1038,31 @@ It is impossible that we have the followings:
 \begin{proof}
     First consider the simple case where $G$ is abelian, and then reduce the general case to the abelian one.
 
-    \bu{Case 1.} $G$ is abelian. Follows from the \hyperref[thm: structural theorem]{structural theorem for finite abelian groups}: $G$ is isomorphic to a product of groups where one of them is $\Z/p^m\Z$ for $m \in \Z_{>0}$. This gives an element with order $p$.
+    \begin{enumerate}
+        \item[\bu{Case 1.}] $G$ is abelian. Follows from the \hyperref[thm: structural theorem]{structural theorem for finite abelian groups}: $G$ is isomorphic to a product of groups where one of them is $\Z/p^m\Z$ for $m \in \Z_{>0}$. This gives an element with order $p$.
 
-    Alternatively, prove by contradiction. Suppose that for all $x \in G$, $\abs{x} \neq p$. Then for all $x \in G$, $p \nmid \abs{x}$. (Otherwise for $\abs{x} = m$ and $p \mid m$, $\abs{x^{m/p}} = p$.) Let $N$ be the largest common multiple of all order of elements in $G$, then $(p, N) = 1$. Let $x_1, \dots, x_n$ be the elements of $G$. Consider the group homomorphism 
-    \[
-        f: \Z^n \to G, \qquad f(a_1, \dots, a_n) = x_1^{a_1} \cdots x_n^{a_n}
-    \]
-    Notice that if $(a_1, \dots, a_n) \in H := \{(b_1, \dots, b_n) \mid N \mid b_i, \forall i\}$, then $f(a_1, \dots, a_n) = e$ since $\abs{x_i} = a_i \mid N \implies x_i^N = e$. This implies that $H \subseteq \ker f$. Using the \hyperref[prop: universal property of quotient group]{universal property of quotient groups}, we have a group homomorphism
-    \[
-        \bar{f}: \Z^n/H \simeq (\Z/N\Z)^n \to G, \qquad \overline(a_1, \dots, a_n) \mapsto x_1^{a_1} \cdots x_n^{a_n}
-    \]
-    Since taking $a_i = 1$ and $a_{j(j \neq i)} = 0$ gives $x_i$, $\bar{f}$ is surjective. the \hyperref[thm: first isomorphism theorem]{first isomorphism theorem} gives $G \simeq (\Z/N\Z)^n/\ker(\bar{f})$. \hyperref[thm: Lagrange]{Lagrange} gives $\abs{G} \mid \abs{\Z/N\Z}^n = N^n$, which gives a contradiction as $p \mid \abs{G} \mid N^n$, but $(p, N) = 1$ by hypothesis.
-
-    \bu{Case 2.} $G$ is not necessarily abelian. Argue by induction on the order of the group:
-    \begin{itemize}
-        \item \emph{Base case.} $\abs{G} = 1$. The statement is vacuous as the hypothesis is not satisfied.
-        \item \emph{Inductive step.} Suppose that the theorem is true for all groups $G'$ with $\abs{G'} < \abs{G}$. Use the class equation
+        Alternatively, prove by contradiction. Suppose that for all $x \in G$, $\abs{x} \neq p$. Then for all $x \in G$, $p \nmid \abs{x}$. (Otherwise for $\abs{x} = m$ and $p \mid m$, $\abs{x^{m/p}} = p$.) Let $N$ be the largest common multiple of all order of elements in $G$, then $(p, N) = 1$. Let $x_1, \dots, x_n$ be the elements of $G$. Consider the group homomorphism 
         \[
-            \abs{G} = \abs{Z(G)} + \sum_{i}(G : C_G(x_i)) \qquad \text{where $x_i$ runs over set of representatives of conjugacy classes}
+            f: \Z^n \to G, \qquad f(a_1, \dots, a_n) = x_1^{a_1} \cdots x_n^{a_n}
         \]
-        If we can find a subgroup $H < G$ s.t. $p \mid \abs{H}$, then we can find $x \in H < G$ of order $p$ by induction hypothesis, which by definition also has order $p$ in $G$.
+        Notice that if $(a_1, \dots, a_n) \in H := \{(b_1, \dots, b_n) \mid N \mid b_i, \forall i\}$, then $f(a_1, \dots, a_n) = e$ since $\abs{x_i} = a_i \mid N \implies x_i^N = e$. This implies that $H \subseteq \ker f$. Using the \hyperref[prop: universal property of quotient group]{universal property of quotient groups}, we have a group homomorphism
+        \[
+            \bar{f}: \Z^n/H \simeq (\Z/N\Z)^n \to G, \qquad \overline{(a_1, \dots, a_n)} \mapsto x_1^{a_1} \cdots x_n^{a_n}
+        \]
+        Since taking $a_i = 1$ and $a_{j(j \neq i)} = 0$ gives $x_i$, $\bar{f}$ is surjective. the \hyperref[thm: first isomorphism theorem]{first isomorphism theorem} gives $G \simeq (\Z/N\Z)^n/\ker(\bar{f})$. \hyperref[thm: Lagrange]{Lagrange} gives $\abs{G} \mid \abs{\Z/N\Z}^n = N^n$, which gives a contradiction as $p \mid \abs{G} \mid N^n$, but $(p, N) = 1$ by hypothesis.
 
-        Now assume that $p \nmid \abs{H}$ for all $H < G$. \hyperref[thm: Lagrange]{Lagrange} gives $p \mid (G : H)$ for all $H$ as $p \mid \abs{G}$. In particular, for all representative of conjugacy classes $x_i$, $p \mid (G : C_G(x_i))$, and by class equation we have $p \mid Z(G)$. Since $Z(G) \normalin G$, this gives a contradiction.
-    \end{itemize}
+        \item[\bu{Case 2.}] $G$ is not necessarily abelian. Argue by induction on the order of the group:
+        \begin{itemize}
+            \item \emph{Base case.} $\abs{G} = 1$. The statement is vacuous as the hypothesis is not satisfied.
+            \item \emph{Inductive step.} Suppose that the theorem is true for all groups $G'$ with $\abs{G'} < \abs{G}$. Use the class equation
+            \[
+                \abs{G} = \abs{Z(G)} + \sum_{i}(G : C_G(x_i)) \qquad \text{where $x_i$ runs over set of representatives of conjugacy classes}
+            \]
+            If we can find a subgroup $H < G$ s.t. $p \mid \abs{H}$, then we can find $x \in H < G$ of order $p$ by induction hypothesis, which by definition also has order $p$ in $G$.
+
+            Now assume that $p \nmid \abs{H}$ for all $H < G$. \hyperref[thm: Lagrange]{Lagrange} gives $p \mid (G : H)$ for all $H$ as $p \mid \abs{G}$. In particular, for all representative of conjugacy classes $x_i$, $p \mid (G : C_G(x_i))$, and by class equation we have $p \mid Z(G)$. Since $Z(G) \normalin G$, this gives a contradiction.
+        \end{itemize}
+    \end{enumerate}
 \end{proof}
 
 \begin{corollary}\label{cor: p group iff order of any element is a power of p}
@@ -1082,13 +1084,15 @@ It is impossible that we have the followings:
 \begin{proof}
     Apply induction on $\abs{G}$. The theorem is vacuous for $\abs{G} = 1$. Now assume that for all $G'$ s.t. $\abs{G'} < \abs{G}$ the theorem holds. 
 
-    \bu{Case 1.} $p \mid Z(G)$. By the result from the abelian case of \hyperref[thm: Cauchy]{Cauchy}, there exists $g \in Z(G)$ s.t. $\abs{g} = p$. Let $k = \pair{g}$. Then $K \normaleqin G$ as in particular $K \leq Z(G)$. Consider $G' = G/K$, and apply the inductive hypothesis. Since $\abs{G} = p^m n$, either $m = 1$, where $K$ gives the desired $p$-Sylow group; or for $m > 1$ since $\abs{K} = p$, $\abs{G'} = p^{m-1}n < \abs{G}$. Inductive Hypothesis gives that there exists a $p$-Sylow subgroup $H' \leq G'$ with $\abs{H'} = p^{m-1}$. Use this in the quotient to construct a $p$-Sylow subgroup in $G$: Let $\pi: G \to G/K$ be the quotient, and consider $H = \pi^{-1}(H')$. Notice that $K = \pi^{-1}(e) < \pi^{-1}(H') = H$, and $H' \simeq H/K$. \hyperref[thm: Lagrange]{Lagrange} gives $\abs{H} = \abs{H'} \cdot p = p^m$, which implies that $H$ is a $p$-Sylow subgroup.
+    \begin{enumerate}
+        \item[\bu{Case 1.}] $p \mid Z(G)$. By the result from the abelian case of \hyperref[thm: Cauchy]{Cauchy}, there exists $g \in Z(G)$ s.t. $\abs{g} = p$. Let $k = \pair{g}$. Then $K \normaleqin G$ as in particular $K \leq Z(G)$. Consider $G' = G/K$, and apply the inductive hypothesis. Since $\abs{G} = p^m n$, either $m = 1$, where $K$ gives the desired $p$-Sylow group; or for $m > 1$ since $\abs{K} = p$, $\abs{G'} = p^{m-1}n < \abs{G}$. Inductive Hypothesis gives that there exists a $p$-Sylow subgroup $H' \leq G'$ with $\abs{H'} = p^{m-1}$. Use this in the quotient to construct a $p$-Sylow subgroup in $G$: Let $\pi: G \to G/K$ be the quotient, and consider $H = \pi^{-1}(H')$. Notice that $K = \pi^{-1}(e) < \pi^{-1}(H') = H$, and $H' \simeq H/K$. \hyperref[thm: Lagrange]{Lagrange} gives $\abs{H} = \abs{H'} \cdot p = p^m$, which implies that $H$ is a $p$-Sylow subgroup.
 
-    \bu{Case 2.} $p \nmid \abs{Z(G)}$. Consider again the class equation
-    \[
-        \abs{G} = \abs{Z(G)} + \sum_{i}(G : C_G(x_i)) \qquad \text{where $x_i$ runs over set of representatives of conjugacy classes}
-    \]
-    Since $\abs{G} = p^m n$, in particular $p \mid \abs{G}$. By divisibility, there exists $x_i$ s.t. $p \nmid (G: C_G(x))$. Since $C_G(x_i) \leq G$, hyperref[thm: Lagrange]{Lagrange} gives $p \mid C_G(x_i)$, i.e. $\abs{C_G(x_i)} = p^m q$ for $q < n$ (otherwise $x_i \in Z(G)$, which falls back to the first case). In particular, $\abs{C_G(x_i)} < \abs{G}$. Apply the inductive hypothesis gives that there exists a $p$-Sylow subgroup in $C_G(x_i)$, which by counting the order is also a $p$-Sylow subgroup in $G$.
+        \item[\bu{Case 2.}]$p \nmid \abs{Z(G)}$. Consider again the class equation
+        \[
+            \abs{G} = \abs{Z(G)} + \sum_{i}(G : C_G(x_i)) \qquad \text{where $x_i$ runs over set of representatives of conjugacy classes}
+        \]
+        Since $\abs{G} = p^m n$, in particular $p \mid \abs{G}$. By divisibility, there exists $x_i$ s.t. $p \nmid (G: C_G(x))$. Since $C_G(x_i) \leq G$, hyperref[thm: Lagrange]{Lagrange} gives $p \mid C_G(x_i)$, i.e. $\abs{C_G(x_i)} = p^m q$ for $q < n$ (otherwise $x_i \in Z(G)$, which falls back to the first case). In particular, $\abs{C_G(x_i)} < \abs{G}$. Apply the inductive hypothesis gives that there exists a $p$-Sylow subgroup in $C_G(x_i)$, which by counting the order is also a $p$-Sylow subgroup in $G$.
+    \end{enumerate}
 \end{proof}
 
 \begin{remark}
@@ -1099,7 +1103,7 @@ It is impossible that we have the followings:
     For $G$ a finite group, and $p$ a prime s.t. $p \mid \abs{G}$. For $K \leq G$ any $p$-subgroup and $H \leq G$ any $p$-Sylow subgroup, then there exists $a \in G$ s.t. $K \subseteq aHa^{-1}$.
 \end{theorem}
 
-\begin{corollary}
+\begin{corollary}\label{cor: p-sylow conjugates into each other}
     For $H$ and $H'$ $p$-Sylow subgroups of $G$, there exists $a \in G$ s.t. $H' = aHa^{-1}$ (by argument on order). That is, $p$-Sylow subgroups conjugate into each other.
 \end{corollary}
 
@@ -1152,6 +1156,68 @@ It is impossible that we have the followings:
 \end{example}
 
 \section{Application of Sylow Theorems}
+
+\textstart
+Sylow theorems, especially \hyperref[thm: Sylow III]{Sylow III}, gives constraints on the number of $p$-Sylow subgroups. This, together with the constraint of the order of the group, could reveal the group structure with little extra information.
+
+The first application involves classifying groups with order a product of two primes.
+
+\begin{proposition}
+    Let $G$ be a group of order $pq$, with $p$ and $q$ distinct primes, and $p < q$. If $n_p = 1$, then $G$ is abelian and cyclic.
+\end{proposition}
+
+\begin{proof}
+    Notice first that $n_q = 1$ as by \hyperref[thm: Sylow III]{Sylow III} $n_q \mid \frac{\abs{G}}{q} = p$, and $n_q \nequiv 1 \mod{q}$. Since $p < q$, $n_q = 1$.
+    
+    Therefore in $G$ we have a unique $p$- and $q$-Sylow subgroup. Let them be $P$ and $Q$, with $p$ and $q$ elements, respectively. Since $n_p = 1$, by Corollary \ref{cor: p-sylow conjugates into each other} $P \normaleqin G$. Consider the map
+    \[
+        \varphi: Q \to \Aut(P) \qquad y \mapsto (x \mapsto (y x y^{-1}))
+    \]
+    This is indeed an automorphism on $P$ as $P$ is normal in $G$. Since both $P$ and $Q$ has prime order, they are both cyclic. Then $\varphi \simeq (\Hom(\Z/q\Z, \Aut(\Z/p\Z)))$ where LHS has $q$ elements and RHS has $(p-1)$ elements. \hyperref[thm: Lagrange]{Lagrange} implies that $\abs{\im \varphi} \mid (p-1)$ and $\abs{\im \varphi} \mid (q)$ as $\im \varphi$ is a subgroup of $Q$ and $\Aut(P)$. Since $q$ is prime, and $q > p > p-1$, $\abs{\im \varphi} = 1$, i.e. for all $x \in P$, $y \in Q$, $yxy^{-1} = x \implies yx = xy$, that is elements in $P$ and $Q$ commute. 
+
+    Since both $P$ and $Q$ are cyclic, there exists $x \in P$ and $y \in Q$ s.t. $P = \pair{x}, Q = \pair{y}$. Consider the order of $pq$: let it be $m$, i.e. $(xy)^m = e$. This gives $x^m = y^{-m} = (y^m)^{-1}$. \hyperref[thm: Lagrange]{Lagrange} gives $\abs{P \cap Q} \mid p, q$, which implies that $\abs{P \cap Q} = 1$, $P \cap Q = \{e\}$. Further notice that $x^m, (y^m)^{-1} \in P \cap Q$, which gives $p \mid m$, $q \mid m \implies pq \mid m$, i.e. $pq \mid \abs{xy}$. Using the fact that $\abs{xy} \mid \abs{G} = pq$ we get $\abs{xy} = pq$. Therefore, $G = \pair{pq}$, which is cyclic.
+\end{proof}
+
+\begin{proposition}
+    Let $G$ be a group of order $pq$, with $p$ and $q$ distinct primes, and $p < q$. If $q \equiv 1 \mod{p}$ (i.e. $n_p$ is not necessarily 1), then there exists non-abelian group $G$ with order $pq$. 
+\end{proposition}
+
+\begin{proof}
+    Construction of non-abelian groups often results from maps as they generally do not commute.
+
+    Consider $(\Z/q\Z)^{\times}$ with order $(q - 1)$. Since $p \mid (q-1)$, \hyperref[thm: Cauchy]{Cauchy} gives that there exists $r \in \Z$ s.t. $r \nequiv 1 \mod{q}$, and $r^p \equiv 1 \mod{q}$ (i.e. $r$ is a nontrivial element in $\Z/q\Z$ with order $p$). Consider
+    \[
+        \alpha, \beta : \Z/q\Z \to \Z/q\Z \qquad \alpha: x \mapsto (x + 1) \qquad \beta: x \mapsto \bar{r} x
+    \]
+    Since $q$ is prime, $\bar{r}$ has an inverse for all $r$, which implies that $\alpha$ and $\beta$ are bijections. Further notice that $\abs{\alpha} = q$, $\abs{\beta} = \abs{\bar{r}} = p$. Notice
+    \[
+        \beta \alpha \beta^{-1}(x) = \bar{r}(\bar{r}^{-1}x + 1) = x + \bar{r} \implies \beta \alpha = \alpha^r \beta
+    \]
+    which does not necessarily commute. This gives a non-abelian group with order $pq$:
+    \[
+        \pair{\alpha, \beta} = \{\alpha^i \beta^j \mid i \in \llbracket 0, q-1 \rrbracket, j \in \llbracket 0, p-1 \rrbracket\}
+    \]
+\end{proof}
+
+\begin{remark}
+    Up to isomorphism, this is the only non-abelian group of order $pq$. The only adjustment that we can make is to vary $r$; but to maintain its order $p$, it can only vary through the primitive $p$-th roots in $\Z/q\Z$; and we have the isomorphism via varying $r$.
+\end{remark}
+
+\textstart
+The second application uses Sylow Theorems to count elements, which narrows down the possibilities of the structure of a particular group.
+
+\begin{proposition}
+    Suppose that $G$ is a group, with $\abs{G} = 30 = 2 \cdot 3 \cdot 5$. Then there is an index-2 subgroup $H$.
+\end{proposition}
+
+\begin{proof}
+    Let $P$ and $Q$ be the $p$-Sylow subgroups with 3 and 5 elements, respectively. They exist by \hyperref[thm: Sylow I]{Sylow I}.
+
+    \begin{enumerate}
+        \item[\bu{Case 1.}] $P \normaleqin G$ (or $Q \normaleqin G$, respectively). By the \hyperref[thm: second isomorphism theorem]{Second Isomorphism Theorem} we have $P/P \cap Q \simeq PQ/Q$. This is applicable as we have $Q \leq N_G(P) = G$. Use with the corresponding result for $Q$ we get $\abs{P \cap Q} \mid 3, 5 \implies \abs{P \cap Q} = 1$. Then $\abs{PQ} = \abs{P} \cdot \abs{Q} = 3 \cdot 5 = 15$ which gives a valid $H$,
+        \item[\bu{Case 2.}] Neither $P$ or $Q$ is normal in $G$. \hyperref[thm: Sylow II]{Sylow II} gives $n_3(G) > 1$, and $n_5(G) > 1$. Since $\abs{G} = 30$, we have $n_5(G) \mid \frac{30}{5} = 6 \implies n_5(G) = 6$ since $n_5(G) \equiv 1 \mod{5}$. Similarly we get $n_3(G) = 10$. Since any two $5$-Sylow subgroups have intersection $\{e\}$, $G$ has $6 \times (5-1) = 24$ elements of order 5. Similarly $G$ has $10 \times (3-1) = 20$ elements of order 3. But then $G$ has at least $20 + 24 = 44 > 30$ elements, which is a contradiction.
+    \end{enumerate}
+\end{proof}
 
 \section{Finite Simple Groups}
 
