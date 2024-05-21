@@ -1342,6 +1342,94 @@ We then give a statement of the famous theorem classifying finite simple groups.
 
 \section{Composition Series and the Jordan H\"older Theorem}
 
+\textstart
+With the introduction of simple groups, given an arbitrary group one may want to decompose it into simple groups.
+
+\begin{definition}[Composition Series]
+    If $G$ is a finite group, a \textbf{composition series} of $G$ is a sequence of subgroups
+    \[
+        \{e\} = G_0 \leq G_1 \leq \cdots \leq G_n = G
+    \]
+    satisfying
+    \begin{enumerate}[label=\arabic*)]
+        \item $G_{i-1} \normalin G_i$ for $1 \leq i \leq n$.
+        \item $G_i/G_{i-1}$ is simple.
+    \end{enumerate}
+\end{definition}
+
+\begin{remark}
+    Notice that since normality of groups is not transitive, $G_{i-1}$ is not necessarily normal in $G$; and this is not required by the definition.
+\end{remark}
+
+\begin{proposition}
+    Every finite group has a composition series
+\end{proposition}
+
+\begin{proof}
+    Apply induction on $\abs{G}$:
+    \begin{itemize}
+        \item $\abs{G} = 1$. Then $G = G_0 = \{e\}$. 
+        \item $\abs{G} > 1$. Then either
+        \begin{itemize}
+            \item $G$ is simple. Then $G_0 = \{e\} \normalin G_1 = G$.
+            \item $G$ is not simple. Then there exists $N \normalin G$, $N \neq \{e\}$. Notice that $\abs{N}$ and $\abs{G/N}$ are both smaller than $\abs{G}$. Applying inductive hypothesis we have the composition series
+            \[
+                \begin{cases}
+                    N_0 = \{e\} \normalin \cdots \normalin N_p = N \\
+                    K_0 = \{e\} \normalin \cdots \normalin K_q = G/N
+                \end{cases}
+            \]
+            By \hyperref[thm: correspondence]{Correspondence}, for all $i \leq q$, $K_i = H_i/N$ for some $H_i \leq G$. This gives a composition series:
+            \[
+                N_0 \normalin \cdots \normalin N_p \normalin H_1 \normalin \cdots \normalin H_q
+            \]
+            Check that this is indeed a composition series: $H_{i-1} \normalin H_i$ as $K_{i-1} \normalin K_i$. \hyperref[thm: second isomorphism theorem]{Second Isomorphism Theorem} gives $H_i/H_{i-1} \simeq K_i/K_{i-1}$ which is simple.
+        \end{itemize}
+    \end{itemize}
+\end{proof}
+
+\textstart
+The composition series characterizes the group structure up to reordering of the subgroups, by the following theorem:
+
+\begin{theorem}[Jordan-H\"older]
+    If we have two composition series of $G$
+    \[
+        \begin{cases}
+            \{e\} = N_0 \leq \cdots \leq N_r = G \\
+            \{e\} = N_0' \leq \cdots \leq N_s' = G \\
+        \end{cases}
+    \]
+    Then $r = s$, and $N_k/N_{k-1}, N_m'/N_{m-1}'$ are pairwise isomorphic after reordering.
+\end{theorem}
+
+\begin{proof}
+    Apply induction on $\min\{r, s\}$. Without loss of generality let this be $r$:
+    \begin{itemize}
+        \item $r = 0$ is trivial. $r = 1$ is the case where $G$ is simple.
+        \item $r \geq 2$, with the inductive hypothesis holds for smaller $r$s. Then either
+        \begin{itemize}
+            \item $N_{r-1} = N_{s-1}'$. Then the result follows from inductive hypothesis for $\min\{r-1, s-1\}$.
+            \item $N_{r-1} \neq N_{s-1}'$. Consider the following map
+            
+            \begin{minipage}{\linewidth}
+                \centering
+                \begin{tikzcd}
+                    & & N_{r-1} \arrow[rrd, hookrightarrow, "2"] & & \\
+                    N_{r-1} \cap N_{s-1}' \arrow[rru, hookrightarrow, "1"] \arrow[rrd, hookrightarrow, "2"] & & & & G \\
+                    & & N_{s-1}' \arrow[rru, hookrightarrow, "1"] & & 
+                \end{tikzcd}
+            \end{minipage}
+            Since both $N_{r-1}$ and $N_{s-1}'$ are normal in $G$, we have $N_{r-1} \leq N_{r-1} N_{s-1}' \normaleqin G$. Since $G/N_{r-1}$ is simple, and $N_{r-1} \neq N_{r-1} N_{s-1}'$, $N_{r-1} N_{s-1}' = G$. Similarly $N_{s-1}' N_{r-1} = G$. Using the \hyperref[thm: second isomorphism theorem]{Second Isomorphism Theorem} we get the following isomorphisms:
+            \begin{equation}\tag{$\ast$}\label{eq: isoms in composition series}
+                N_{r-1}/(N_{r-1} \cap N_{s-1}') \simeq G/N_{s-1}' \qquad N_{s-1}'/(N_{r-1} \cap N_{s-1}') \simeq G/N_{r-1}
+            \end{equation}
+            Also by the definition of the composition series and the isomorphisms above, both the quotients 1 and 2 in the commutative diagram are simple.
+
+            Now let $M_1 \leq \cdots \leq M_k= N_{r-1} \cap N_{s-1}'$ be a composition series. This together with $N_{r-1}$ or $N_{s-1}'$ gives a composition series as well. Inductive hypothesis gives $k+1 = r-1 = s-1$. Use the isomorphisms in \eqref{eq: isoms in composition series} to get the conclusion.
+        \end{itemize}
+    \end{itemize}
+\end{proof}
+
 \section{Solvable Groups}
 
 \section{Nilpotent Groups}
