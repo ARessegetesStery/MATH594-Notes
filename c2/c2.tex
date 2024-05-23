@@ -300,7 +300,7 @@ It is clear that this is linear. Check that this is a group homomorphism:
 \]
 
 \begin{remark}
-    For $V$ any $G$-representation, define $V^G := \{ v \in V \mid gv = v,\ \forall g \in G \}$ which is the largest trivial sub-representation of $G$. Then representations of $\Hom_{\C}(V, W)$ (as a $\C$-vector space) can be identified with $\{ \varphi: V \to W \mid \varphi \text{ morphism of repr.} \}$. This follows directly from the fact that $g\varphi(g^{-1} -) = \varphi(-)$ implies that $g^{-1}\varphi(-) = \varphi(g^{-1}-)$ which is exactly the definition of morphism of representations.
+    For $V$ any $G$-representation, define $V^G := \{ v \in V \mid gv = v,\ \forall g \in G \}$ which is the largest trivial sub-representation of $G$. Then representations of $\Hom_{\C}(V, W)^G$ (as a $\C$-vector space) can be identified with $\{ \varphi: V \to W \mid \varphi \text{ morphism of repr.} \}$. This follows directly from the fact that $g\varphi(g^{-1} -) = \varphi(-)$ (LHS is the representation defined on $\Hom_{\C}(V, W)^G$) implies that $g^{-1}\varphi(-) = \varphi(g^{-1}-)$ which is exactly the definition of morphism of representations.
 \end{remark}
 
 \begin{corollary}[Result 1 in Remark \ref{rmk: decomposition of repr. unique up to isom}]
@@ -435,10 +435,10 @@ The following results are also quite useful but are not so immediate, so we form
 The character of a representation gives information on its properties, e.g. checking whether a given set of sub-representations gives a decomposition, or checking whether a representation is irreducible, etc. To utilize this concept we need some extra tools on the object:
 
 \begin{notation}
-    Define $\Func(G) := \{ f: G \to \C \}$. This gives a $\C$-vector space of $\dim \abs{G}$. Explicitly, for $G = \{g_1, \dots, g_m\}$ we have the isomorphism $\Func(G) \simeq \C$, $f \mapsto (f(g_1), \dots, f(g_m))$.
+    Define $\Func(G) := \{ f: G \to \C \}$. This gives a $\C$-vector space of $\dim \abs{G}$. Explicitly, for $G = \{g_1, \dots, g_m\}$ we have the isomorphism $\Func(G) \simeq \C^m$, $f \mapsto (f(g_1), \dots, f(g_m))$.
 \end{notation}
 
-\begin{definition}[Inner Product of Character]
+\begin{definition}[Inner Product of Functions]
     Let $f, g \in \Func(G)$. Define 
     \[
         \inner{f, g} := \frac{1}{\abs{G}} \sum_{x \in G} f(x) \overline{g(x)}
@@ -457,7 +457,7 @@ The following is the main theorem for character of representations, that is the 
 \end{theorem}
 
 \textstart
-The tools we have for such situations are Schur's result (Lemma \ref{lem: Schur}), and the averaging process which makes a linear map into a morphism of representations used in Theorem \ref{thm: decomposition of repr.}. The general strategy is to notice that we have application of $g$ both in the domain and image in the ``averaged'' representation, and $\chi(g^{-1}) = \overline{\chi(g)}$ gives the conjugacy and thus the desired form of the inner product.
+The tools we have for such situations are Schur's result (Lemma \ref{lem: Schur}), and the averaging process which makes a linear map into a morphism of representations used in the proof of Theorem \ref{thm: decomposition of repr.}. The general strategy is to notice that we have application of $g$ both in the domain and image in the ``averaged'' representation, and $\chi(g^{-1}) = \overline{\chi(g)}$ gives the conjugacy and thus the desired form of the inner product.
 
 \begin{notation}
     In the proof we use $(a_{ij})_{m \times n}$ to denote the matrices, with the indices dropped if apparent; and $a_{ij}$ (without the parenthesis) to denote entries in the matrix. 
@@ -510,7 +510,7 @@ The tools we have for such situations are Schur's result (Lemma \ref{lem: Schur}
 \begin{corollary}\label{cor: inner prod. of repr.}
     From the theorem we have the following immediate results:
     \begin{enumerate}[label=\arabic*)]
-        \item The number of isomorphism classes of irreducible representations is bounded above by $\dim_{\C} \Func(G) = \abs{G}$. Notice that if $\rho_1, \dots, \rho_r$ are pairwise non-isomorphic irreducible representations, then by Theorem \ref{thm: inner product of irred repr.} $\inner{\chi_i, \chi_j} = 0$ for all $i \neq j$, i.e. they are orthonormal, and in particular linearly independent. But $\dim_{\C} \Func(G) \leq \abs{G}$, so there are at most $\abs{G}$ of them. 
+        \item The number of isomorphism classes of irreducible representations is bounded above by $\dim_{\C} \Func(G) = \abs{G}$. Notice that if $\rho_1, \dots, \rho_r$ are pairwise non-isomorphic irreducible representations, then by Theorem \ref{thm: inner product of irred repr.} $\inner{\chi_i, \chi_j} = 0$ for all $i \neq j$, i.e. they are orthonormal, and in particular linearly independent. But $\dim_{\C} \Func(G) = \abs{G}$, so there are at most $\abs{G}$ of them. 
         \item Let $V$ be any representation of $G$, and $W$ an irreducible representation of $G$, then for irreducible decomposition of $V$: $V = \bigoplus_{i = 1}^r W_i$, $\#\{ i \mid W_i \simeq W \} = \inner{\chi_V, \chi_W}$. 
         \begin{proof}
             To see this, by Proposition \ref{prop: character of direct sum and tensor product} we have $\chi_V = \sum_{i = 1}^r \chi_{W_i}$. Then
@@ -623,13 +623,30 @@ Then we have the following immediate results:
 
 \begin{proposition}
     If $\rho$ is irreducible, then $\rho_f = \lambda \cdot \Id$ where
-    \[
-        \lambda = \frac{\abs{G}}{\deg(\rho)} \inner{f, \overline{\chi}_p}
-    \]
+    \begin{equation}\label{eq: coeff of repr of func.}\tag{$(\ast)$}
+        \lambda = \frac{\abs{G}}{\deg(\rho)} \inner{f, \overline{\chi_{\rho}}}
+    \end{equation}
 \end{proposition}
 
 \begin{proof}
-    
+    Express the trace of $\rho_f$ in two ways. $\rho_f = \lambda \Id \implies \Tr(\rho_f) = \lambda \cdot \deg(\rho)$. For the other expression, since $\rho_f = \sum_{g \in G} f(g) \rho_g$, we have
+    \[
+        \Tr_{\rho_f} = \sum_g \in G f(g) \Tr(\rho_g) = \sum_{g \in G} f(g) \chi_{\rho}(g) = \abs{G} \cdot \inner{f, \overline{\chi_{\rho}}}
+    \]
+\end{proof}
+
+\begin{proof}[Proof of Theorem \ref{thm: character of irred repres gives a basis of C(G)}]
+    By Theorem \ref{thm: inner product of irred repr.} we know that $\{\chi_1, \dots, \chi_r\}$ gives an orthonormal subset of $\mathcal{C}(G)$. This implies that $\overline{\chi_{1}}, \cdots, \overline{\chi_{r}}$ are all linearly independent, i.e. we can express $\mathcal{C}(G)$ as
+    \[
+        \mathcal{C}(G) = \linspan(\overline{\chi_{1}}, \cdots, \overline{\chi_{r}}) \oplus \linspan(\overline{\chi_{1}}, \cdots, \overline{\chi_{r}})^{\perp}
+    \]
+    Therefore, to conclude the proof, we only need to show that the second part of the direct sum vanishes; that is, if $f \in \mathcal{C}(G)$ s.t. $\inner{f, \overline{\chi_i}} = 0$ for all $i$, then $f = 0$. First notice that by Eq. \eqref{eq: coeff of repr of func.} we have $\lambda = 0$; and $(\rho_i)_f = \lambda \cdot \Id$ this implies that $(\rho_i)_f = 0$. Given any representation $\rho$, writing it as a direct sum of irreducible decompositions gives $\rho_f = 0$.
+
+    Now apply this for $\rho = \rho^{\text{reg}}$:
+    \[
+        (\rho^{\text{reg}})_f = \sum_{g \in G} f(g) \rho^{\text{reg}}_g, \quad (\rho^{\text{reg}}_f) (\alpha(e)) = \sum_{g \in G} f(g) \underbrace{(\rho^{\text{reg}}_g) (\alpha(e))}_{\alpha(g)}
+    \]
+    where the second equality is zero by hypothesis. Then $f(g) = 0$ for all $g$ since $\{\alpha(g) \mid g \in G\}$ is a basis for the group algebra.
 \end{proof}
 
 \section{Induced Representations}
