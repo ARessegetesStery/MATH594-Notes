@@ -1498,7 +1498,7 @@ Using the composition series we could further describe the structure of a group,
 
         For abelianity, consider similarly the map 
         \[
-            G_i/G_{i-1} \to G_i N/G_{i-1} N, G_{i-1}x\mapsto G_{i-1}Nx
+            G_i/G_{i-1} \to G_i N/G_{i-1} N, \qquad G_{i-1}x\mapsto G_{i-1}Nx
         \]
         which is surjective as for $G_{i-1}Nx \neq e$, $x \notin G_{i-1}N$, which in particular implies that $x \notin G_{i-1}$. Therefore $G_i/G_{i-1}$ being abelian implies that $G_i N/G_{i-1} N$ is abelian.
         \item Suppose that both $N$ and $G/N$ are solvable. Then we have two sequences
@@ -1557,7 +1557,121 @@ Using the composition series we could further describe the structure of a group,
     \end{enumerate}
 \end{proof}
 
+\clearpage
 \section{Nilpotent Groups}
+
+\begin{definition}[Upper Central Series]
+    Given a group $G$, its \textbf{upper central series} is given by
+    \[
+        Z_0(G) = \{e\} \quad Z_1(G) = Z(G) \normaleqin G \quad Z_i(G)/Z_{i-1}(G) \simeq Z(G/Z_{i-1}(G)) 
+    \]
+\end{definition}
+
+\begin{remark}
+    From the definition of subsequent central series, which is based on the center of the quotient, $Z_i(G) \normaleqin G$; and the inclusion is given by $Z_{i-1}(G) \leq Z_i(G)$, i.e. opposite from the inclusion of derived series.
+\end{remark}
+
+\begin{definition}[Nilpotent]
+    A group $G$ is \textbf{nilpotent} if there exists $r$ s.t. $Z_r(G) = G$. The smallest such $r$ is the \textbf{nilpotent index}.
+\end{definition}
+
+\begin{remark}
+    Every nilpotent group is solvable, as the upper central series gives the corresponding series required for a group to be solvable. In particular, $Z_i(G)/Z_{i-1}(G) \simeq Z(G/Z_{i-1}(G))$ is abelian; and center of a group is a normal subgroup.
+\end{remark}
+
+\begin{example}\label{ex: nilpotent groups}
+    The following gives some (counter-)examples of nilpotent groups:
+    \begin{enumerate}
+        \item $S_3$ is not nilpotent, as $Z(S_3) = \{e\}$.
+        \item Every abelian group is nilpotent with index $\leq 1$.
+        \item Every $p$-group is nilpotent. Recall that by using a divisibility argument in the \hyperref[eq: class equation]{class equation}, any $p$-group has a nontrivial center. \hyperref[thm: Lagrange]{Lagrange} gives that $G/Z(G)$ is either $\{e\}$ or also a $p$-group. The construction can continue as long as $G/Z(G) \neq \{e\}$, which gives a sequence. This must terminate as $G$ is finite; and each subsequent group shrinks in order.
+    \end{enumerate}
+\end{example}
+
+\begin{proposition}
+    A group $G$ is nilpotent if and only if there exists a sequence
+    \[
+        \{e\} = G_0 \leq G_1 \leq \cdots \leq G_r = G \quad \text{s.t. $G_i/G_{i-1} \subseteq Z(G/G_{i-1})$ for all $1 \leq i \leq r$}
+    \]
+\end{proposition}
+
+\begin{proof}
+    Verify the implication in both directions:
+    \begin{enumerate}
+        \item[$\Rightarrow$] By definition the upper central series gives a such sequence.
+        \item[$\Leftarrow$] First notice that $G_{i-1} \normaleqin G$ for all $i$, since the inclusion gives $G_i$ is contained in the center of a quotient of $G$. Show inductively that $G_i \leq Z_i(G)$, which implies that $Z_r(G) \geq G_r = G$.
+        
+        For $i = 0$ this is trivial. For $i = 1$ this is clear as we have inclusion instead of equality. Now suppose that $G_i \leq Z_i(G)$ for a fixed $i$. Consider the group homomorphism
+        \[
+            \psi: G/G_i \to G/Z_i(G), \qquad x G_i \mapsto x Z_i(G)
+        \]
+        This is surjective by $G_i \leq Z_i(G)$. Then $\psi(Z(G/G_i)) \subseteq Z(G/Z_i(G))$ as group homomorphism preserves commutativity. Then
+        \[
+            \psi(G_{i+1}/G_i) \subseteq \psi(Z(G/G_i)) \subseteq Z(G/Z_i(G)) \simeq Z_{i+1}(G)/Z_i(G)
+        \]
+        which gives a map from $G_{i+1}$ to $Z_{i+1}$, i.e. $G_{i+1} \leq Z_{i+1}$.
+    \end{enumerate}
+\end{proof}
+
+Similar to Proposition \ref{prop: relations of solvability}, we have the corresponding relations for nilpotent groups. The proof is also similar and is therefore omitted.
+
+\begin{proposition}\label{prop: relations of nilpotent}
+    Let $N \leq G$. Then
+    \begin{enumerate}[label=\roman*)]
+        \item If $G$ is nilpotent, then $N$ is nilpotent. 
+        \item If $N$ is normal in $G$, and $G$ is nilpotent, then $G/N$ is nilpotent.
+        \item If $N \leq Z(G)$, and both $N$ and $G/N$ are nilpotent, then $G$ is nilpotent.
+    \end{enumerate}
+\end{proposition}
+
+\begin{theorem}
+    Let $G$ be a finite group. Let $p_1, \dots, p_r$ be the primes dividing $\abs{G}$; and $P_1, \dots, P_r$ the corresponding $p$-Sylow subgroups, then the following statements are equivalent:
+    \begin{enumerate}[label=\arabic*)]
+        \item $G$ is nilpotent.
+        \item For all $H < G$, $H < N_G(H)$ (inequality here).
+        \item For all $i$, $P_i \normalin G$.
+        \item $G \simeq P_1 \times \cdots \times P_r$.
+    \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+    Proceed via showing the implication cyclically:
+    \begin{itemize}
+        \item \emph{1) \implies 2).} Argue by applying induction on $\abs{G}$. For $\abs{G} = 1$ the statement is clear. For $\abs{G} > 1$, we can assume $\abs{H} > 1$ ($N_G(\{e\}) = G$). Then either
+        \begin{itemize}
+            \item $Z(G) \centernot \subseteq H$. Then for all $a$ there exists $a \in Z(G) \smallsetminus H$ satisfying $a \in N_G(H) \smallsetminus H$.
+            \item $Z(G) \subseteq H$. Proposition \ref{prop: relations of nilpotent} gives $G/Z(G)$ nilpotent, as $Z(G) \normaleqin G$. Further since $G$ is nilpotent, $Z(G)$ is nontrivial, giving $\abs{G/Z(G)} < \abs{G}$. The result follows from applying inductive hypothesis on $H/Z(G) \leq G/Z(G)$.
+        \end{itemize}
+        \item \emph{2) \implies 3).} We need to show that $N_G(P_i) = G$ for all $i$. It suffices to show that $N_G(P_i) = N_G(N_G(P_i))$, and by 2) we have 3).
+        
+        This is indeed true, as by definition $P_i$ is normal in $N_G(P_i)$. By \hyperref[thm: Sylow II]{Sylow II} since $p$-Sylow subgroups conjugate into each other, this is the unique $p$-Sylow subgroup in $N_G(P_i)$. As group automorphisms fix the order the group, $P_i$ is a characteristic subgroup in $N_G(P_i)$. In particular, conjugation in $G$ fixes $P_i$, giving $P_i \normaleqin N_G(N_G(P_i)) \subseteq N_G(P_i)$; and the inclusion in the other direction is by definition.
+        \item \emph{3) \implies 4).} First prove a general result:
+        
+        \begin{parenthesis}
+            Given a group $G$ with $H$ and $K$ its normal subgroups. Then $G \simeq H \times K$ if and only if $H \cap K = \{e\}$, and $G = HK$.
+        \end{parenthesis}
+
+        \begin{proof}
+            Verify using the universal property of product of groups:
+            \begin{enumerate}
+                \item[$\Rightarrow$] Suppose that $G \simeq H \times K$. Then $e_G = (e_H, e_K)$; and for all $G \ni g = (g_H, g_K) = (g_H, e_K) (e_H, g_K)$.
+                \item[$\Leftarrow$] For any two group homomorphisms $\psi_H: L \to H, \qquad \psi_K: L \to K$. This gives a map 
+                \[
+                    \psi: L \to G, \qquad x \mapsto \psi_H(x) \psi_G(x)
+                \]
+                This is well defined, as $H \cap K = \{e\}$ implies that every element in $G$ decomposes uniquely into a product of two elements from $H$ and $K$.
+            \end{enumerate}
+        \end{proof}
+
+        The parenthesis can be easily generalized to the product of finitely many groups. Now use it to prove the implication: notice that for any $i \neq j$, $P_i \cap P_j = \{e\}$ as this is a subgroup whose order divides both $p_i$ and $p_j$. Further $G = P_1 \cdots P_r$, as $P_1 \cdots P_r \subseteq G$; and $\abs{G} = \abs{P_1} \cdots \abs{P_r}$ gives the equality.
+        \item \emph{4) \implies 1).} By Example \ref{ex: nilpotent groups} iii), $P_i$s are all nilpotent. Since $r$ is finite we only need to show that if $H_1$ and $H_2$ are nilpotent, then $H_1 \times H_2$ is nilpotent. This is indeed true, as
+        \begin{itemize}
+            \item $Z(H_1 \times H_2) \simeq Z(H_1) \times Z(H_2)$.
+            \item $(H_1 \times H_2)/Z(H_1 \times H_2) \simeq H_1/Z(H_1) \times H_2/Z(H_2)$.
+        \end{itemize}
+        which allows construction of the sequence for $H_1 \times H_2$ based on the sequences of $H_1$ and $H_2$.
+    \end{itemize}
+\end{proof}
 
 \section{Free Groups$^{\ast}$}
 
