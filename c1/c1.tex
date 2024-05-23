@@ -1675,6 +1675,111 @@ Similar to Proposition \ref{prop: relations of solvability}, we have the corresp
 
 \section{Free Groups$^{\ast}$}
 
+\textstart
+A general in the categorical perspective is, whether its structure can be ``naturally derived'' from its elements.
+
+\begin{definition}[Free Object]
+    Given a category $\catc$, in which objects are sets (probably with extra structure, e.g. groups, modules, etc.). A \textbf{free object} $X$ associated to a set $S$ is an object where we have the identification of morphisms:
+    \[
+        \{X \to Y \text{ morphisms in $\catc$}\} \leftrightarrow \{ \text{map of sets $S \to Y$} \}
+    \] 
+\end{definition}
+
+\begin{example}
+    Let $\catc$ be the category of abelian groups, and $I$ an arbitrary set. The corresponding free objects are $\Z^{(I)}$, which has a $\Z$-basis $\{e_i \mid i \in I\}$, indexed by elements in $I$. 
+
+    If $\catc$ is the category of rings, and $I = \{1, \dots, n\}$, the corresponding free object is $\Z[x_1, \dots, x_n]$.
+\end{example}
+
+\textstart
+The motivation of constructing a free group, is to give a group with only a system of generators $S$ (a set) with ``no other relations''. We need some setup before giving the definition:
+
+\begin{definition}[Word]
+    Given a set $S$, choose a set $S^{-1}$ that has a bijection $\varphi$ with $S$. For $x \in S$, denote $\varphi(x) =: x^{-1} \in S^{-1}$. Choose also a special element $1$ with $1^{-1} = 1$. Define $\widetilde{S}$ as $\widetilde{S} := S \sqcup S^{-1} \sqcup \{1\}$.
+
+    A \textbf{word} (with letters) in $S$ is given by an $\N$-tuple $(x_1, x_2, \dots, x_n, \dots)$ s.t. $x_i \in \widetilde{S}$, and there exists $i_0$ s.t. $x_{i_0} = 1$ for all $i > i_0$ (or equivalently, the tuple is finite; but we need the lagging 1s to define the group operation)
+\end{definition}
+
+\begin{definition}[Reduced Word]
+    A \textbf{reduced word} $(x_1, x_2, \dots)$ is a word satisfying
+    \begin{enumerate}[label=\arabic*)]
+        \item $x_i = 1 \implies x_j = 1$ for all $j > i$.
+        \item For all $i$, $x_{i+1} \neq x_i^{-1}$ unless $x_i = 1$.
+    \end{enumerate}
+\end{definition}
+
+\begin{definition}[Free Group]
+    The free group $F(S)$ on set $S$ is the set of reduced words on $S$, with operation given as follows:
+
+    Given $u, v \in F(S)$, write
+    \[
+        u = (u_1, u_2, \dots, u_p \neq 1, 1, 1, \dots) \quad v = (v_1, v_2, \dots, v_q \neq 1, 1, 1, \dots)
+    \]
+    If $w = (u_1, u_2, \dots, u_p, v_1, v_2, \dots, v_q, 1, 1, \dots)$ is a reduced word, then define this as $u \cdot v$. Otherwise, $u_p = v_1^{-1}$. Then replace $w = (u_1, u_2, \dots, u_{p-1}, v_2, \dots, v_q, 1, 1, \dots)$ until it is reduced. This process will terminate as both $p$ and $q$ are finite.
+
+    Associativity is clear. We have the identity $(1, 1, \dots)$; and the inverse of $(x_1, \dots, x_n, 1, 1, \dots)$ is $(x_1^{-1}, \dots, x_n^{-1}, 1, 1, \dots)$.
+\end{definition}
+
+\textstart
+Notice we have the reduced word $(1, 1, \dots)$; and we have the injective map
+\[
+    S \sqcup S^{-1} \to F(S) \quad x \mapsto (x, 1, 1, \dots)
+\]
+i.e. $S$ is a subset of $F(S)$.
+
+Further, if $u = (x_1, \dots, x_n, 1, 1, \dots)$ is a reduced word, then
+\[
+    u = (x_1, 1, \dots) (x_2, 1, \dots) \cdots
+\]
+
+\begin{proposition}\label{prop: map on set induces map on free group}
+    For all group $G$, the following map is a bijection:
+    \[
+        \{ \text{group homomorphisms $F(S) \to G$} \} \to \{ \text{functions $S \to G$} \}, \quad \varphi \mapsto \restr{\varphi}{S}
+    \]
+\end{proposition}
+
+\begin{proof}
+    Let $f: S \to G$ be any function. Since $S$ generates $F(S)$ as a group, the uniqueness of the group homomorphism $\varphi: F(S) \to G$ extending $f$ is clear, via extending in terms of a system of generators. Therefore, we only need to check existence: define
+    \[
+        \varphi: F(S) \to G, \quad \varphi(x_1, \dots, x_n, 1, 1, \cdots) = u(x_1) \cdots u(x_n) \quad \text{where }
+        u_i = \begin{cases}
+            f(x_i) & x_i \in S\\
+            (f(x_i))^{-1} & x_i \in S^{-1}
+        \end{cases}
+    \]
+    This is well defined as 1 is in both $S$ and $S^{-1}$, and clearly this is a group homomorphism. Definition gives $\restr{\varphi}{S} = f$.
+\end{proof}
+
+\begin{remark}
+    Let $\alpha: S \to T$ be any map. Proposition \ref{prop: map on set induces map on free group} gives that there exists a unique group homomorphism $F(\alpha)$ that makes the following diagram commute:
+    \begin{minipage}{\linewidth}
+        \centering
+        \begin{tikzcd}
+            S \arrow[rr, "\alpha"] \arrow[dd, hookrightarrow] & & T \arrow[dd, hookrightarrow] \\
+            & & \\
+            F(S) \arrow[rr, "F(\alpha)"] & & F(T)
+        \end{tikzcd}
+    \end{minipage}
+    Moreover, if we have another map $\beta: T \to U$, we have $F(\beta \circ \alpha) = F(\beta) \circ F(\alpha)$; and $F(\alpha)$ is a group isomorphism if $\alpha$ is a bijection. Therefore, $F(S)$ is unique up to isomorphism, and depends only on the cardinality of $S$.
+\end{remark}
+
+\begin{example}
+    The free group is very complex; and we can only clearly classify the free groups with $S$ of small cardinality.
+    \begin{enumerate}[label=\arabic*)]
+        \item $S = \emptyset$. Then $F(S) = \{e\}$.
+        \item $\abs{S} = 1$. Then $F(S) \simeq \Z$.
+        \item $\abs{S} = 2$. Then elements of $F(S)$ take the form of $x^{a_1}y^{a_2}x^{a_3} \dots$ with $a_i \in \Z$.
+    \end{enumerate}
+\end{example}
+
+\textstart
+We have the following theorem whose proof is from topology and is omitted:
+
+\begin{theorem}[Schreier]
+    Every subgroup of a free group is free.
+\end{theorem}
+
 \section{Presentation of Groups$^{\ast}$}
 
 \end{document}
