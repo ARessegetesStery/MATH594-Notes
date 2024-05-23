@@ -1753,6 +1753,7 @@ Further, if $u = (x_1, \dots, x_n, 1, 1, \dots)$ is a reduced word, then
 
 \begin{remark}
     Let $\alpha: S \to T$ be any map. Proposition \ref{prop: map on set induces map on free group} gives that there exists a unique group homomorphism $F(\alpha)$ that makes the following diagram commute:
+
     \begin{minipage}{\linewidth}
         \centering
         \begin{tikzcd}
@@ -1781,5 +1782,52 @@ We have the following theorem whose proof is from topology and is omitted:
 \end{theorem}
 
 \section{Presentation of Groups$^{\ast}$}
+
+\textstart
+Fix a group $G$ and let $S \subseteq G$ be a subset. Proposition \ref{prop: map on set induces map on free group} gives that there exists a unique group homomorphism $\varphi: F(S) \to G$ extending the inclusion $S \hookrightarrow G$. This is surjective if and only if $\pair{S} = G$. In this case, we would like to understand $\ker \varphi$, as $G \simeq F(S)/\ker \varphi$.
+
+\begin{definition}[Normal Closure]
+    Given any group $H$, and subset $A \subseteq H$, the \textbf{normal closure} of $A$ is defined as
+    \[
+        \bigcap_{A \subseteq H' \normaleqin H}, \quad \text{or equivalently} \quad \{ xax^{-1} \mid x \in H, a \in A \}
+    \]
+    This is the smallest normal subgroup containing $A$.
+\end{definition}
+
+\begin{definition}[Presentation of Group]
+    A \textbf{presentation} of a group $G$ by generators and relations is given by
+    \begin{enumerate}[label=\arabic*)]
+        \item A set $S$ with the group homomorphism $F(S) \to G$ induced by the inclusion $S \to G$ being surjective.
+        \item A subset $R \subseteq F(S)$ s.t. if $K$ is the normal closure of $R$ in $F(S)$, then we have the induced isomorphism $F(S)/K \simeq G$.
+    \end{enumerate}
+\end{definition}
+
+\begin{example}
+    Let $G$ be the dihedral group $D_n$ with $n \geq 3$. Recall that we have the rotation $\sigma$ of order $n$, and symmetry $\tau$ of order 2; and we have the relation $\tau \sigma = \sigma^{n-1} \tau$. Then $G$ is presented by
+    \[
+        \pair{ \sigma, \tau \mid \sigma^n = e, \tau^2 = e, \tau \sigma = \sigma^{n-1} \tau }
+    \]
+    which is indeed the case as the cardinality of the group given by the presentation is at most $2n$.
+\end{example}
+
+\begin{remark}
+    Typically the presentation we give is simpler than the restriction required by the whole group, i.e. $R$ is much smaller than $K$.
+\end{remark}
+\nogap
+\begin{remark}
+    In general, it is very hard to see the group structure with the generators and relations. For example, the isomorphism problem, i.e. given the presentation of $G_1$ and $G_2$, to determine whether $G_1 \simeq G_2$ is undecidable.
+\end{remark}
+
+\begin{definition}[Finitely Presented]
+    A group $G$ is \textbf{finitely presented} if there is a presentation by generators and relations consisting of finitely many generators and relations.
+\end{definition}
+
+\begin{proposition}
+    Every finitely group $G$ is finitely presented.
+\end{proposition}
+
+\begin{proof}
+    Consider $S = G$. This extends to $\varphi: F(S) = F(G) \to G$ surjective. Let $A \subseteq F(G)$ be the set $\{(g_1, g_2, \dots, g_n, 1, \cdots) \mid g_n^{-1} = g_1 \cdots g_{n-1} \}$. $A$ is clearly finite; and $A \subseteq \ker \varphi$. Let $K$ be the normal closure of $A$. This gives a surjective map $\bar{\varphi}: F(G)/K \to G$. Let $B = \{ \bar{g} \in F(G)/K \mid g \in G \}$ which is the presentation. Notice that $\bar{g_1} \bar{g_2} = \overline{g_1 g_2}$, which implies that $(\bar{g})^{-1} = \overline{(g^{-1})}$ for all $g \in G$. Since $B$ is closed on taking inverses and multiplication, $B$ is a subgroup. Further since $B$ generates $F(G)/K$, $B = F(G)/K$. But $\abs{B} \leq \abs{G}$; and together with $\varphi$ surjective we have $\abs{B} = \abs{G}$; and $\varphi$ is a bijection. 
+\end{proof}
 
 \end{document}
