@@ -649,6 +649,72 @@ Then we have the following immediate results:
     where the second equality is zero by hypothesis. Then $f(g) = 0$ for all $g$ since $\{\alpha(g) \mid g \in G\}$ is a basis for the group algebra.
 \end{proof}
 
+\begin{notation}[Character Table]
+    The \textbf{character table} gives information on the character evaluated on conjugacy classes of a group:
+    \[
+        \begin{array}{c|ccc}
+            & \chi_1 & \cdots & \chi_r \\
+            \hline
+            g_1 & & & \\
+            \vdots & & \chi_i(g_j) & \\
+            g_r & & &
+        \end{array}
+    \]
+    where the columns are the character of irreducible representations of $G$; and rows are system of representatives for conjugacy classes of $G$. Summing over the rows by squares give the order of $G$, by Corollary \ref{cor: check whether obtained all irred repr.}
+\end{notation}
+
+Since character is a class function, it is related to the cardinality of the conjugacy classes: Fix $h \in G$, and consider its conjugacy class:
+\[
+    \varphi: G \to \C, \qquad g \mapsto 
+    \begin{cases}
+        1, & g, h \text{ conjugate} \\
+        0, & \text{otherwise}
+    \end{cases}
+\]
+It is clear that $\varphi \in \mathcal{C}(G)$. By Theorem \ref{thm: character of irred repres gives a basis of C(G)} we can write $\varphi = \sum_{i = 1}^r a_i \chi_i$. Then we can write
+\[
+    a_i = \inner{\varphi, \chi_i} = \frac{1}{\abs{G}} \sum_{g \in G} \varphi(g) \overline{\chi_i(g)} = \frac{c(h)}{\abs{G}} \overline{\chi_i(h)}
+\]
+where $c(h)$ is the cardinality of the conjugacy class of $h$. Taking $\varphi = \chi_i$ we have
+\begin{enumerate}[label=\arabic*)]
+    \item If $g$ and $h$ are not conjugate, then $\sum_{i = 1}^r \chi_i(g) \overline{\chi_i(h)} = 0$ (taking $h = e$ gives the previous result).
+    \item If $g$ and $h$ are conjugate, then
+    \[
+        1 = \inner{\chi_i, \chi_i} = \frac{c(h)}{\abs{G}} \sum_{i = 1}^r \chi_i(h) \overline{\chi_i(h)} \implies \frac{\abs{G}}{c(h)} = \sum_{i = 1}^r \abs{\chi_i(h)}^2
+    \]
+\end{enumerate}
+
+\begin{proposition}
+    $G$ is abelian if and only if all $G$-representations have degree 1.
+\end{proposition}
+
+\begin{proof}
+    If $G$ is abelian, then all conjugacy classes of $G$ have 1 element, i.e. there are $\abs{G}$ conjugacy classes. Let $d_1, \dots, d_n$ for $n = \abs{G}$ be the degree of $G$-representations. By Corollary \ref{cor: check whether obtained all irred repr.} we have $\abs{G} = \sum_{i = 1}^r d_i^2$, giving that all $d_i$s are 1. For the other direction letting $d_i = 1$ for all $i$ gives that there are $\abs{G}$ conjugacy classes, i.e. $G$ is abelian. 
+\end{proof}
+
+\begin{example}
+    Suppose that $G = \Z/n\Z$, we have seen that 1-dimensional $G$-representations corresponds to $\lambda \in \C$ s.t. $\lambda^n = 1$. Notice also, that for $\Z/m\Z \times \Z/n\Z \to \C^{\ast}$, since $\C^{\ast}$ is abelian it is equivalent to giving both $\Z/m\Z \to \C^{\ast}$ and $\Z/n\Z \to \C^{\ast}$. In general, 1-dimensional representations of $\Z/n_1\Z \times \cdots \times \Z/n_d \Z$ corresponds to $\{ (\lambda_1, \dots, \lambda_d) \in (\C^{\ast})^d \mid \lambda_i ^{n_i} = 1, \forall i \}$.
+\end{example}
+
+\begin{example}
+    Use the result from Corollary \ref{cor: check whether obtained all irred repr.} to construct part of the character table of $G = S_3$. The conjugacy classes of $G$ are the identity, 2-cycles and 3-cycles. Then there are 3 irreducible representations:
+    \begin{itemize}[label=$-$]
+        \item The identity 1-dimensional representation $\rho: S_3 \to \C^{\ast}$ identically 1.
+        \item The sign permutation $S_3 \to \{\pm 1\}$, with $\sigma \mapsto \varepsilon(\sigma)$.
+        \item Corollary \ref{cor: check whether obtained all irred repr.} implies that there exists an irreducible representation of degree 2. This is the \underline{standard representation}, given by $S_3$ permuting the entries in $\{ (x_1, x_2, x_3) \in \C^3 \mid x_1 + x_2 + x_3 = 0 \} \subseteq S_3$.
+    \end{itemize}
+    Then we have the character table
+    \[
+        \begin{array}{r|ccc}
+            & \chi_1 & \chi_2 & \chi_3 \\
+            \hline
+            e & 1 & 1 & 2 \\
+            (1 2) & 1 & -1 & 0 \\
+            (1 2 3) & 1 & 1 & -1
+        \end{array}
+    \]
+\end{example}
+
 \section{Induced Representations}
 
 \section{Representations of $S_n$$^{\ast}$}
