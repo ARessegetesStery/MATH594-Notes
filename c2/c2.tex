@@ -717,6 +717,56 @@ where $c(h)$ is the cardinality of the conjugacy class of $h$. Taking $\varphi =
 
 \section{Induced Representations}
 
+\textstart
+Recall that we have by Proposition \ref{prop: repr of G identifiable with C[G]-modules} the identification of $G$-representations and $\C[G]$-modules. As in module theory we have the extension of scalars, where given a ring homomorphism $R \to S$ (often an inclusion or embedding), we have the extension $\catlmod{R} \to \catlmod{S}$. We can have similar construction in the representation theory.
+
+Let $G$ a finite group, and $H \leq G$ a subgroup. Let $\rho: G \to \GL(V)$ be a $G$-representation. We have a representation of $H$ simply by restriction: $\restr{\rho}{H}: H \to \GL(V)$. This is often written $\restr{\rho}{H} = \Res_H^G (\rho)$. It is clear from definition that $\chi_{(\restr{\rho}{H})} = \restr{\chi_{\rho}}{H}$. Further we can similarly restrict a morphism of $G$-representations to get a morphism of $H$-representations. The goal is find the construction in the inverse direction, i.e. find out how an $H$-representation induces a $G$-representation.
+
+\begin{remark}
+    As a review of the extension of scalars, we have an injective of $\C$-algebras $\varphi: \C[H] \hookrightarrow \C[G]$. This enables viewing $\C[G]$-modules as $\C[H]$-modules, given by $a \cdot u := \varphi(a) u$ for all $a \in \C[H]$, $u \in V$ (considered as a $\C[G]$-module). In particular, this gives the result of restriction of representations as above.
+\end{remark}
+
+\begin{proposition}\label{prop: relation of dim of irred repr of group and that of subgroup}
+    If every irreducible representation of $H$ has dimension at most $r$, then every irreducible representation of $G$ has dimension at most $r \cdot (G : H)$.
+\end{proposition}
+
+\begin{example}
+    If $H$ is abelian, then since $H$ is finite every element must be mapped to the unit circle, i.e. all $H$-representations are irreducible if and only if it is of dimension 1; and then every irreducible $G$-representation has dimension at most $(G : H)$.
+\end{example}
+
+\textstart
+To prove the proposition above we need some further results:
+
+\begin{lemma}\label{lem: repr decompose as direct sum of left cong classes}
+    Let $V$ be a $G$-representation, $W \subseteq V$ be a $H$-representation (for $H \leq G$). Denote $(G : H)_{\ell} := \{gH \mid g \in G\}$, i.e. the left congruence classes of $H$ in $G$. Pick $\sigma \in (G : H)_{\ell}$, i.e. $\sigma = gH$ for some $g \in G$. Denote $W_{\sigma} := \{ gw \mid w \in W \}$.
+
+    If $V$ is an irreducible $G$-representation, then $V = \bigoplus_{\sigma \in (G : H)_{\ell}} W_{\sigma}$.
+\end{lemma}
+
+\begin{proof}
+    Notice that for $\sigma \in (G : H)_{\ell}$, $W_{\sigma}$ depends only on $\sigma$. Written explicitly, if $gH = g'H = \sigma$, then $g^{-1} g' \in H$. In terms of representation this gives
+    \[
+        \{ g' w \mid w \in W \} = \{ g (g^{-1} g')w \mid w \in W \} = \{ g((g^{-1} g') w) \mid w \in W \} = \{ gw \mid w \in W \}
+    \]
+    Since $W$ is an $H$-representation; and $g^{-1} g' \in H$ induces an automorphism on $W$.
+
+    Further for all $g' \in G$ we have $W_{(g' \sigma)} = g' W_{\sigma}$. This can be seen via first consider by definition $g'(W_{\sigma}) \subseteq W_{(g' \sigma)}$. The inclusion in the other direction is also clear as $gW = W$ implies that $g$ induces an automorphism on $W$; or more explicitly, apply the previous result with $(g')^{-1}$, which gives
+    \[
+        (g')^{-1} W_{g' \sigma} \subseteq W_{\sigma} \implies W_{g' \sigma} \subseteq (g') W_{\sigma}
+    \]
+    Therefore, $\sum_{\sigma \in (G : H)_{\ell}} W_{\sigma}$ gives a $G$-subrepresentation of $V$. Moreover, since all such $\sigma$s are disjoint (by the fact that the left equivalence classes are disjoint), this gives the direct sum decomposition.
+\end{proof}
+
+\begin{proof}[Proof of Proposition \ref{prop: relation of dim of irred repr of group and that of subgroup}]
+    Use Lemma \ref{lem: repr decompose as direct sum of left cong classes}: if $\dim_{\C}(V) \leq r$, for $V$ being irreducible we have $V = \sum_{\sigma \in (G : H)_{\ell}}$, and in particular
+    \[
+        \dim_{\C}(V) \leq \sum_{\sigma} \dim_{\C}(W_{\sigma}) \leq \dim_{\C}(W) \cdot (G : H) \leq r \cdot (G : H)
+    \]
+\end{proof}
+
+\textstart
+The following recalls results of extension of scalars in ring theory. 
+
 \section{Representations of $S_n$$^{\ast}$}
 
 \end{document}
