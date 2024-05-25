@@ -737,8 +737,12 @@ Let $G$ a finite group, and $H \leq G$ a subgroup. Let $\rho: G \to \GL(V)$ be a
 \textstart
 To prove the proposition above we need some further results:
 
+\begin{notation}
+    The left congruence classes of $H$ in $G$ is denoted as $(G : H)_{\ell} = (G/H)_{\ell} := \{gH \mid g \in G\}$, 
+\end{notation}
+
 \begin{lemma}\label{lem: repr decompose as direct sum of left cong classes}
-    Let $V$ be a $G$-representation, $W \subseteq V$ be a $H$-representation (for $H \leq G$). Denote $(G : H)_{\ell} := \{gH \mid g \in G\}$, i.e. the left congruence classes of $H$ in $G$. Pick $\sigma \in (G : H)_{\ell}$, i.e. $\sigma = gH$ for some $g \in G$. Denote $W_{\sigma} := \{ gw \mid w \in W \}$.
+    Let $V$ be a $G$-representation, $W \subseteq V$ be a $H$-representation (for $H \leq G$). Pick $\sigma \in (G : H)_{\ell}$, i.e. $\sigma = gH$ for some $g \in G$. Denote $W_{\sigma} := \{ gw \mid w \in W \}$.
 
     If $V$ is an irreducible $G$-representation, then $V = \bigoplus_{\sigma \in (G : H)_{\ell}} W_{\sigma}$.
 \end{lemma}
@@ -765,7 +769,149 @@ To prove the proposition above we need some further results:
 \end{proof}
 
 \textstart
-The following recalls results of extension of scalars in ring theory. 
+The following recalls results of extension of scalars in ring theory.
+
+Fix $K$ to be a field, and $R$ a $K$-algebra. Left $M$ and $N$ be a right and left $R$-module, respectively. In particular, both $M$ and $N$ are $K$-vector spaces. Given the tensor product on vector spaces, we have the induced tensor product in $R$-modules:
+
+\begin{notation}
+    Denote $M \tensor_R N := M \tensor_K N / \{\text{linear subspaces spanned by $(ua \tensor_K v - u \tensor_K av) \mid u \in M, v \in N, a \in R$}\}$. $u \tensor_R v$ is the image of $u \tensor_K v$ in the quotient in RHS above.
+\end{notation}
+
+\begin{remark}
+    Since $M \tensor_K N$ has a natural $K$-vector space structure, and the subspace vanishing in the quotient is a linear subspace, $M \tensor_R N$ is also a $K$-vector space.
+\end{remark}
+
+\begin{definition}[Balanced]
+    If $P$ is a vector space over $K$, and $M, N$ a right, left $R$-module, respectively; where $R$ is a $K$-algebra. a $K$-bilinear map $\varphi: M \times N \to P$ is \textbf{$R$-balanced} if $\varphi(u, av) = \varphi(ua, v)$ for all $u \in M, a \in R, v \in N$.
+\end{definition}
+
+\begin{proposition}[Universal Property of $M \tensor_R N$]
+    For all $P$ $K$-vector space, and $\psi: M \times N \to P$ $R$-balanced map, there exists a unique $K$-linear map $f: M \tensor_R N \to P$ s.t. $f \circ \varphi = \psi$ for $\varphi$ the induced map of tensor product $\varphi: M \times N \to M \tensor_R N$.
+\end{proposition}
+
+\begin{example}
+    The following gives some simple example of tensor product:
+    \begin{enumerate}[label=\arabic*)]
+        \item $M = R$ has the canonical right $R$-module structure. Then we have the the isomorphism $M \tensor_R N \simeq N$ as $K$-vector spaces (for $R$ as a $K$-algebra).
+        \item If $M$ is a free $R$-module with basis $e_1, \dots, e_n$, then $M \tensor_R N \simeq N^n$ via the map
+        \[
+            N^n \to M \tensor_R N, \quad (v_1, \dots, v_n) \mapsto \sum_{i = 1}^n e_i \tensor_R v_i
+        \]
+        \item Suppose that we have $f: R \to S$ a morphism of $K$-algebras; we have the \underline{restriction of scalars}: for $M$ an $S$-module, $f$ also gives it an $R$-module structure, by specifying that for all $a \in R, u \in M$, $a \cdot u := f(a) \cdot u$. 
+        
+        The inverse direction, \underline{extension of scalar}, can be constructed for $N$ a left $R$-module, by considering $S \tensor_R N$, which has a left $S$-module structure. Here $S$ is viewed as a right $R$-module, via $u \cdot a := u \cdot f(a)$ for all $u \in S, a \in R$. For all $b \in S$, we can define an $R$-balanced map
+        \[
+            S \times N \mapsto S \tensor_R N, \quad (u, v) \mapsto bu \tensor_R v
+        \]
+        which by universal property of tensor product induces a map $u \tensor_R v \mapsto bu \tensor_R v$, which defines the scalar multiplication by $b$
+    \end{enumerate}
+\end{example}
+
+\begin{proposition}[Universal Property of Extension of Scalar]\label{prop: Universal Property of Extension of Scalar}
+    For all left $S$-module $M$ and left $R$-module $N$, we have a bijection
+    \[
+        \Hom_R(N, M) \simeq \Hom_S(S \tensor_R N, M), \quad f \circ (v \mapsto 1 \tensor_R v) \mapsfrom f, g \mapsto (a \tensor_R v \mapsto a \cdot g(v))
+    \]
+\end{proposition}
+
+\textstart
+Now we formalize the induced representation. Suppose that $G$ is a finite group, $H \leq G$ a subgroup, and $i: \C[H] \to \C[G]$ the inclusion map. If $W$ is a representation of $H$, i.e. can be identified with a $\C[H]$-module, then this induces a $G$-representation (in turns of group algebra)
+\[
+    \Ind_H^G (W) := \C[G] \tensor_{\C[H]} W
+\]
+
+\begin{claim}
+    $\C[G]$ is a free right $\C[H]$-module, with basis $\{ \alpha(a) \mid a \in R \}$ where $R \subseteq G$ is a system of representations of $(G/H)_{\ell}$.
+\end{claim}
+
+\begin{proof}
+    By definition every $u \in \C[G]$ can be uniquely written as $u = \sum_{g \in G} c_g \alpha(g)$; and $g = ah$ for $a \in R, h \in H$. Then
+    \[
+        u = \sum_{g \in G} c_g \alpha(g) = \sum_{a \in R} \sum_{h \in H} c_{ah} \alpha(a) \alpha(h) = \sum_{a \in R} \alpha(a) \underbrace{\left( \sum_{u \in H} c_{ah} \alpha(h) \right)}_{\in \C[H]}
+    \]
+\end{proof}
+
+This allows explicitly writing out the induced representation: with the same setting as above, if $W$ is an $H$-representation, then 
+\[
+    \C[G] \tensor_{\C[H]} W = \bigoplus_{a \in R} (\alpha(a) \tensor W) = \bigoplus_{a \in R} \{ \alpha(a) \tensor w \mid w \in W \}
+\]
+In particular, we have an injective map $W \hookrightarrow V$, $w \mapsto 1 \tensor w = \alpha(e) \tensor w$. Then this gives $W \isom W_e = W_H$, $w \mapsto 1 \tensor w$ an isomorphism of $H$-representations, since we have
+\[
+    h (1 \tensor w) = \alpha(g) \tensor w = 1 \tensor \alpha(h) w = 1 \tensor hw
+\]
+which agrees with the earlier notation $W_{gH} = g W_H$ for all $g$ (in Lemma \ref{lem: repr decompose as direct sum of left cong classes}), as $g(1 \tensor w) = \alpha(g) \tensor w$.
+
+\begin{proposition}[Induced Character]\label{prop: induced character}
+    Let $G$ be a finite group, $H < G$, and $R = (G/H)_{\ell}$ system of representatives. Let $W$ be an $H$-representation, with $V$ its induced $G$-representation. Then
+    \[
+        \chi_V (g) = \frac{1}{\abs{H}} \sum_{u \in G, u^{-1}gu \in H} \chi_W (u^{-1} g u)
+    \]
+\end{proposition}
+
+\begin{proof}
+    Write out explicitly the representation, given by
+    \[
+        V = \bigoplus_{u \in R} \{ \alpha(u) \tensor w \mid w \in W \} =: \bigoplus_{u \in R} W_{uH}
+    \]
+    Then the action of $g$ is given by $(gu) H = v H$ for $v \in R$, implying that $v^{-1} g u \in H$. Then the corresponding map on $W$ is given as follows:
+
+    \begin{minipage}{\linewidth}
+        \centering
+        \begin{tikzcd}
+            & \alpha(u) \tensor w \arrow[rr, mapsfrom] & & u \\
+            \alpha(u) \tensor w \arrow[dd, mapsto] & W_{uH} \arrow[rr, symbol=\simeq] \arrow[dd] & & W \arrow[dd] \\
+            & & & \\
+            \alpha(gu) \tensor w \arrow[rd, equal] & W_{vH} \arrow[rr, symbol=\simeq] & & W \\
+             & \alpha(v) \tensor (v^{-1} gu w) \arrow[rr, mapsto] & & (v^{-1} g u) \cdot w
+        \end{tikzcd}
+    \end{minipage}
+    In particular, setting $v = u$, action of $g$ gives $\alpha(u) \tensor w \mapsto \alpha(u) \tensor (u^{-1} gu w)$. Notice $\chi_W (u^{-1} g u)$ is invariant in the same left congruence class: if $uH = u'H$, then $(u')^{-1} u \in H$, giving 
+    \[
+        \chi_W (u^{-1} g u) = \chi_W (\underbrace{((u')^{-1} u)}_{\in H} u^{-1} g u \underbrace{u^{-1} u'}_{((u')^{-1} u)^{-1}} )
+    \]
+    Decomposing the representation into left congruence classes we have
+    \[
+        \chi_V (g) = \sum_{u \in R, u^{-1} g u \in H} \chi_W (u^{-1} g u) = \frac{1}{\abs{H}} \sum_{u \in G, u^{-1} g u \in H} \chi_W (u^{-1} g u)
+    \]
+\end{proof}
+
+Recall that by Theorem \ref{thm: character of irred repres gives a basis of C(G)} $\chi_V$s for $V$ irreducible representations give an orthonormal basis of the class function on $G$ $\mathcal{C}(G)$. The extension of representation then gives an extension of class functions
+\[
+    \mathcal{C}(H) \to \mathcal{C}(G), \quad \psi \mapsto \Ind_H^G (\psi) \quad \text{where } \Ind_H^G (\psi) (g) = \frac{1}{\abs{H}} \sum_{u \in G, u^{-1} g u \in H} \psi(u^{-1} g u)
+\]
+which is indeed in $\mathcal{C}(G)$ by the same reasoning as in the proof above. The result in Proposition \ref{prop: induced character} then can be formalized as $\chi_{\Ind_H^G}(p) = \Ind_H^G (\chi_p)$. We have the result in the inverse direction by definition: for $\alpha : G \to \GL(V)$ a representation, $\chi_{(\restr{\alpha}{H})} = \restr{\chi_{\alpha}}{H}$.
+
+\begin{theorem}[Frobenius Reciprocity]
+    For $H < G$, $\varphi \in \mathcal{C}(G)$ and $\psi \in \mathcal{C}(H)$, we have
+    \[
+        \inner{\Ind_H^G(\psi), \varphi}_G = \inner{\psi, \restr{\varphi}{H}}_H
+    \]
+\end{theorem}
+
+\begin{proof}
+    Since $\mathcal{C}(G)$ and $\mathcal{C}(H)$ have a basis given by the character of irreducible representations, we may assume $\psi = \chi_W$ and $\varphi = \chi_{W'}$, where $W$ is an $H$-representation, and $W'$ is a $G$-representation. We need the following extra result:
+
+    \begin{parenthesis}
+        If $V$ and $V'$ are (without loss of generality, irreducible) $G$-representations, then
+        \[
+            \inner{\chi_V, \chi_{V'}} = \dim_{\C} \Hom_{\C[H]} (V, \restr{V'}{H})
+        \]
+    \end{parenthesis}
+
+    \begin{proof}
+        For LHS = 0 this is given by the orthogonality given by Theorem \ref{thm: character of irred repres gives a basis of C(G)}; and for LHS $\neq 0$ this is given by \hyperref[lem: Schur]{Schur}.
+    \end{proof}
+
+    Use the parenthesis. In this setup, we have
+    \[
+        \inner{\psi, \restr{\varphi}{H}}_H = \inner{\chi_{W}, \restr{\chi_{W'}}{H}} = \dim_{\C} \Hom_{\C[H]} (W, \restr{W'}{H})
+    \]
+    On the other hand, by the explicit expression of induced representations we have
+    \[
+        \inner{\Ind_H^G(\psi), \varphi}_G = \dim_{\C} \Hom_{\C[G]} (\C[G] \tensor_{\C[H]} W, W')
+    \]
+    where the two spaces we take dimension on are isomorphic by \hyperref[prop: Universal Property of Extension of Scalar]{Universal Property of Extension of Scalar}.
+\end{proof}
 
 \section{Representations of $S_n$$^{\ast}$}
 
