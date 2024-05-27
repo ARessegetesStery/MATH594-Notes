@@ -881,7 +881,7 @@ Recall that by Theorem \ref{thm: character of irred repres gives a basis of C(G)
 \]
 which is indeed in $\mathcal{C}(G)$ by the same reasoning as in the proof above. The result in Proposition \ref{prop: induced character} then can be formalized as $\chi_{\Ind_H^G}(p) = \Ind_H^G (\chi_p)$. We have the result in the inverse direction by definition: for $\alpha : G \to \GL(V)$ a representation, $\chi_{(\restr{\alpha}{H})} = \restr{\chi_{\alpha}}{H}$.
 
-\begin{theorem}[Frobenius Reciprocity]
+\begin{theorem}[Frobenius Reciprocity]\label{thm: Frobenius Reciprocity}
     For $H < G$, $\varphi \in \mathcal{C}(G)$ and $\psi \in \mathcal{C}(H)$, we have
     \[
         \inner{\Ind_H^G(\psi), \varphi}_G = \inner{\psi, \restr{\varphi}{H}}_H
@@ -964,7 +964,74 @@ which is indeed in $\mathcal{C}(G)$ by the same reasoning as in the proof above.
     which are all distinct (for different $j$)
 \end{example}
 
+As we have seen in the example above, for $H < G$, every irreducible $G$-representation appears in $\Ind_H^G(\rho)$ for $\rho$ some irreducible $H$-representation. The question now is, when is $\Ind_H^G(W)$ irreducible for a given $H$-representation $W$?
 
+\begin{definition}[Double Coset]
+    Given a group $G$ and a subgroup $H < G$, the \textbf{double coset} of $H$ in $G$ is defined as
+    \[
+        HgH := \{ h_1 g h_2 \mid h_1, h_2 \in H, g \in G \} = \bigcup_{h \in H} (hg) H
+    \]
+    where the last union is considered as union of left equivalence classes.
+\end{definition}
+
+\begin{remark}
+    The double cosets give a partition of $G$, as for $H g_1 H \cap H g_2 H \neq \emptyset$ we have $g_1 \in H g_2 H$ and therefore $H g_1 H = H g_2 H$.
+\end{remark}
+
+\begin{notation}
+    The set equivalence classes corresponding to the double coset is denoted $H \backslash G / H$.
+\end{notation}
+
+Suppose that we have $H \leq G$ a subgroup, Choose $S$ be the set of representatives of double cosets. For each $s \in S$, consider $H_s := H \cap s H s^{-1}$. Given an $H$-representation $\rho: H \to \GL(W)$, we get two representations:
+\[
+    \begin{cases}
+        \Res_s (\rho) := \restr{\rho}{H_s} \\
+        \rho_s(u) := \rho(s^{-1} u s)
+    \end{cases}
+\]
+
+\begin{theorem}\label{thm: decomposition of restrction of induced repr}
+    If $\rho$ is an $H$-representation, then
+    \[
+        \restr{\Ind_H^G (\rho)}{H} = \bigoplus_{s \in S} \Ind_{H_s}^H (\rho_s)
+    \]
+\end{theorem}
+
+\begin{proof}[Outline of Proof]
+    The proof quite resembles the explicit expression of induced representations: recall that by Lemma \ref{lem: repr decompose as direct sum of left cong classes} we have
+    \[
+        \restr{\Ind_H^G (\rho)}{H} = \bigoplus_{\sigma \in (G/H)_{\ell}}
+    \]
+    Define for $\tau \in H\backslash G/H$ $V(\tau) = \bigoplus_{\sigma \in (G/H)_{\ell}, \sigma \in H\tau H} W_{\sigma}$ an $H$-representation. This gives the isomorphism $V(HsH) = \Ind_{H_s}^H (\rho_s)$.
+\end{proof}
+
+\begin{remark}
+    An important special case for the discussion is for $H \normaleqin G$. Then $H \backslash G/H = G/H$, and $sHs^{-1} = H$ for all $s \in G$. The decomposition above then becomes $\restr{\Ind_H^G (rho)}{H} \simeq \bigoplus_{s \in S} \rho_s$.
+\end{remark}
+
+\begin{remark}
+    In general, for all $H < G$, if $s \in H$, the representation $\rho_s : H \to \GL(W)$ is isomorphic to $\rho$, with the isomorphism given by
+    \[
+        \rho \isom \rho_s, \quad w \mapsto s^{-1}w (hw \mapsto (s^{-1}hs)(s^{-1}w)) = s^{-1} hw
+    \]
+    This is clearly a group homomorphism.
+\end{remark}
+
+\begin{theorem}[Mackey's Irreducible Criterion]
+    Let $H < G$ be a subgroup, and $\rho: H \to \GL(W)$ a subrepresentation.Then $\Ind_H^G (\rho)$ is irreducible if and only if $\rho$ is irreducible, and for all $s \in S \smallsetminus H$ (where $S$ set of representatives of $H \smallsetminus G / H$), $\restr{\rho}{H_s}$ and $\rho_s$ have no common irreducible components.
+\end{theorem}
+
+\begin{proof}
+    Let $\psi = \Ind_H^G (\rho)$. Then $\psi$ is irreducible if and only if $\inner{\chi_{\psi}, \chi_{\psi}}_G = 1$. \hyperref[thm: Frobenius Reciprocity]{Frobenius Reciprocity} gives $\inner{\chi_{\psi}, \chi_{\psi}}_G = \inner{\chi_{\rho}, \chi_{\restr{\psi}{H}}}_H$. Apply the decomposition in Theorem \ref{thm: decomposition of restrction of induced repr}:
+    \[
+        \text{LHS} = \sum_s \in S \inner{\chi_{\rho}, \chi_{\Ind_{H_s}^H (\rho_s)}}_H \overset{\text{Frobenius Reciprocity}}{=} \sum_{s \in S} \inner{\chi_{\restr{\rho}{H_s}}, \chi_{\rho_s}}_{H_s}
+    \]
+    By the remark above, for $s \in S$, $\rho_s \simeq \rho$, giving
+    \[
+        \text{LHS} = \underbrace{\inner{\chi_{\rho}, \chi_{\rho}}_H}_{\geq 1, \text{equal iff $\rho$ irreducible}} + \sum_{s \in S \smallsetminus H} \underbrace{\inner{\chi_{\restr{\rho}{H_s}}, \chi_{\rho_s}}}_{\geq 0}
+    \]
+    This is 1 if and only if $\inner{\chi_{\rho}, \chi_{\rho}}_H = 1$; and $\inner{\chi_{\restr{\rho}{H_s}}, \chi_{\rho_s}} = 0$ for all $s$, i.e. $\rho$ is irreducible, and $\restr{\rho}{H_s}$ and $\rho_s$ have no common component.
+\end{proof}
 
 \section{Representations of $S_n$$^{\ast}$}
 
