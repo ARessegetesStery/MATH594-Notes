@@ -959,7 +959,7 @@ which is indeed in $\mathcal{C}(G)$ by the same reasoning as in the proof above.
     \]
     \bu{Conclusion:} There are $\left( \frac{n}{2} - 1 \right)$ isomorphic classes of irreducible 2-dimensional representations, namely $\Ind_H^{D_n} (\rho_j)$ for $0 < j < \frac{n}{2}$. Any two of them are non-isomorphic, which can be seen via computing the character:
     \[
-        \chi (\Ind_H^{D_n} (\rho_j)): \qquad \sigma \mapsto 2 \cos \frac{2\pi j}{n} \quad \tau \mapsto 0
+        \chi (\Ind_H^{D_n} (\rho_j)): \qquad \sigma \mapsto 2 \cos \frac{2\pi j}{n}, \quad \tau \mapsto 0
     \]
     which are all distinct (for different $j$)
 \end{example}
@@ -1006,7 +1006,7 @@ Suppose that we have $H \leq G$ a subgroup, Choose $S$ be the set of representat
 \end{proof}
 
 \begin{remark}
-    An important special case for the discussion is for $H \normaleqin G$. Then $H \backslash G/H = G/H$, and $sHs^{-1} = H$ for all $s \in G$. The decomposition above then becomes $\restr{\Ind_H^G (rho)}{H} \simeq \bigoplus_{s \in S} \rho_s$.
+    An important special case for the discussion is for $H \normaleqin G$. Then $H \backslash G/H = G/H$, and $sHs^{-1} = H$ for all $s \in G$. The decomposition above then becomes $\restr{\Ind_H^G (\rho)}{H} \simeq \bigoplus_{s \in S} \rho_s$.
 \end{remark}
 
 \begin{remark}
@@ -1032,7 +1032,5 @@ Suppose that we have $H \leq G$ a subgroup, Choose $S$ be the set of representat
     \]
     This is 1 if and only if $\inner{\chi_{\rho}, \chi_{\rho}}_H = 1$; and $\inner{\chi_{\restr{\rho}{H_s}}, \chi_{\rho_s}} = 0$ for all $s$, i.e. $\rho$ is irreducible, and $\restr{\rho}{H_s}$ and $\rho_s$ have no common component.
 \end{proof}
-
-\section{Representations of $S_n$$^{\ast}$}
 
 \end{document}
